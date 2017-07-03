@@ -50,3 +50,7 @@ Score doubles
 90 seconds
 
 Each vote is 1000 points no matter when it was submitted
+
+# Mockup Ideas
+
+Landing Page - https://wireframe.cc/fMhIQ2
