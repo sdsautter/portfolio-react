@@ -1,0 +1,57 @@
+body {
+  color: whitesmoke;
+}
+
+.z-index-2 {
+  position: relative;
+  z-index: 2;
+}
+
+.login {
+  display: block;
+  margin: .5rem;
+}
+
+.login-container {
+  /*border: 1px solid whitesmoke;
+  border-radius: 1rem;*/
+  padding: 1.5rem;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.btn-signup {
+  /*width: 23rem;*/
+  width: 100%;
+}
+
+.login-footer {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+
+.login-footer .btn-large {
+  line-height: 1.75;
+  border: 2px solid tomato;
+  background-color: whitesmoke;
+  color: tomato;
+}
+
+.divider {
+  margin-bottom: .5rem;
+}
+.tomato {
+  background-color: tomato !important;
+}
+
+.facebook-blue {
+  background-color: #3b5998 !important;
+}
+
+.modal {
+  color: black;
+}
+
+.modal .btn-flat {
+  color: black;
+}
