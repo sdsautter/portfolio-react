@@ -39,6 +39,7 @@ body {
 
 .divider {
   margin-bottom: .5rem;
+  color: smokewhite !important;
 }
 .tomato {
   background-color: tomato !important;
@@ -54,4 +55,17 @@ body {
 
 .modal .btn-flat {
   color: black;
+}
+
+.divided-or .divider {
+  width: 45%;
+  margin-bottom: 0rem;
+}
+
+.divided-or .divider, .divided-or p {
+    display: inline-block;
+}
+
+.divided-or .or {
+  width: 10%;
 }
