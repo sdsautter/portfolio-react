@@ -20,6 +20,10 @@ body {
   margin-bottom: 4rem;
 }
 
+.btn-large {
+  text-transform: none;
+}
+
 .btn-signup {
   /*width: 23rem;*/
   width: 100%;
@@ -27,20 +31,27 @@ body {
 
 .login-footer {
   margin-top: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 }
 
 .login-footer .btn-large {
-  line-height: 1.75;
+  line-height: 2.5rem;
   border: 2px solid tomato;
   background-color: whitesmoke;
   color: tomato;
+  height: 3rem;
+  font-size: 1.25rem;
+}
+
+.login-footer .divider {
+  margin-bottom: 1.5rem;
 }
 
 .divider {
   margin-bottom: .5rem;
   color: smokewhite !important;
 }
+
 .tomato {
   background-color: tomato !important;
 }
@@ -62,10 +73,15 @@ body {
   margin-bottom: 0rem;
 }
 
-.divided-or .divider, .divided-or p {
-    display: inline-block;
+.divided-or .divider,
+.divided-or p {
+  display: inline-block;
 }
 
 .divided-or .or {
   width: 10%;
+}
+
+#password {
+  margin-bottom: 0;
 }
