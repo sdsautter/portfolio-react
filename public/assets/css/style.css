@@ -91,15 +91,19 @@ h1 {
 }
 
 .main-game {
-  border-style: dashed;
+  /*border-style: dashed;
     border-width: 2px;
-    border-color: green;
+    border-color: green;*/
 }
 
 .game-component, .player-info {
-  border-style: dashed;
+  /*border-style: dashed;
     border-width: 2px;
-    border-color: blueviolet;
+    border-color: blueviolet;*/
+}
+
+.player-info {
+    background-color: rgba(125, 119, 119, .3);
 }
 
 .game-letters {
