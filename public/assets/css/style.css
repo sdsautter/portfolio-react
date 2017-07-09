@@ -113,10 +113,12 @@ h1 {
 }
 
 .player-name {
-  padding-bottom: -5px;
+  color: orange;
+  font-weight: bold;
+  font-size: 1.25rem;
 }
 
 .time-left{
-  color:greenyellow;
-  font-size: 2.5rem;
+  color:yellow;
+  font-size: 3rem;
 }
