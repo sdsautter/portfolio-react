@@ -85,3 +85,38 @@ body {
 #password {
   margin-bottom: 0;
 }
+
+h1 {
+  color: white;
+}
+
+.main-game {
+  border-style: dashed;
+    border-width: 2px;
+    border-color: green;
+}
+
+.game-component, .player-info {
+  border-style: dashed;
+    border-width: 2px;
+    border-color: blueviolet;
+}
+
+.game-letters {
+  color: red;
+  font-size: 7rem;
+}
+
+.avatar {
+  max-height: 40px;
+  max-width: 100%;
+}
+
+.player-name {
+  padding-bottom: -5px;
+}
+
+.time-left{
+  color:greenyellow;
+  font-size: 2.5rem;
+}
