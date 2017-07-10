@@ -139,3 +139,13 @@ h1 {
 .vote-answer:active, .vote-answer:hover, .vote-answer:focus {
   background-color: green;
 }
+
+.results-answer {
+  font-size: 2rem;
+}
+.results-all {
+  margin: 1%;
+  border-style: dashed;
+    border-width: 2px;
+    border-color: green;
+}
