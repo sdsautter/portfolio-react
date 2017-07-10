@@ -150,9 +150,6 @@ h1 {
 }
 .results-all {
   margin: 1%;
-  /*border-style: dashed;
-    border-width: 2px;
-    border-color: green;*/
-    background-color: rgba(125, 119, 119, .3);
+  background-color: rgba(125, 119, 119, .3);
     
 }
