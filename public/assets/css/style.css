@@ -104,6 +104,7 @@ h1 {
 
 .player-info {
     background-color: rgba(125, 119, 119, .3);
+    margin-bottom: 1%
 }
 
 .game-letters {
@@ -114,6 +115,10 @@ h1 {
 .avatar {
   max-height: 40px;
   max-width: 100%;
+}
+
+.avatar-results {
+  height: 100%;
 }
 
 .player-name {
@@ -145,7 +150,9 @@ h1 {
 }
 .results-all {
   margin: 1%;
-  border-style: dashed;
+  /*border-style: dashed;
     border-width: 2px;
-    border-color: green;
+    border-color: green;*/
+    background-color: rgba(125, 119, 119, .3);
+    
 }

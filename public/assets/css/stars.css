@@ -86,11 +86,11 @@ header a, a:visited {
   background:transparent url(http://www.script-tutorials.com/demos/360/images/twinkling.png) repeat top center;
   z-index:1;
 
-  -moz-animation:move-twink-back 1250s linear infinite;
-  -ms-animation:move-twink-back 1250s linear infinite;
-  -o-animation:move-twink-back 1250s linear infinite;
-  -webkit-animation:move-twink-back 1250s linear infinite;
-  animation:move-twink-back 1250s linear infinite;
+  -moz-animation:move-twink-back 420s linear infinite;
+  -ms-animation:move-twink-back 420s linear infinite;
+  -o-animation:move-twink-back 420s linear infinite;
+  -webkit-animation:move-twink-back 420s linear infinite;
+  animation:move-twink-back 420s linear infinite;
 }
 
 .clouds{
