@@ -1,15 +1,15 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const GameInstanceSchema = new Schema({
   players: [{
-      user: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+      ref: 'User',
     },
     points: Number,
-  }]
+  }],
 });
 
-const GameInstance = mongoose.model("GameInstance", GameInstanceSchema);
+const GameInstance = mongoose.model('GameInstance', GameInstanceSchema);
 module.exports = GameInstance;
