@@ -7,8 +7,15 @@ const GameInstanceSchema = new Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
-    points: Number,
+    points: {
+      type: Number,
+      default: 0,
+    },
   }],
+  state: {
+    type: String,
+    default: 'waiting',
+  },
 });
 
 const GameInstance = mongoose.model('GameInstance', GameInstanceSchema);
