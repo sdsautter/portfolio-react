@@ -28,7 +28,7 @@
     "thinkdb": "^1.0.4"
   },
   "devDependencies": {
-    "eslint": "^4.1.1",
+    "eslint": "^4.2.0",
     "eslint-config-airbnb": "^15.0.2",
     "eslint-plugin-import": "^2.6.1",
     "eslint-plugin-jsx-a11y": "^6.0.2",
