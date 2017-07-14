@@ -1,7 +1,7 @@
+const config = require('./config');
 const mongoose = require('mongoose');
 const GameInstance = mongoose.model('GameInstance');
 const User = mongoose.model('User');
-const maxUsers = 3;
 
 // Run once to create mock user
 // const user = await (new User({ username: 'Julio', email: 'julio@test.com', password: 'test123' })).save(); // Mock user
@@ -30,7 +30,7 @@ exports.joinGame = async(req, res) => {
     new: true,
   });
   // Is there are enough players in the instance start the game
-  if (updatedGameReference.players.length === maxUsers) {
+  if (updatedGameReference.players.length === config.maxUsers) {
     await GameInstance.findOneAndUpdate({
       _id: req.body.gameReference,
     }, {
