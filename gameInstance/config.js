@@ -1,0 +1,1 @@
+exports.maxUsers = 3;
