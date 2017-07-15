@@ -69,9 +69,13 @@ const createNewRound = async(gameInstanceId) => {
     letters,
     number: lastRound + 1,
   }).save();
+  // timeout funtion for the length of the game and change the state to complete if it's not already
   return newRound;
 };
 
 exports.submitAnswer = async(req, res) => {
-
+  // validate that the user from the session is in the game
+  // find the active round 
+  // validate the answer is in the correct format.  TODO scrub the answer for xss and injections
+  // see if everyone has answers and if they have change the state to complete 
 };
