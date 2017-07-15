@@ -1,7 +1,7 @@
 const gameInstanceController = require('./controller');
 
 module.exports = (app) => {
-  app.route('/games')
+  app.route('/api/games')
     .get(gameInstanceController.listGames)
     .post(gameInstanceController.createGame,
       gameInstanceController.joinGame)

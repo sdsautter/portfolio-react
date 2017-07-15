@@ -20,7 +20,7 @@ exports.joinGame = async(req, res) => {
     _id,
   });
   // find the newly created game instance and add the first user
-  const updatedGameReference = await GameInstance.findOneAndUpdate({
+  let updatedGameReference = await GameInstance.findOneAndUpdate({
     _id: req.body.gameReference,
   }, {
     $push: {
@@ -31,13 +31,15 @@ exports.joinGame = async(req, res) => {
   });
   // Is there are enough players in the instance start the game
   if (updatedGameReference.players.length === config.maxUsers) {
-    await GameInstance.findOneAndUpdate({
+    updatedGameReference = await GameInstance.findOneAndUpdate({
       _id: req.body.gameReference,
     }, {
       state: 'playing',
+    }, {
+      new: true,
     });
     // redirect the user to the game instance page
-    return res.redirect(`/game/${req.body.gameReference}`);
+    // return res.redirect(`/game/${req.body.gameReference}`);
   }
   // return the new game reference
   return res.json(updatedGameReference);
