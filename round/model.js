@@ -7,6 +7,7 @@ const RoundSchema = new Schema({
     ref: 'GameInstance',
   },
   number: Number,
+  state: String,
   startTime: {
     type: Date,
     default: Date.now(),
