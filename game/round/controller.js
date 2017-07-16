@@ -37,29 +37,30 @@ const createNewRound = async(gameInstanceId) => {
     gameInstance,
   });
   const lastRound = existingRounds.length;
+  let letters = '';
   switch (lastRound) {
     case 0:
       // In the first round we want to give them 3 random letters 
-      const letters = generateRandomLetters(3);
+      letters = generateRandomLetters(3);
       break;
     case 1:
       // In the second round we want to give them 4 random letters 
-      const letters = generateRandomLetters(4);
+      letters = generateRandomLetters(4);
       break;
     case 2:
       // In the third round we want to give them 5 random letters 
-      const letters = generateRandomLetters(5);
+      letters = generateRandomLetters(5);
       break;
     case 3:
       // In the forth and fifth round we want to give them 3-5 random letters 
-      const letters = generateRandomLetters(Math.floor((Math.random() * 5) + 3));
+      letters = generateRandomLetters(Math.floor((Math.random() * 5) + 3));
       break;
     case 4:
-      const letters = generateRandomLetters(Math.floor((Math.random() * 5) + 3));
+      letters = generateRandomLetters(Math.floor((Math.random() * 5) + 3));
       break;
     case 5:
       // In the sixth round we want to give them 7 random letters 
-      const letters = generateRandomLetters(7);
+      letters = generateRandomLetters(7);
       break;
     default:
       return `${lastRound} rounds exist, can not create new round`;
