@@ -20,7 +20,7 @@ export default class Main extends Component {
                 <h1 className="text-center">Acronauts</h1>
             </div>
         </div>
-        <br /><br /><br />
+        <br />
             <GameInstance />
     </div>
     );
