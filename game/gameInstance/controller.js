@@ -1,6 +1,6 @@
 const config = require('./config');
 const mongoose = require('mongoose');
-const GameInstance = mongoose.model('GameInstance');
+const GameInstanceDocument = mongoose.model('GameInstance');
 const User = mongoose.model('User');
 
 // Run once to create mock user
@@ -10,7 +10,7 @@ const _id = '59691ba53295db29d84f6d49';
 
 exports.createGame = async(req, res, next) => {
   // create a new blank game instance
-  req.body.gameReference = await (new GameInstance()).save();
+  req.body.gameReference = await (new GameInstanceDocument()).save();
   next();
 };
 
@@ -20,7 +20,7 @@ exports.joinGame = async(req, res) => {
     _id,
   });
   // find the newly created game instance and add the first user
-  let updatedGameReference = await GameInstance.findOneAndUpdate({
+  let updatedGameReference = await GameInstanceDocument.findOneAndUpdate({
     _id: req.body.gameReference,
   }, {
     $push: {
@@ -31,7 +31,7 @@ exports.joinGame = async(req, res) => {
   });
   // Is there are enough players in the instance start the game
   if (updatedGameReference.players.length === config.maxUsers) {
-    updatedGameReference = await GameInstance.findOneAndUpdate({
+    updatedGameReference = await GameInstanceDocument.findOneAndUpdate({
       _id: req.body.gameReference,
     }, {
       state: 'playing',
@@ -46,7 +46,7 @@ exports.joinGame = async(req, res) => {
 };
 
 exports.listGames = async(req, res) => {
-  const activeGames = await GameInstance.find({
+  const activeGames = await GameInstanceDocument.find({
     state: 'waiting',
   });
   return res.json(activeGames);
@@ -58,7 +58,7 @@ exports.leaveGame = async(req, res, next) => {
     _id,
   });
   // find the newly created game instance and add the first user
-  let updatedGameReference = await GameInstance.findOneAndUpdate({
+  let updatedGameReference = await GameInstanceDocument.findOneAndUpdate({
     _id: req.body.gameReference,
   }, {
     $pull: {
@@ -69,7 +69,7 @@ exports.leaveGame = async(req, res, next) => {
   });
   // If there are no more players in the game mark the game abandoned
   if (updatedGameReference.players.length === 0) {
-    updatedGameReference = await GameInstance.findOneAndUpdate({
+    updatedGameReference = await GameInstanceDocument.findOneAndUpdate({
       _id: req.body.gameReference,
     }, {
       state: 'abandoned',
