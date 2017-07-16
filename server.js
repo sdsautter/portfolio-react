@@ -40,7 +40,7 @@ app.get('/', (req, resp) => {
   resp.sendFile(__dirname + '/public/login.html');
 });
 // require('./user')(app, passport);
-require('./game/gameInstance/routes')(app);
+require('./game')(app);
 // require('./round')(app, passport);
 
 // Connect to the database
