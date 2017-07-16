@@ -17,6 +17,10 @@ const GameInstanceSchema = new Schema({
     type: String,
     default: 'waiting',
   },
+  activeRound: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Round',
+  },
 });
 
 const GameInstance = mongoose.model('GameInstance', GameInstanceSchema);
