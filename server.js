@@ -11,8 +11,8 @@ const bodyParser = require('body-parser'),
 
 // Declare database models
 require('./user/model');
-require('./gameInstance/model');
-require('./round/model');
+require('./game/gameInstance/model');
+require('./game/round/model');
 
 // Create Express server
 const app = express();
@@ -40,7 +40,7 @@ app.get('/', (req, resp) => {
   resp.sendFile(__dirname + '/public/login.html');
 });
 // require('./user')(app, passport);
-require('./gameInstance/routes')(app);
+require('./game/gameInstance/routes')(app);
 // require('./round')(app, passport);
 
 // Connect to the database
