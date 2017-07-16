@@ -23,7 +23,11 @@ export default class GameInstance extends Component {
                         </div>
                     </div>
                     <br />
-                    <GameInput />
+                    <div class="row">
+                        <div class="col">
+                            <GameInput />
+                        </div>
+                    </div>
                 </div>
             </div>
         )
