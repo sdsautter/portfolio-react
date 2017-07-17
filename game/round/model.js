@@ -10,7 +10,7 @@ const RoundSchema = new Schema({
   state: String,
   startTime: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   letters: [String],
   answers: [{
@@ -18,8 +18,11 @@ const RoundSchema = new Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
-    answer: [String],
-    timeSubmitted: Number,
+    answer: String,
+    timeSubmitted: {
+      type: Date,
+      default: Date.now,
+    },
     scorePotential: Number,
     votes: [{
       players: {
