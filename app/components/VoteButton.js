@@ -5,7 +5,7 @@ export default class VoteButton extends Component {
         return (
 
             <form action="" method="post">
-                <button name="answer" className="btn btn-warning vote-answer" value="Gentrification Usually Betters">Gentrification Usually Betters</button>
+                <button name="answer" className="btn btn-warning vote-answer" value="">{this.props.answer}</button>
             </form>
         )
     }

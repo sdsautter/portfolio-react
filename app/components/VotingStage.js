@@ -9,9 +9,9 @@ export default class VotingStage extends Component {
                 <VoteTime/>
                     <legend className="vote-for-text">Vote For Your Favorite Answer</legend>
                         <div className="btn-group-vertical" data-toggle="buttons">
-                            <VoteButton />
-                            <VoteButton />
-                            <VoteButton />
+                            <VoteButton answer="Gentrifcation Usually Betters"/>
+                            <VoteButton answer="Ginger Ultra Burn" />
+                            <VoteButton answer="Google Underwear Brown" />
                         </div>
                     <br />
             </div>
