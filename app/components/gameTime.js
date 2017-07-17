@@ -5,7 +5,7 @@ export default class GameTime extends Component{
         return (
             <div className="row text-center">
                 <div className="col-6 offset-4">
-                    <p className="time-left">60</p>
+                    <p className="time-left">{this.props.timeLeft}</p>
                 </div>
             </div>
         )

@@ -10,15 +10,15 @@ export default class SubmissionStage extends Component {
                 <div className="col-10 main-game">
                     <div className="row">
                         <div className="col-9">
-                            <GameTime />
+                            <GameTime timeLeft="60"/>
                             <br />
-                            <GameLetters />
+                            <GameLetters letters="GUB"/>
                         </div>
                         <div className="col-3">
-                            <GamePlayer />
-                            <GamePlayer />
-                            <GamePlayer />
-                            <GamePlayer />
+                            <GamePlayer username="Scott" points="1337"/>
+                            <GamePlayer username="Phil" points="666"/>
+                            <GamePlayer username="Tolu" points="420"/>
+                            <GamePlayer username="Byron" points="69"/>
                         </div>
                     </div>
                     <br />

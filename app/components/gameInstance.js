@@ -8,8 +8,8 @@ export default class GameInstance extends Component {
     render() {
         return (
             <div className="row justify-content-center">
-                <SubmissionStage />
-                {/*<VotingStage />*/}
+                {/*<SubmissionStage />*/}
+                <VotingStage />
                 {/*<ResultsStage />*/}
             </div>
         )

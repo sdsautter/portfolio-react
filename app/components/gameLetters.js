@@ -5,7 +5,7 @@ export default class GameInstance extends Component{
         return (
             <div className="row text-center">
                 <div className="col-6 offset-4">
-                    <p className="game-letters">GUB</p>
+                    <p className="game-letters">{this.props.letters}</p>
                 </div>
             </div>
         )

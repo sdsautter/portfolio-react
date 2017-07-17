@@ -10,13 +10,13 @@ export default class GamePlayer extends Component {
                 <div className="col-8">
                     <div className="row">
                         <div className="col-12">
-                            <p className="player-name">Scott</p>
+                            <p className="player-name">{this.props.username}</p>
                         </div>
                         <div className="col-5">
                             <p className="points-text">Points:</p>
                         </div>
                         <div className="col-7">
-                            <p className="player-points">1356</p>
+                            <p className="player-points">{this.props.points}</p>
                         </div>
                     </div>
                 </div>
