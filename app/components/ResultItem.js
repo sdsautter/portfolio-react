@@ -10,28 +10,28 @@ export default class ResultsItem extends Component {
                     <div className="col-10">
                         <div className="row">
                             <div className="col-12">
-                                <p className="results-answer">Gather Under Bushes</p>
+                                <p className="results-answer">{this.props.answer}</p>
                             </div>
                             <div className="col">
-                                <p className="player-name">Scott</p>
+                                <p className="player-name">{this.props.username}</p>
                             </div>
                             <div className="col-1">
                                 <p>Votes:</p>
                             </div>
                             <div className="col-1">
-                                <p>3</p>
+                                <p>{this.props.votes}</p>
                             </div>
                             <div className="col-2">
                                 <p>Time Left:</p>
                             </div>
                             <div className="col-1">
-                                <p>59</p>
+                                <p>{this.props.timeLeft}</p>
                             </div>
                             <div className="col">
                                 <p>Points:</p>
                             </div>
                             <div className="col-1">
-                                <p>3562</p>
+                                <p>{this.props.points}</p>
                             </div>
                         </div>
                     </div>
