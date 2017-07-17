@@ -1,6 +1,7 @@
 // Declare Dependencies 
 const bodyParser = require('body-parser'),
   cookieParser = require('cookie-parser'),
+  exphbs = require('express-handlebars'),
   express = require('express'),
   session = require('express-session'),
   logger = require('morgan'),
@@ -16,7 +17,7 @@ require('./game/round/model');
 
 // Create Express server
 const app = express();
-const PORT = process.env.PORT || 4012;
+const PORT = process.env.PORT || 4000;
 // Define public directory
 app.use(express.static(path.join(__dirname, 'public')));
 // Define BodyParser
@@ -34,13 +35,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 // Load passport strategies
-// require('./user/passport/passport.js')(passport, User);
+require('./user/passport/passport.js')(passport);
 // Define Express Routes
-app.get('/', (req, resp) => {
-  resp.sendFile(__dirname + '/public/login.html');
-});
-// require('./user')(app, passport);
-require('./game')(app);
+
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
+
+require('./user/routes')(app, passport);
+require('./game/gameInstance/routes')(app);
 // require('./round')(app, passport);
 
 // Connect to the database
@@ -51,6 +54,7 @@ mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
 db.on('error', (err) => {
   console.log(`Connection error: ${err}`);
 });
+
 // Start the Express server when connected
 db.once('open', () => {
   console.log('Houston, we have a connection!');
