@@ -4,9 +4,6 @@ const GameInstance = mongoose.model('GameInstance');
 const User = mongoose.model('User');
 const Round = mongoose.model('Round');
 
-// hard coded for dev, use req.user._id once auth is working
-const mockPlayerId = '596b63a99f1bac2c5c680d66';
-
 function generateRandomLetters(num) {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
   let letterArray = [];
@@ -85,6 +82,8 @@ exports.createNewRound = async(req, res) => {
 exports.submitAnswer = async(req, res) => {
   const gameInstanceId = req.params.gameInstance;
   const answer = req.body.answer;
+  const playerId = req.session.passport.user;
+
   // @TODO - validate that the user from the session is in the game
 
   // Find the active round
@@ -102,7 +101,7 @@ exports.submitAnswer = async(req, res) => {
     // if the user isn't already in the array of answered users
     if (activeRound.answers) {
       const playerHasAnswered = activeRound.answers.map((a) => {
-        if (a.player == mockPlayerId) return true;
+        if (a.player == playerId) return true;
         return false;
       });
       console.log(`playerHasAnswered: ${playerHasAnswered}`);
@@ -129,7 +128,7 @@ exports.submitAnswer = async(req, res) => {
     }, {
       $push: {
         answers: {
-          player: mockPlayerId,
+          player: playerId,
           // store player name until populate is working
           answer,
           scorePotential: answerScorePotential,
