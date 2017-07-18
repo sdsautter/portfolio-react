@@ -25,11 +25,4 @@ module.exports = (app, passport) => {
     req.logout();
     res.redirect('/login');
   });
-
-  app.get('/game', User.isLoggedIn,
-    (req, res) => {
-      if (req.user) {
-        res.sendFile(path.join(__dirname, '../public/index.html'));
-      }
-    });
 };
