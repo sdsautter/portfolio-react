@@ -14,7 +14,7 @@ module.exports = (app) => {
 
   app.route('/api/games')
     .get(isLoggedIn, gameInstance.listGames)
-    .put(isLoggedIn, gameInstance.joinGame)
+    .post(isLoggedIn, gameInstance.joinGame)
     .delete(isLoggedIn, gameInstance.leaveGame);
 
   app.get('/game', user.isLoggedIn,
