@@ -1,19 +1,20 @@
 // Declare Dependencies 
-const bodyParser = require('body-parser'),
-  cookieParser = require('cookie-parser'),
-  exphbs = require('express-handlebars'),
-  express = require('express'),
-  session = require('express-session'),
-  logger = require('morgan'),
-  methodOverride = require('method-override'),
-  mongoose = require('mongoose'),
-  passport = require('passport'),
-  path = require('path');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const exphbs = require('express-handlebars');
+const express = require('express');
+const session = require('express-session');
+const logger = require('morgan');
+const methodOverride = require('method-override');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const path = require('path');
 
 // Declare database models
 require('./user/model');
 require('./game/gameInstance/model');
 require('./game/round/model');
+require('./game/status/model');
 
 // Create Express server
 const app = express();
@@ -36,21 +37,23 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 // Load passport strategies
 require('./user/passport/passport.js')(passport);
-// Define Express Routes
 
+// Define handlebars for static pages
 app.engine('handlebars', exphbs({
-  defaultLayout: 'main'
+  defaultLayout: 'main',
 }));
 app.set('view engine', 'handlebars');
 
-
+// Define Express Routes
 require('./user/routes')(app, passport);
 require('./game/index')(app);
 
+
 // Connect to the database
+mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
 const db = mongoose.connection;
 mongoose.connect(process.env.DATABASE || 'mongodb://localhost/acronauts');
-mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
+
 
 db.on('error', (err) => {
   console.log(`Connection error: ${err}`);
