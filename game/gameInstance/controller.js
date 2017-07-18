@@ -3,9 +3,6 @@ const mongoose = require('mongoose');
 const GameInstanceDocument = mongoose.model('GameInstance');
 const User = mongoose.model('User');
 
-// hard coded for dev, use req.user._id once auth is working
-const mockPlayerId = '596b63a99f1bac2c5c680d66';
-
 exports.createGame = async(req, res, next) => {
   // LEGACY, USED TO MANUALLY CREATE GAMES WITH POST ROUTE. FUNCTIONALITY MOVED TO .joinGame
 
@@ -23,7 +20,8 @@ exports.createGame = async(req, res, next) => {
 };
 
 exports.joinGame = async(req, res) => {
-  // Looks for an game in the waiting state and if there aren't any creates ones.
+  // Looks for an game in the waiting state and if there aren't any 
+  // creates a new game and puts it in the waiting state.
   // Joins the user to the oldest game in the waiting state.  
   // Changes the waiting state to playing state if there are maxUsers in the instance.
   // Returns this object
@@ -34,6 +32,7 @@ exports.joinGame = async(req, res) => {
 
   let gameReference = '';
   let gamesInWaitingState = [];
+  const playerId = req.session.passport.user;
   // Find the games in the waiting state
   gamesInWaitingState = await GameInstanceDocument.find({
     state: 'waiting',
@@ -51,7 +50,7 @@ exports.joinGame = async(req, res) => {
   // validate the user and save the reference 
   // @TODO - change reference to user session data and don't query mongo
   const playerReference = await User.findById(
-    mockPlayerId
+    playerId
   );
 
   // find the game instance and add the first user
