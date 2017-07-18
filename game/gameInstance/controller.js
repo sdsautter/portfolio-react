@@ -2,6 +2,7 @@ const config = require('./config');
 const mongoose = require('mongoose');
 const GameInstanceDocument = mongoose.model('GameInstance');
 const User = mongoose.model('User');
+const gameEngine = require('../gameEngine');
 
 exports.createGame = async(req, res, next) => {
   // LEGACY, USED TO MANUALLY CREATE GAMES WITH POST ROUTE. FUNCTIONALITY MOVED TO .joinGame
@@ -77,6 +78,7 @@ exports.joinGame = async(req, res) => {
     }, {
       new: true,
     });
+    gameEngine.startGame(updatedGameReference._id);
   }
   // return the new game reference
   return res.json({
