@@ -38,13 +38,14 @@ app.use(passport.session()); // persistent login sessions
 require('./user/passport/passport.js')(passport);
 // Define Express Routes
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main'
+}));
 app.set('view engine', 'handlebars');
 
 
 require('./user/routes')(app, passport);
-require('./game/gameInstance/routes')(app);
-// require('./round')(app, passport);
+require('./game/index')(app);
 
 // Connect to the database
 const db = mongoose.connection;
