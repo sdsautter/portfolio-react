@@ -1,14 +1,66 @@
 import React, {Component} from "react";
-import SubmissionStage from "./game-stage/SubmissionStage.js"
+import SubmissionStage from "./find-game-stage/SubmissionStage.js"
 import VotingStage from "./voting-stage/VotingStage.js"
 import ResultsStage from "./results-stage/ResultsStage.js"
-
+import FindGame from "./FindGame.js";
+import axios from "axios";
 
 export default class GameInstance extends Component {
+    constructor() {
+        super();
+        this.state = {
+            players: {},
+            gameInstance: {},
+            answers: {}
+        }
+        this.addPlayer = this.addPlayer.bind(this);
+        this.addAnswer = this.addAnswer.bind(this);
+        // this.findGamePost = this.findGamePost.bind(this);
+    }
+    
+    addPlayer(player) {
+        const players = {...this.state.players};
+        const timestamp = Date.now();
+        players[`player-${timestamp}`] = player;
+        this.setState({ players })
+    }
+
+
+    addAnswer(answer) {
+        const answers = { ...this.state.answers};
+        
+        //Uses time stamp to get a unique ID. Can probably figure out a better way
+        const timestamp = Date.now();
+        answers[`answer-${timestamp}`] = answer;
+        this.setState({ answers })
+    }
+
+
+    // findGamePost(event) {
+    //     event.preventDefault();
+    //     axios.post("/api/games", {})
+    //         .then(function (response) {
+    //             const gameInstance = {...this.state.gameInstance};
+
+    //             console.log("hello");
+    //             this.setState({ gameInstance })
+    //             console.log(response);
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }
+    
     render() {
         return (
             <div className="row justify-content-center">
-                <SubmissionStage />
+                <FindGame 
+                    // findGamePost={this.findGamePost}
+                />                
+                {/*<SubmissionStage 
+                    players={this.state.players} 
+                    addAnswer={this.addAnswer}
+                />*/}
                 {/*<VotingStage />*/}
                 {/*<ResultsStage />*/}
             </div>
