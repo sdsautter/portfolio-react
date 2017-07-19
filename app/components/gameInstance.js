@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import SubmissionStage from "./find-game-stage/SubmissionStage.js"
+import SubmissionStage from "./game-stage/SubmissionStage.js"
 import VotingStage from "./voting-stage/VotingStage.js"
 import ResultsStage from "./results-stage/ResultsStage.js"
-import FindGame from "./FindGame.js";
+import FindGame from "./find-game-stage/FindGame.js";
 import axios from "axios";
 
 export default class GameInstance extends Component {
