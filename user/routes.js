@@ -6,7 +6,16 @@ module.exports = (app, passport) => {
     res.render('signup');
   });
 
-  app.post('/create-account', User.createAccount);
+  app.post('/create-account', (req, resp) => {
+    let data = req.body;
+    User.createAccount(data, (status) => {
+      if (status) {
+        resp.redirect('/login');
+      } else {
+        resp.redirect('/create-account');
+      }
+    });
+  });
 
   app.get('/login', (req, res) => {
     res.render('login');
