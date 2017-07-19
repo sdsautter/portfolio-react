@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import SubmissionStage from "./SubmissionStage.js"
-import VotingStage from "./VotingStage.js"
-import ResultsStage from "./ResultsStage.js"
+import SubmissionStage from "./game-stage/SubmissionStage.js"
+import VotingStage from "./voting-stage/VotingStage.js"
+import ResultsStage from "./results-stage/ResultsStage.js"
 
 
 export default class GameInstance extends Component {
