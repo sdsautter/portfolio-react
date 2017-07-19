@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Status = mongoose.model('Status');
 
 // GameStatus class keeps track of the game status and returns a sanitized version for front end consumption 
-class GameStatus {
+exports.GameStatus = class {
   constructor(gameInstance) {
     this.gameId = gameInstance._id;
     this.gameState = gameInstance.state;
