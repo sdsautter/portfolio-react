@@ -4,7 +4,8 @@ const User = mongoose.model('User');
 const Round = mongoose.model('Round');
 const Status = mongoose.model('Status');
 const gameInstanceController = require('./gameInstance/controller');
-const RoundController = require('./round/controller');
+const roundController = require('./round/controller');
+const statusController = require('./status/controller');
 
 exports.getStatus = async(req, res, next) => {
   // Get the game instance Id from the URI
@@ -12,7 +13,7 @@ exports.getStatus = async(req, res, next) => {
   // Find the game instance document
   const gameInstanceReference = await GameInstance.findById(gameInstanceId);
   // Construct the status
-  const gameStatus = new GameStatus(gameInstanceReference);
+  const gameStatus = new statusController.GameStatus(gameInstanceReference);
   // return the game status report
   res.json(gameStatus.report);
 };
@@ -40,10 +41,10 @@ exports.startGame = async(gameInstanceId) => {
   for (let i = 1; i < 7; i++) {
     console.log('Creating new round ...');
     // create a new round for the game
-    let newRound = await RoundController.createRound(gameInstanceId);
+    let newRound = await roundController.createRound(gameInstanceId);
 
     if (newRound.error) return newRound.error;
-    console.log('Starting newRound play timer ...');
+    console.log(`${gameInstanceId}: Starting round number ${newRound.number} play timer ...`);
     // Start the round timer for 60 seconds
     // let allPlayersAnswered = false;
     // var timeLapsed = 0;
@@ -54,25 +55,25 @@ exports.startGame = async(gameInstanceId) => {
     //   }, 1000);
     //   // allPlayersAnswered = await getRoundStatus(newRound._id);
     // }
-    const playTimer = await createTimer(5);
+    const playTimer = await createTimer(60);
 
     // Set the round state to voting
-    console.log('Play timer complete.');
-    console.log('Setting round to voting state ...');
-    const roundInVotingState = await RoundController.setRoundState(newRound._id, 'voting');
+    console.log(`${gameInstanceId} Play timer complete.`);
+    console.log(`${gameInstanceId}: Setting round to voting state ...`);
+    const roundInVotingState = await roundController.setRoundState(newRound._id, 'voting');
     // After 30 seconds move to the results state
-    const voteTimer = await createTimer(5);
+    const voteTimer = await createTimer(30);
     // Set the round state to results
-    console.log('Voting timer complete.');
-    console.log('Setting round to results state ...');
-    const roundInResultsState = await RoundController.setRoundState(newRound._id, 'results');
-    const resultsTimer = await createTimer(5);
+    console.log(`${gameInstanceId}: Voting timer complete.`);
+    console.log(`${gameInstanceId}:Setting round to results state ...`);
+    const roundInResultsState = await roundController.setRoundState(newRound._id, 'results');
+    const resultsTimer = await createTimer(15);
     // After 15 seconds move to the complete state
 
     // Set the round state to complete
-    console.log('Results timer complete.');
-    console.log('Setting round to complete state ...');
-    const roundInCompleteState = await RoundController.setRoundState(newRound._id, 'complete');
+    console.log(`${gameInstanceId}: Results timer complete.`);
+    console.log(`${gameInstanceId}: Setting round number ${newRound.number} to complete state ...`);
+    const roundInCompleteState = await roundController.setRoundState(newRound._id, 'complete');
   }
   return true;
 };
