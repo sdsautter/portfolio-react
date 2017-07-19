@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Redeux/Acro#readme",
   "dependencies": {
     "axios": "^0.16.2",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
@@ -55,5 +56,10 @@
     "nodemon": "^1.11.0",
     "webpack": "^3.3.0",
     "webpack-dev-server": "^2.5.1"
+  },
+  "babel": {
+    "plugins": [
+      "transform-object-rest-spread"
+    ]
   }
 }
