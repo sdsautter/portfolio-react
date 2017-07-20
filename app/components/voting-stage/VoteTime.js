@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 
 export default class VoteTime extends Component{
+
     constructor() {
        super();
        this.timeCountdown = this.timeCountdown.bind(this);

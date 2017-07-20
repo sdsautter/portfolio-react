@@ -54,15 +54,11 @@ export default class GameInstance extends Component {
     render() {
         return (
             <div className="row justify-content-center">
-                <FindGame 
-                    // findGamePost={this.findGamePost}
-                />                
-                {/*<SubmissionStage 
-                    players={this.state.players} 
-                    addAnswer={this.addAnswer}
-                />*/}
-                {/*<VotingStage />*/}
-                {/*<ResultsStage />*/}
+
+                <SubmissionStage />
+                <VotingStage />
+                <ResultsStage />
+
             </div>
         )
     }

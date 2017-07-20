@@ -31,7 +31,8 @@ export default class SubmissionStage extends Component {
                     <br />
                     <div className="row">
                         <div className="col">
-                            <GameInput addAnswer={this.props.addAnswer} />
+
+                            <GameInput />
                         </div>
                     </div>
                 </div>
