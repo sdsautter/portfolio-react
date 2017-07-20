@@ -10,20 +10,25 @@ module.exports = (app, passport) => {
     let data = req.body;
     User.createAccount(data, (status) => {
       if (status) {
-        resp.redirect('/login');
+        resp.redirect('/');
       } else {
         resp.redirect('/create-account');
       }
     });
   });
 
-  app.get('/login', (req, res) => {
+  app.get('/', (req, res) => {
+    if(req.user){ 
+      res.redirect('/game');
+    }
+    else {
     res.render('login');
+    }
   });
 
   app.post('/login',
     passport.authenticate('signin', {
-      failureRedirect: '/login',
+      failureRedirect: '/',
     }),
     (req, res) => {
       if (req.session.returnTo != null) return res.redirect(req.session.returnTo);
@@ -32,6 +37,6 @@ module.exports = (app, passport) => {
 
   app.get('/logout', (req, res) => {
     req.logout();
-    res.redirect('/login');
+    res.redirect('/');
   });
 };

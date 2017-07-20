@@ -20,9 +20,7 @@ export default class GamePlayer extends Component {
         return <p key={key} className="player-points">{playerPoints}</p>
     }
 
-    render() {
-    const playerIds = Object.keys(this.props.details);
-    console.log(playerIds);        
+    render() {     
 
         return(
             <div className="row player-info">
@@ -32,15 +30,11 @@ export default class GamePlayer extends Component {
                 <div className="col-8">
                     <div className="row">
                         <div className="col-12">
-                        {/*When we're creating these with a loop, we'll need to use this.props.details.username*/}
-                            {playerIds.map(this.renderPlayer)}
                         </div>
                         <div className="col-5">
                             <p className="points-text">Points:</p>
                         </div>
                         <div className="col-7">
-                        {/*When we're creating these with a loop, we'll need to use this.props.details.points*/}                        
-                            {playerIds.map(this.renderPoints)}
                         </div>
                     </div>
                 </div>

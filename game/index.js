@@ -17,10 +17,10 @@ module.exports = (app) => {
     .post(isLoggedIn, gameInstance.joinGame)
     .delete(isLoggedIn, gameInstance.leaveGame);
 
-  app.get('/game', user.isLoggedIn,
+  app.get('/game', isLoggedIn,
     (req, res) => {
       if (req.user) {
-        res.sendFile(path.join(__dirname, '../public/index.html'));
+        res.sendFile(path.join(__dirname, '../public/game.html'));
       }
     });
 };
