@@ -60,6 +60,7 @@ export default class GameInstance extends Component {
     render() {
         return (
             <div className="row justify-content-center">
+
                 <FindGame 
                 addGameInstance={this.addGameInstance}
                     // findGamePost={this.findGamePost}

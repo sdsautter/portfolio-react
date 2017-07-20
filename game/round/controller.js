@@ -4,6 +4,15 @@ const GameInstance = mongoose.model('GameInstance');
 const User = mongoose.model('User');
 const Round = mongoose.model('Round');
 
+exports.findRounds = async(gameInstance) => {
+  const gameRounds = await Round.find({
+    gameInstance,
+  }).sort({
+    startTime: 'desc',
+  });
+  return gameRounds;
+};
+
 const generateRandomLetters = (num) => {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
   let letterArray = [];
@@ -48,7 +57,6 @@ exports.createRound = async(gameInstance) => {
   const existingRounds = await Round.find({
     gameInstance,
   });
-  console.log(existingRounds);
   const lastRound = existingRounds.length;
   let letters = '';
   switch (lastRound) {
@@ -89,54 +97,6 @@ exports.createRound = async(gameInstance) => {
   // timeout funtion for the length of the game and change the state to complete if it's not already
   return newRound;
 };
-// exports.createNewRound = async(req, res) => {
-//   let gameInstanceId = req.params.gameInstance;
-//   // Create the game reference
-//   const gameInstance = await GameInstance.findById(gameInstanceId);
-//   // Find all rounds for a game instance id
-//   const existingRounds = await Round.find({
-//     gameInstance,
-//   });
-//   const lastRound = existingRounds.length;
-//   let letters = '';
-//   switch (lastRound) {
-//     case 0:
-//       // In the first round we want to give them 3 random letters 
-//       letters = generateRandomLetters(3);
-//       break;
-//     case 1:
-//       // In the second round we want to give them 4 random letters 
-//       letters = generateRandomLetters(4);
-//       break;
-//     case 2:
-//       // In the third round we want to give them 5 random letters 
-//       letters = generateRandomLetters(5);
-//       break;
-//     case 3:
-//       // In the forth and fifth round we want to give them 3-5 random letters 
-//       letters = generateRandomLetters(Math.floor((Math.random() * 5) + 3));
-//       break;
-//     case 4:
-//       letters = generateRandomLetters(Math.floor((Math.random() * 5) + 3));
-//       break;
-//     case 5:
-//       // In the sixth round we want to give them 7 random letters 
-//       letters = generateRandomLetters(7);
-//       break;
-//     default:
-//       return res.json({
-//         status: `${lastRound} rounds exist, cannot create new round.`,
-//       });
-//   }
-//   const newRound = await new Round({
-//     gameInstance: gameInstance._id,
-//     state: 'playing',
-//     letters,
-//     number: lastRound + 1,
-//   }).save();
-//   // timeout funtion for the length of the game and change the state to complete if it's not already
-//   return res.json(newRound);
-// };
 
 exports.submitAnswer = async(req, res) => {
   const gameInstanceId = req.params.gameInstance;
@@ -147,13 +107,11 @@ exports.submitAnswer = async(req, res) => {
 
   // Find the active round
   const gameReference = await GameInstance.findById(gameInstanceId);
-  console.log(`gameReference: ${gameReference}`);
 
   const activeRound = await Round.find({
     gameInstance: gameInstanceId,
     state: 'playing',
   });
-  console.log(`activeRound: ${activeRound}`);
 
   // if there is an active round
   if (activeRound.length !== 0) {
@@ -163,19 +121,15 @@ exports.submitAnswer = async(req, res) => {
         if (a.player == playerId) return true;
         return false;
       });
-      console.log(`playerHasAnswered: ${playerHasAnswered}`);
 
       if (playerHasAnswered) return res.json({
         status: 'Answer already submitted',
       });
     }
 
-    console.log(`activeRound.startTime: ${activeRound.startTime}`);
     const timeLapsed = (Date.now() - activeRound.startTime) / 1000;
-    console.log(`timeLapsed: ${timeLapsed}`);
 
     const answerScorePotential = calculateScorePotential(activeRound.number, timeLapsed);
-    console.log(`answerScorePotential: ${answerScorePotential}`);
 
     // @TODO - validate the answer is in the correct format.  
     // @TODO scrub the answer for xss and injections
