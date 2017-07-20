@@ -98,75 +98,94 @@ exports.createRound = async(gameInstance) => {
   return newRound;
 };
 
+const validateAnswer = (answer, letterArray) => {
+  const answerArray = answer.split(' ');
+  if (answerArray.length === letterArray.length) {
+    var validatedWords = 0;
+    for (let i = 0; i < letterArray.length; i++) {
+      if (answerArray[i].startsWith(letterArray[i])) {
+        validatedWords++;
+      }
+    }
+    if (validatedWords === letterArray.length) {
+      return true;
+    }
+  }
+  return false;
+};
+
 exports.submitAnswer = async(req, res) => {
   const gameInstanceId = req.params.gameInstance;
   const answer = req.body.answer;
   const playerId = req.session.passport.user;
 
-  // @TODO - validate that the user from the session is in the game
-
   // Find the active round
   const gameReference = await GameInstance.findById(gameInstanceId);
 
-  const activeRound = await Round.find({
+  let activeRound = await Round.find({
     gameInstance: gameInstanceId,
     state: 'playing',
   });
 
+
   // if there is an active round
   if (activeRound.length !== 0) {
+    // transform the returned array into an object
+    activeRound = activeRound[0];
     // if the user isn't already in the array of answered users
-    if (activeRound.answers) {
+    if (activeRound.answers.length !== 0) {
       const playerHasAnswered = activeRound.answers.map((a) => {
-        if (a.player == playerId) return true;
-        return false;
+        if (parseInt(a.player) === parseInt(playerId)) return true;
       });
 
       if (playerHasAnswered) return res.json({
-        status: 'Answer already submitted',
+        error: 'Answer already submitted',
       });
     }
-
-    const timeLapsed = (Date.now() - activeRound.startTime) / 1000;
-
-    const answerScorePotential = calculateScorePotential(activeRound.number, timeLapsed);
-
-    // @TODO - validate the answer is in the correct format.  
-    // @TODO scrub the answer for xss and injections
-
-    // Put the answer and score potential in the database 
-    const activeRoundWithNewAnswer = await Round.findOneAndUpdate({
-      gameInstance: gameInstanceId,
-      state: 'playing',
-    }, {
-      $push: {
-        answers: {
-          player: playerId,
-          // store player name until populate is working
-          answer,
-          scorePotential: answerScorePotential,
-        },
-      },
-    }, {
-      new: true,
-    });
-
-    // see if everyone has answered and if they have change the state to voting 
-    if (activeRoundWithNewAnswer.answers.length === gameReference.players.length) {
-      const activeRoundWithNewState = await Round.findOneAndUpdate({
+    // validate the answer is in the correct format.  
+    const validatedAnswer = validateAnswer(answer, activeRound.letters);
+    if (validatedAnswer) {
+      console.log('submitting valid answer ...');
+      // @TODO scrub the answer for xss and injections
+      const timeLapsed = 60 - Math.floor(-1 * ((activeRound.startTime - Date.now()) / 1000));
+      console.log(`timelapsed since round started ${timeLapsed}`);
+      const scorePotential = calculateScorePotential(activeRound.number, timeLapsed);
+      console.log(`answer score potential: ${scorePotential}`);
+      // Put the answer and score potential in the database 
+      const activeRoundWithNewAnswer = await Round.findOneAndUpdate({
         gameInstance: gameInstanceId,
-        number: activeRoundWithNewAnswer.number,
         state: 'playing',
       }, {
-        state: 'voting',
+        $push: {
+          answers: {
+            player: playerId,
+            // store player name until populate is working
+            answer,
+            scorePotential,
+          },
+        },
       }, {
         new: true,
       });
-      return res.json(activeRoundWithNewState);
+      // see if everyone has answered and if they have change the state to voting 
+      if (activeRoundWithNewAnswer.answers.length === gameReference.players.length) {
+        const activeRoundWithNewState = await Round.findOneAndUpdate({
+          gameInstance: gameInstanceId,
+          number: activeRoundWithNewAnswer.number,
+          state: 'playing',
+        }, {
+          state: 'voting',
+        });
+      }
+      return res.json({
+        status: 'Success',
+      });
     }
-    return res.json(activeRoundWithNewAnswer);
+    if (!validatedAnswer) return res.json({
+      error: 'Invalid Answer',
+    });
   }
   return res.json({
-    status: `No active rounds in game ${gameInstanceId}`,
+    error: `No rounds are currently accepting answers in game ${gameInstanceId}`,
   });
 };
