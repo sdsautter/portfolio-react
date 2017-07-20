@@ -1,10 +1,11 @@
 import React, {Component} from "react";
 
-export default class GameTime extends Component{
+export default class VoteTime extends Component{
+
     constructor() {
-        super();
-        this.timeCountdown = this.timeCountdown.bind(this);
-    }
+       super();
+       this.timeCountdown = this.timeCountdown.bind(this);
+   }
     
     timeCountdown(time) {
         setInterval(function() {
@@ -19,9 +20,9 @@ export default class GameTime extends Component{
     
     render() {
         return (
-            <div className="row text-center">
-                <div className="col-6 offset-4">
-                    <p className="time-left">{this.props.timeLeft}</p>
+            <div className="row">
+                <div className="col text-center">
+                    <p className="time-left">{this.timeCountdown(45)}</p>
                 </div>
             </div>
         )

@@ -6,18 +6,26 @@ export default class FindGame extends Component {
        super();
        this.findGamePost = this.findGamePost.bind(this);
    }
-    
+
     findGamePost(event) {
+        let addGameInstance = this.props.addGameInstance;
         event.preventDefault();
-        axios.post("/api/games", {
-                username: 'Scott'
-            })
+        function post(cb) {
+            axios.post("/api/games", {})
             .then(function (response) {
-                console.log(response);
+                console.log("Hello");
+                return cb(response.data.gameInstance.gameInstanceId);
             })
             .catch(function (error) {
                 console.log(error);
             });
+        }
+
+        post(function(data) {
+            console.log(data);
+            console.log(addGameInstance);
+            addGameInstance(data);
+        })
     }
     
     render() {
@@ -38,7 +46,7 @@ export default class FindGame extends Component {
                     <div className="row">
                         <div className="col-3 offset-5">
                             <form onSubmit={this.findGamePost}>
-                                <button name="findGame" className="btn btn-success vote-answer" value="">Find Game</button>
+                                <button name="findGame" className="btn btn-success vote-answer">Find Game</button>
                             </form>
                         </div>
                     </div>
