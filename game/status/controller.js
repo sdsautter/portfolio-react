@@ -105,6 +105,7 @@ exports.generateStatus = async(gameInstanceId) => {
       }
       activeRound = {
         number: round.number,
+        letters: round.letters,
         timeLeft,
         state: round.state,
         submittedAnswers,
@@ -123,6 +124,7 @@ exports.generateStatus = async(gameInstanceId) => {
       }
       activeRound = {
         number: round.number,
+        letters: round.letters,
         timeLeft,
         state: round.state,
         userAnswers,
@@ -134,6 +136,7 @@ exports.generateStatus = async(gameInstanceId) => {
 
       activeRound = {
         number: round.number,
+        letters: round.letters,
         timeLeft,
         state: round.state,
         userScore,
