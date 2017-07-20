@@ -42,9 +42,7 @@ exports.joinGame = async(req, res) => {
   if (gamesInWaitingState.length > 0) gameReference = gamesInWaitingState[0]._id;
   // If there aren't any create a new game and set the game reference
   if (gamesInWaitingState.length === 0) {
-    console.log('creating new game');
     const newGame = await (new GameInstanceDocument()).save();
-    console.log(newGame);
     gameReference = newGame._id;
   }
 
