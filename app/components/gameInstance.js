@@ -9,8 +9,8 @@ export default class GameInstance extends Component {
         return (
             <div className="row justify-content-center">
                 <SubmissionStage />
-                {/*<VotingStage />*/}
-                {/*<ResultsStage />*/}
+                <VotingStage />
+                <ResultsStage />
             </div>
         )
     }

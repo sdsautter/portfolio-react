@@ -22,8 +22,8 @@ export default class SubmissionStage extends Component {
                         </div>
                     </div>
                     <br />
-                    <div class="row">
-                        <div class="col">
+                    <div className="row">
+                        <div className="col">
                             <GameInput />
                         </div>
                     </div>
