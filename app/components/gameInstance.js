@@ -15,7 +15,13 @@ export default class GameInstance extends Component {
         }
         this.addPlayer = this.addPlayer.bind(this);
         this.addAnswer = this.addAnswer.bind(this);
+        this.addGameInstance = this.addGameInstance.bind(this);
         // this.findGamePost = this.findGamePost.bind(this);
+    }
+
+    addGameInstance(game) {
+        // const gameInstance = {...this.state.gameInstance};
+        this.setState({ gameInstance: game });
     }
     
     addPlayer(player) {
@@ -55,6 +61,7 @@ export default class GameInstance extends Component {
         return (
             <div className="row justify-content-center">
                 <FindGame 
+                addGameInstance={this.addGameInstance}
                     // findGamePost={this.findGamePost}
                 />                
                 {/*<SubmissionStage 
