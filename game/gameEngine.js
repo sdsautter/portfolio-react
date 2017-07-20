@@ -73,11 +73,11 @@ exports.startGame = async(gameInstanceId) => {
   }
 
   const competeGameInstanceReference = await GameInstance.findOneAndUpdate({
-    gameInstanceId,
+    _id: gameInstanceId,
   }, {
     state: 'complete',
   }, {
-    new: true
+    new: true,
   });
 
   return competeGameInstanceReference;
