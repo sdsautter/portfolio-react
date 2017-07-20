@@ -31,7 +31,6 @@ export default class GameInstance extends Component {
         this.setState({ players })
     }
 
-
     addAnswer(answer) {
         const answers = { ...this.state.answers};
         
@@ -41,7 +40,47 @@ export default class GameInstance extends Component {
         this.setState({ answers })
     }
 
+    gameSync() {
+        let isActive = true;
+        if(isActive)
+            {
+                window.setTimeout(function() {
+                    $.ajax({
+                        url:"/gamesync",
+                        type:"GET",
+                        success: function(result) {
+                            //setState here for React to grab
+                            gameSync();
+                        },
+                        error: function() {
+                            //Error Handling lol
+                            gameSync();
+                        }
+                    })
+                }, 2500);
+            }
+    }
 
+    roundSync() {
+        let isActive = true;
+        if(isActive)
+            {
+                window.setTimeout(function() {
+                    $.ajax({
+                        url:"/roundsync",
+                        type:"GET",
+                        success: function(result) {
+                            //setState here for React to grab
+                            roundSync();
+                        },
+                        error: function() {
+                            //Error Handling lol
+                            roundSync();
+                        }
+                    })
+                }, 2500);
+            }
+    }
     // findGamePost(event) {
     //     event.preventDefault();
     //     axios.post("/api/games", {})
