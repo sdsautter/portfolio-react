@@ -2,7 +2,13 @@
 import axios from "axios";
 
 // Exporting an object with methods for retrieving and posting data to our API
-export const addAnswer = (gameInstance) => {
+export const addAnswer = (gameInstanceId, answer) => {
     console.log(gameInstance);
-    return axios.post(`/api/games/${gameInstance}`)
+    return axios.post(`/api/games/${gameInstanceId}`, { answer })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
 }
