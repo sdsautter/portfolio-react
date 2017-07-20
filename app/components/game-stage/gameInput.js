@@ -30,7 +30,7 @@ export default class GameInput extends Component {
                         // scorePotential(roundNumber, timeLeft);
                         alreadyAnswered = true;
 
-                        return helpers.addAnswer(this.props.gameInstanceId);
+                        return helpers.addAnswer(this.props.gameInstanceId, answer);
                     } else {
                         //If a letter doesn't start with the corresponding letter in array, return
                         return alert(`Word ${i + 1} did not start with the corret letter`);
