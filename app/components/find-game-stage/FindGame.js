@@ -4,21 +4,20 @@ import axios from "axios";
 export default class FindGame extends Component {
     constructor() {
        super();
-       this.findGamePost = this.findGamePost.bind(this);
+    //    this.findGamePost = this.findGamePost.bind(this);
    }
     
-    findGamePost(event) {
-        event.preventDefault();
-        axios.post("/api/games", {
-                username: 'Scott'
-            })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
+    // findGamePost(event) {
+    //     event.preventDefault();
+    //     axios.post("/api/games", {})
+    //         .then(function (response) {
+    //             console.log("Hello");
+    //             console.log(response);
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }
     
     render() {
         return (
@@ -38,7 +37,7 @@ export default class FindGame extends Component {
                     <div className="row">
                         <div className="col-3 offset-5">
                             <form onSubmit={this.findGamePost}>
-                                <button name="findGame" className="btn btn-success vote-answer" value="">Find Game</button>
+                                <button name="findGame" className="btn btn-success vote-answer">Find Game</button>
                             </form>
                         </div>
                     </div>

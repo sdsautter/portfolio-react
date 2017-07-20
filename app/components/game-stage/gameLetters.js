@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-export default class GameInstance extends Component{
+export default class GameLetters extends Component{
     render() {
         return (
             <div className="row text-center">

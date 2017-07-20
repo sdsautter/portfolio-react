@@ -8,7 +8,12 @@ export default class GameInput extends Component {
     
     submitAnswer(event) {
         event.preventDefault();
-        console.log(this.playerAnswer.value());
+        const answer = {
+            answer: this.playerAnswer.value
+            // player: localStorage.getItem('username'),
+        }
+        this.props.addAnswer(answer);
+        console.log(this.playerAnswer.value);
         console.log("Answer submitted")
     }
 
