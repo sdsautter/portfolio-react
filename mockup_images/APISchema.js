@@ -9,6 +9,7 @@ const APISchema = {
   },
   activeRound: {
     number,
+    letters: [],
     timeLeft,
     state, // playing, voting, results, complete
     userSubmitted: [{ // sent during the playing state to determine which users have submitted an answer
