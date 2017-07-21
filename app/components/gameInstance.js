@@ -13,14 +13,22 @@ export default class GameInstance extends Component {
         this.state = {
             players: {},
             gameInstanceId: {},
-            answers: {},
+            roundAnswers: {},
             letters: {},
-            timeLeft: {}
+            timeLeft: {},
+            roundNumber: {},
+            roundState: {}
         }
         // this.addPlayer = this.addPlayer.bind(this);
         // this.addAnswer = this.addAnswer.bind(this);
         this.addGameInstance = this.addGameInstance.bind(this);
-        this.addLetters = this.addLetters.bind(this);        
+        this.addRoundLetters = this.addRoundLetters.bind(this);  
+        this.addRoundNumber = this.addRoundNumber.bind(this);        
+        this.addRoundState = this.addRoundState.bind(this);  
+        this.addRoundStartTime = this.addRoundStartTime.bind(this);
+        this.addRoundAnswers = this.addRoundAnswers.bind(this);
+           
+              
         this.gameSync = this.gameSync.bind(this);
         this.roundSync = this.roundSync.bind(this);
         // this.findGamePost = this.findGamePost.bind(this);
@@ -31,7 +39,34 @@ export default class GameInstance extends Component {
         this.setState({ gameInstanceId });
     }
 
-    addLetters(letters) {
+    addRoundNumber(roundNumber) {
+        // const gameInstance = {...this.state.gameInstance};
+        this.setState({ roundNumber });
+    }
+
+    addRoundStartTime(roundStartTime) {
+        // const gameInstance = {...this.state.gameInstance};
+        this.setState({ roundStartTime });
+    }
+
+    addRoundState(roundState) {
+        // const roundState = {...this.state.roundState};
+        this.setState({ roundState });
+    }
+
+
+    addRoundAnswers(roundAnswers) {
+        // const roundAnswers = {...this.Answers.roundAnswers};
+        this.setState({ roundAnswers });
+    }
+
+
+    addRoundState(roundState) {
+        // const roundState = {...this.state.roundState};
+        this.setState({ roundState });
+    }
+
+    addRoundLetters(letters) {
         // const gameInstance = {...this.state.gameInstance};
         this.setState({ letters });
     }
@@ -69,7 +104,7 @@ export default class GameInstance extends Component {
                         console.log(data.data[roundIndex]);
                     });
                     this.gameSync;
-                }, 1000);
+                }, 2500);
             }
     }
 
@@ -81,12 +116,19 @@ export default class GameInstance extends Component {
                 window.setInterval(() => {
                     roundSyncHelper((data) => {
                     console.log("round");
-                        let roundIndex = data.data.length - 1;                        
-                        console.log(data.data[roundIndex]);
-                        this.addLetters(data.data[roundIndex].letters);
+                        let roundIndex = data.data.length - 1;
+                        let currentData = data.data[roundIndex]                        
+                        
+                        this.addRoundLetters(currentData.letters);
+                        this.addRoundNumber(currentData.number);
+                        this.addRoundState(currentData.state);
+                        this.addRoundAnswers(currentData.answers);
+                        this.addRoundStartTime(currentData.startTime);
+                        
+                        
                     });
                     this.roundSync;
-                }, 1000);
+                }, 2500);
             }
     }
     // findGamePost(event) {
