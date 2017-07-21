@@ -10,13 +10,12 @@ const statusController = require('./status/controller');
 exports.submitAnswerOrVote = async(req, res) => {
   const gameInstanceId = req.params.gameInstance;
   const playerId = req.session.passport.user;
-  console.log(JSON.stringify(req.body));
-  if (req.body.answer !== undefined) {
+  if (req.body.answer != null) {
     const answer = req.body.answer;
     const answerStatus = await roundController.submitAnswer(gameInstanceId, playerId, answer);
     return res.json(answerStatus);
   }
-  if (req.body.vote !== undefined) {
+  if (req.body.vote != null) {
     const voteId = req.body.vote;
     const voteStatus = await roundController.submitVote(gameInstanceId, playerId, voteId);
     return res.json(voteStatus);
