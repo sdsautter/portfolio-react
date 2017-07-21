@@ -10,22 +10,19 @@ export default class FindGame extends Component {
     findGamePost(event) {
         let addGameInstance = this.props.addGameInstance;
         event.preventDefault();
-        function post(cb) {
-            axios.post("/api/games", {})
-            .then(function (response) {
+        this.props.addFindGame();
+        
+        
+            axios.post("/api/games")
+            .then((response) => {
                 console.log("Hello");
-                return cb(response.data.gameInstance.gameInstanceId);
+                return addGameInstance(response.data.gameInstance.gameInstanceId);
             })
             .catch(function (error) {
                 console.log(error);
             });
-        }
+        
 
-        post(function(data) {
-            console.log(data);
-            console.log(addGameInstance);
-            addGameInstance(data);
-        })
     }
     
     render() {
