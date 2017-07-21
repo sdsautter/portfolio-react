@@ -13,9 +13,9 @@ export const addAnswer = (gameInstanceId, answer) => {
                 });
 }
 
-export const gameSyncHelper = (cb) => {
+export const gameSyncHelper = (gameInstanceId, cb) => {
     return(
-        axios.get("/gamesync")
+        axios.get(`/api/games/${gameInstanceId}`)
             .then(function (result) {
                  //setState here for React to get
                 console.log("game sync")
