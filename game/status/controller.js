@@ -2,62 +2,7 @@ const mongoose = require('mongoose');
 const Status = mongoose.model('Status');
 const GameInstance = mongoose.model('GameInstance');
 const Round = require('../round/controller');
-
-// const getRoundStatus = async(gameInstanceId) => {
-//   return new Promise((resolve) => {
-//     const gameRounds = await Round.findById({
-//       gameInstance: gameInstanceId
-//     }).sort('-date');
-//     return resolve(gameRounds);
-//   });
-// };
-// GameStatus class keeps track of the game status and returns a sanitized version for front end consumption 
-exports.GameStatus = class {
-  constructor(gameInstance) {
-    this.gameId = gameInstance._id;
-    this.gameState = gameInstance.state;
-    this.players = gameInstance.players;
-  }
-
-  // getRoundStatus(gameInstanceId) {
-  //   return new Promise((resolve) => {
-  //     const gameRounds = await Round.find({
-  //       gameInstance: gameInstanceId
-  //     }).sort('-date');
-  //     return resolve(gameRounds);
-  //   });
-  // }
-
-  sanitizedPlayers() {
-    return this.players.map(obj => {
-      const player = {
-        username: obj.username,
-        points: obj.points,
-      };
-      return player;
-    });
-  }
-
-  get report() {
-    // let activeRound = await Round.findRounds(this.gameId);
-
-    // if (activeRound.length !== 0) {
-    //   console.log(`activeRound: ${activeRound[0]}`);
-    //   activeRound = activeRound[0];
-    // }
-
-    const status = {
-      gameInstance: {
-        Id: this.gameId,
-        state: this.gameState,
-        players: this.sanitizedPlayers(),
-      },
-      // activeRound,
-    };
-    return status;
-  }
-};
-
+const Answer = require('../answer/controller');
 
 exports.generateStatus = async(gameInstanceId) => {
   let activeRound = {};
@@ -91,18 +36,16 @@ exports.generateStatus = async(gameInstanceId) => {
     if (round.state === 'playing') {
       timeLeft = 60 - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
       // If a player has submitted an answer mark it down.
-      if (round.answers.length !== 0) {
-        for (let i = 0; i < round.answers.length; i++) {
-          for (let j = 0; j < players.length; j++) {
-            if (parseInt(round.answers[i].player) === parseInt(players[j].user)) {
-              submittedAnswers.push({
-                username: players[j].username,
-                submitted: true,
-              });
-            }
-          }
-        }
+      console.log(`there are ${players.length} player in the game`);
+      for (let i = 0; i < players.length; i++) {
+        console.log(`Looking for answers from ${players[i]}`);
+        const answer = await Answer.findAnswerByRoundAndPlayer(round._id, players[i].user);
+        console.log(`${players[i]} answer: ${answer}`);
+        if (answer) submittedAnswers.push({
+          username: players[i].username,
+        });
       }
+      // Create the return object
       activeRound = {
         number: round.number,
         letters: round.letters,
@@ -114,14 +57,13 @@ exports.generateStatus = async(gameInstanceId) => {
 
     if (round.state === 'voting') {
       timeLeft = 90 - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
-      if (round.answers.length !== 0) {
-        for (let i = 0; i < round.answers.length; i++) {
-          userAnswers.push({
-            answer: round.answers[i].answer,
-            answerId: round.answers[i]._id,
-          });
+      const answers = await Answer.findAnswerByRound(round._id);
+      userAnswers = answers.map((answer) => {
+        return {
+          answer: answer.answer,
+          answerId: answer._id,
         }
-      }
+      });
       activeRound = {
         number: round.number,
         letters: round.letters,

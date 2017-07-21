@@ -18,15 +18,17 @@ const StatusSchema = new Schema({
   },
   ActiveRound: {
     number: Number,
-    timeLeft: Date,
+    timeLeft: Number,
     state: String,
     userSubmitted: [{
       username: String,
-      submitted: Boolean,
     }],
     userAnswers: [{
       answer: String,
-      answerId: mongoose.Schema.Types.ObjectId,
+      answerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Answer',
+      },
     }],
     userScores: [{
       username: String,

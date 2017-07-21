@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const VoteSchema = new Schema({
+const AnswerSchema = new Schema({
   round: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Round',
@@ -10,11 +10,13 @@ const VoteSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  answer: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Answer',
+  answer: String,
+  timeSubmitted: {
+    type: Date,
+    default: Date.now,
   },
+  scorePotential: Number,
 });
 
-const Vote = mongoose.model('Vote', VoteSchema);
-module.exports = Vote;
+const Answer = mongoose.model('Answer', AnswerSchema);
+module.exports = Answer;
