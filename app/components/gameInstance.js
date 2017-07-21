@@ -3,6 +3,7 @@ import SubmissionStage from "./game-stage/SubmissionStage.js"
 import VotingStage from "./voting-stage/VotingStage.js"
 import ResultsStage from "./results-stage/ResultsStage.js"
 import FindGame from "./find-game-stage/FindGame.js";
+import WaitingStage from "./waiting-stage/GameWaiting.js";
 import { gameSyncHelper, roundSyncHelper } from "../utils/helpers";
 import axios from "axios";
 
@@ -95,24 +96,31 @@ export default class GameInstance extends Component {
                         this.addGameState(gameInstanceGet.state);
                         this.addPlayers(gameInstanceGet.players);
                     });
-                    this.gameSync;
-                }, 1000);
+                    this.gameSync();
+                }, 2500);
             }
     }
 
     render() {
+        this.gameSync();
         return (
             <div className="row justify-content-center">
-                  <FindGame addGameInstance={this.addGameInstance} />
-                  {/*<SubmissionStage 
+                  <FindGame addGameInstance={this.addGameInstance} /> 
+            {/*
+                 
+                    <WaitingStage players={this.state.players} />
+
+                    <SubmissionStage 
                     players={this.state.players} 
                     timeLeft={this.state.timeLeft}
                     letters={this.state.letters}
                     roundNumber={this.state.roundNumber}
                     />
+
                     <VotingStage
                     answers={this.state.votingAnswers}
                     />
+                    
                     <ResultsStage 
                     />*/}
             </div>
