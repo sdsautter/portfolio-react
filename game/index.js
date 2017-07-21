@@ -13,7 +13,7 @@ module.exports = (app) => {
   // .put(isLoggedIn, round.createNewRound);
 
   app.route('/api/games')
-    .get(isLoggedIn, gameInstance.listGames)
+    // .get(isLoggedIn, gameInstance.listGames)
     .post(isLoggedIn, gameInstance.joinGame)
     .delete(isLoggedIn, gameInstance.leaveGame);
 
