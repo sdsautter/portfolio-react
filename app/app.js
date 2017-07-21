@@ -11,4 +11,4 @@ import Main from './components/Main';
 
 // const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
-render(routes, document.querySelector('#app'));
+render(<Main />, document.querySelector('#app'));
