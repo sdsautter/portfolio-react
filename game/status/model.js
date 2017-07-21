@@ -18,7 +18,7 @@ const StatusSchema = new Schema({
   },
   ActiveRound: {
     number: Number,
-    timeLeft: Date,
+    timeLeft: Number,
     state: String,
     userSubmitted: [{
       username: String,
