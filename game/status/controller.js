@@ -36,11 +36,8 @@ exports.generateStatus = async(gameInstanceId) => {
     if (round.state === 'playing') {
       timeLeft = 60 - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
       // If a player has submitted an answer mark it down.
-      console.log(`there are ${players.length} player in the game`);
       for (let i = 0; i < players.length; i++) {
-        console.log(`Looking for answers from ${players[i]}`);
         const answer = await Answer.findAnswerByRoundAndPlayer(round._id, players[i].user);
-        console.log(`${players[i]} answer: ${answer}`);
         if (answer) submittedAnswers.push({
           username: players[i].username,
         });
@@ -58,12 +55,14 @@ exports.generateStatus = async(gameInstanceId) => {
     if (round.state === 'voting') {
       timeLeft = 90 - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
       const answers = await Answer.findAnswerByRound(round._id);
-      userAnswers = answers.map((answer) => {
-        return {
-          answer: answer.answer,
-          answerId: answer._id,
-        }
-      });
+      if (userAnswers.length !== 0) {
+        userAnswers = answers.map((answer) => {
+          return {
+            answer: answer.answer,
+            answerId: answer._id,
+          };
+        });
+      }
       activeRound = {
         number: round.number,
         letters: round.letters,
