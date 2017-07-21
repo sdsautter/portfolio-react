@@ -51,6 +51,46 @@ Score doubles
 
 Each vote is 1000 points no matter when it was submitted
 
-# Mockup Ideas
+# API 
 
-Landing Page - https://wireframe.cc/fMhIQ2
+## Routes
+GET /api/games/:id
+* Get the game and round information per the Schema
+
+POST /api/games/:id
+* During the answer phase accepts an answer from body.answer
+* During the voting phase accepts an answer from body.vote
+
+## Schema
+    gameInstance: {
+      gameInstanceId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'GameInstance',
+      },
+      state: String,
+      players: [{
+        username: String,
+        points: {
+          type: Number,
+          default: 0,
+        },
+      }],
+    },
+    ActiveRound: {
+      number: Number,
+      timeLeft: Number,
+      state: String,
+      userSubmitted: [{
+        username: String,
+        submitted: Boolean,
+      }],
+      userAnswers: [{
+        answer: String,
+        answerId: mongoose.Schema.Types.ObjectId,
+      }],
+      userScores: [{
+        username: String,
+        userScoreForRound: Number,
+      }],
+    }
+
