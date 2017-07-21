@@ -48,11 +48,10 @@ app.set('view engine', 'handlebars');
 require('./user/routes')(app, passport);
 require('./game/index')(app);
 
-
 // Connect to the database
 mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
 const db = mongoose.connection;
-mongoose.connect(process.env.DATABASE || 'mongodb://localhost/acronauts');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/acronauts');
 
 
 db.on('error', (err) => {
