@@ -15,7 +15,7 @@ export default class GameInstance extends Component {
             gameInstanceId: {},
             roundAnswers: {},
             letters: {},
-            timeLeft: 61,
+            roundTimeLeft: 61,
             roundNumber: {},
             votingAnswers: {},
             roundState: {},
@@ -140,7 +140,7 @@ export default class GameInstance extends Component {
             return (
                 <SubmissionStage 
                     players={this.state.players} 
-                    timeLeft={this.state.timeLeft}
+                    timeLeft={this.state.roundTimeLeft}
                     letters={this.state.letters}
                     roundNumber={this.state.roundNumber}
                     />
