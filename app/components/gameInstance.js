@@ -29,7 +29,6 @@ export default class GameInstance extends Component {
         this.addRoundAnswers = this.addRoundAnswers.bind(this);
         this.addPlayers = this.addPlayers.bind(this);
         this.addGameState = this.addGameState.bind(this);
-        this.gameStageRender = this.gameStageRender.bind(this);
     }
 
     addGameInstance(gameInstanceId) {
