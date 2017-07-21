@@ -101,6 +101,7 @@ export default class GameInstance extends Component {
     }
 
     render() {
+        this.gameSync();
         return (
             <div className="row justify-content-center">
                   <FindGame addGameInstance={this.addGameInstance} />
