@@ -154,3 +154,9 @@ h1 {
   background-color: rgba(125, 119, 119, .3);
     
 }
+
+.waiting-stage {
+  color: red;
+  font-size: 500%;
+  padding-top: 10%;
+}
