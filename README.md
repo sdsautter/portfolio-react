@@ -65,7 +65,7 @@ GET /api/games/:id
 
 POST /api/games/:id
 * During the round playing phase accepts an answer from body.answer
-* During the round voting phase accepts an answer from body.vote
+* During the round voting phase accepts a vote from body.vote
 
 ## Schema
     gameInstance: {
