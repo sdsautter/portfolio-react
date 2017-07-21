@@ -11,9 +11,9 @@ export default class SubmissionStage extends Component {
                 <div className="col-10 main-game">
                     <div className="row">
                         <div className="col-9">
-                            <GameTime timeLeft="60"/>
+                            <GameTime timeLeft={this.props.timeLeft}/>
                             <br />
-                            <GameLetters letters="GUB"/>
+                            <GameLetters letters={this.props.letters}/>
                         </div>
                         <div className="col-3">
 
@@ -28,7 +28,7 @@ export default class SubmissionStage extends Component {
                     <div className="row">
                         <div className="col">
 
-                            <GameInput />
+                            <GameInput letters={this.props.letters}/>
                         </div>
                     </div>
                 </div>

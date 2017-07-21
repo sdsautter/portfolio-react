@@ -30,11 +30,13 @@ export default class GamePlayer extends Component {
                 <div className="col-8">
                     <div className="row">
                         <div className="col-12">
+                        {this.renderPlayer}
                         </div>
                         <div className="col-5">
                             <p className="points-text">Points:</p>
                         </div>
                         <div className="col-7">
+                        {this.renderPoints}
                         </div>
                     </div>
                 </div>
