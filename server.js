@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const exphbs = require('express-handlebars');
 const express = require('express');
 const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
 const logger = require('morgan');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
@@ -28,8 +29,11 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 // Persistent user sessions - TODO - MOVE TO REDIS  
 app.use(session({
+  store: new RedisStore({
+    url: process.env.REDIS_URL,
+  }),
   secret: process.env.SECRET || 'abc123',
-  key: process.env.KEY || 'xyz',
+  // key: process.env.KEY || 'xyz',
   resave: false,
   saveUninitialized: false,
 })); // session secret
