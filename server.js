@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 // Persistent user sessions - TODO - MOVE TO REDIS  
 app.use(session({
   store: new RedisStore({
-    url: process.env.REDIS_URL,
+    url: process.env.REDIS_URL || 'redis://localhost:6379/',
   }),
   secret: process.env.SECRET || 'abc123',
   // key: process.env.KEY || 'xyz',
