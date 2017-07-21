@@ -29307,7 +29307,7 @@ var GameInstance = function (_Component) {
             gameInstanceId: {},
             roundAnswers: {},
             letters: {},
-            timeLeft: 61,
+            roundTimeLeft: 61,
             roundNumber: {},
             votingAnswers: {},
             roundState: {},
@@ -29443,7 +29443,7 @@ var GameInstance = function (_Component) {
             if (this.state.roundState === 'playing') {
                 return _react2.default.createElement(_SubmissionStage2.default, {
                     players: this.state.players,
-                    timeLeft: this.state.timeLeft,
+                    timeLeft: this.state.roundTimeLeft,
                     letters: this.state.letters,
                     roundNumber: this.state.roundNumber
                 });
@@ -29587,7 +29587,7 @@ var GameLetters = function (_Component) {
     _createClass(GameLetters, [{
         key: "stringLetters",
         value: function stringLetters() {
-            return this.props.letters.join(" ");
+            return this.props.letters.join(" ").toUpperCase();
         }
     }, {
         key: "render",
@@ -29601,7 +29601,7 @@ var GameLetters = function (_Component) {
                     _react2.default.createElement(
                         "p",
                         { className: "game-letters" },
-                        this.stringLetters
+                        this.stringLetters()
                     )
                 )
             );
