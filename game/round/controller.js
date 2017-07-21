@@ -1,5 +1,7 @@
 const config = require('./config');
 const mongoose = require('mongoose');
+const Answer = require('../answer/controller');
+const Vote = require('../vote/controller');
 const GameInstance = mongoose.model('GameInstance');
 const User = mongoose.model('User');
 const Round = mongoose.model('Round');
@@ -114,143 +116,79 @@ exports.createRound = async(gameInstance) => {
   return newRound;
 };
 
-exports.submitVote = async(gameInstanceId, playerId, voteId) => {
+exports.submitVote = async(gameInstance, player, answer) => {
   // Find the active game
-  // const gameReference = await GameInstance.findById(gameInstanceId);
+  // const gameReference = await GameInstance.findById(gameInstance);
   // Find any rounds in the voting state
   let activeRound = await Round.find({
-    gameInstance: gameInstanceId,
+    gameInstance,
     state: 'voting',
   });
-  console.log(`Active Round: ${activeRound}`);
-  // if there is an active round
-  if (activeRound.length !== 0) {
-    console.log(`active round length isn't 0`);
-    // transform the returned array into an object
-    activeRound = activeRound[0];
-    console.log(`active round is now ${activeRound}`);
-    // make sure the player hasn't voted already
-    if (activeRound.answers.length !== 0) {
-      console.log(`active round answers length isn't 0`);
-      let playerHasVoted = false;
-      playerHasVoted = activeRound.answers.map((a) => {
-        if (a.votes.includes(playerId)) return true;
-        // for (let i = 0; i < a.votes.length; i++) {
-        //   console.log(`looking for ${parseInt(playerId)} to match ${parseInt(a.votes[i].player)}`);
-        //   if (parseInt(a.votes[i].player) === parseInt(playerId)) return true;
-        // }
-      });
-      console.log(`has the players voted? ${playerHasVoted}`);
-      // if the player has voted don't let them vote again
-      if (playerHasVoted) return {
-        error: 'Vote already submitted',
-      };
-      // find the vote from the voteId
-      const voteIsValid = activeRound.answer.map((a, i) => {
-        if (parseInt(a._id) === parseInt(voteId)) return {
-          currentPoints: a.points,
-          scorePotential: a.scorePotential,
-          index: i,
-        };
-      });
-      // if the vote is a valid one
-      if (voteIsValid) {
-        // add the player's vote and increase the score for the voted answer
-        const updatedPoints = voteIsValid.currentPoints + voteIsValid.scorePotential;
-        const answerLocation = `answers.${voteIsValid.index}`;
-        const voteLocation = `answers.${voteIsValid.index}.votes`;
-        const activeRoundWithVote = await Round.findOneAndUpdate(gameInstanceId, {
-          $push: {
-            voteLocation: {
-              player: playerId,
-            },
-          },
-          answerLocation: {
-            points: updatedPoints,
-          },
-        }, {
-          new: true,
-        });
-        // return success
-        return {
-          status: 'Success',
-        };
-      }
-      return {
-        error: 'Answer not found',
-      };
-    }
+  // if there isn't an active round
+  if (activeRound.length === 0) {
+    // notify the player that there isn't a round accepting answers
+    return {
+      error: `No rounds are currently accepting answers in game ${gameInstance}`,
+    };
   }
+  // transform the returned array into an object
+  activeRound = activeRound[0];
+  // make sure the player hasn't voted already
+  const playerHasVoted = await Vote.findVotesByRoundAndPlayer(activeRound._id, player);
+  // if the player has voted don't let them vote again
+  if (playerHasVoted) return {
+    error: 'Vote already submitted',
+  };
+  const validAnswer = await Answer.findById(answer);
+  // if the answer isn't valid don't let them submit a vote
+  if (!validAnswer) return {
+    error: 'Invalid answer',
+  };
+  // submit the vote
+  const newVote = await Vote.submitVote(activeRound._id, player, validAnswer._id);
+  // return success
   return {
-    error: `No rounds are currently accepting votes in game ${gameInstanceId}`,
+    status: 'Success',
   };
 };
 
-exports.submitAnswer = async(gameInstanceId, playerId, answer) => {
-  // Find the active game
-  const gameReference = await GameInstance.findById(gameInstanceId);
+exports.submitAnswer = async(gameInstance, player, answer) => {
   // Find any rounds in the playing state
   let activeRound = await Round.find({
-    gameInstance: gameInstanceId,
+    gameInstance,
     state: 'playing',
   });
-  // if there is an active round
-  if (activeRound.length !== 0) {
-    // transform the returned array into an object
-    activeRound = activeRound[0];
-    // if the user isn't already in the array of answered users
-    if (activeRound.answers.length !== 0) {
-      const playerHasAnswered = activeRound.answers.map((a) => {
-        if (parseInt(a.player) === parseInt(playerId)) return true;
-      });
-      // If they've already answered don't let them submit another answer
-      if (playerHasAnswered) return {
-        error: 'Answer already submitted',
-      };
-    }
-    // validate the answer is in the correct format.  
-    const validatedAnswer = validateAnswer(answer, activeRound.letters);
-    if (validatedAnswer) {
-      // @TODO scrub the answer for xss and injections
-      const timeLapsed = 60 - Math.floor(-1 * ((activeRound.startTime - Date.now()) / 1000));
-      const scorePotential = calculateScorePotential(activeRound.number, timeLapsed);
-      // Put the answer and score potential in the database 
-      const activeRoundWithNewAnswer = await Round.findOneAndUpdate({
-        gameInstance: gameInstanceId,
-        state: 'playing',
-      }, {
-        $push: {
-          answers: {
-            player: playerId,
-            answer,
-            scorePotential,
-          },
-        },
-      }, {
-        new: true,
-      });
-      // see if everyone has answered and if they have change the state to voting 
-      if (activeRoundWithNewAnswer.answers.length === gameReference.players.length) {
-        const activeRoundWithNewState = await Round.findOneAndUpdate({
-          gameInstance: gameInstanceId,
-          number: activeRoundWithNewAnswer.number,
-          state: 'playing',
-        }, {
-          state: 'voting',
-        });
-      }
-      // update the player that the answer was accepted
-      return {
-        status: 'Success',
-      };
-    }
-    // notify the player that the answer wasn't valid
-    if (!validatedAnswer) return {
-      error: 'Invalid Answer',
+  // if there isn't an active round
+  if (activeRound.length === 0) {
+    // notify the player that there isn't a round accepting answers
+    return {
+      error: `No rounds are currently accepting answers in game ${gameInstance}`,
     };
   }
-  // notify the player that there isn't a round accepting answers
+  // transform the returned array into an object
+  activeRound = activeRound[0];
+  // if the user hasn't already answered
+  const playerHasAnswered = await Answer.findAnswerByRoundAndPlayer(activeRound._id, player);
+  // If they've already answered don't let them submit another answer
+  if (playerHasAnswered) return {
+    error: 'Answer already submitted',
+  };
+  // validate the answer is in the correct format.  
+  const validatedAnswer = validateAnswer(answer, activeRound.letters);
+  // notify the player that the answer wasn't valid
+  if (!validatedAnswer) return {
+    error: 'Invalid Answer',
+  };
+
+  // @TODO scrub the answer for xss and injections
+  const timeLapsed = 60 - Math.floor(-1 * ((activeRound.startTime - Date.now()) / 1000));
+  const scorePotential = calculateScorePotential(activeRound.number, timeLapsed);
+  // Put the answer and score potential in the database 
+  const newAnswer = await Answer.createAnswer(activeRound._id, player, answer, scorePotential);
+  // @TODO - See if everyone has answered and if they have change the state to voting 
+
+  // update the player that the answer was accepted
   return {
-    error: `No rounds are currently accepting answers in game ${gameInstanceId}`,
+    status: 'Success',
   };
 };
