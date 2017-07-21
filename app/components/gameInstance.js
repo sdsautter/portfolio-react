@@ -3,6 +3,8 @@ import SubmissionStage from "./game-stage/SubmissionStage.js"
 import VotingStage from "./voting-stage/VotingStage.js"
 import ResultsStage from "./results-stage/ResultsStage.js"
 import FindGame from "./find-game-stage/FindGame.js";
+import { gameSyncHelper, roundSyncHelper } from "../utils/helpers";
+
 import axios from "axios";
 
 export default class GameInstance extends Component {
@@ -10,20 +12,35 @@ export default class GameInstance extends Component {
         super();
         this.state = {
             players: {},
-            gameInstance: {},
-            answers: {}
+            gameInstanceId: {},
+            answers: {},
+            letters: {},
+            timeLeft: {}
         }
-        this.addPlayer = this.addPlayer.bind(this);
-        this.addAnswer = this.addAnswer.bind(this);
+        // this.addPlayer = this.addPlayer.bind(this);
+        // this.addAnswer = this.addAnswer.bind(this);
         this.addGameInstance = this.addGameInstance.bind(this);
+        this.addLetters = this.addLetters.bind(this);        
+        this.gameSync = this.gameSync.bind(this);
+        this.roundSync = this.roundSync.bind(this);
         // this.findGamePost = this.findGamePost.bind(this);
     }
 
-    addGameInstance(game) {
+    addGameInstance(gameInstanceId) {
         // const gameInstance = {...this.state.gameInstance};
-        this.setState({ gameInstance: game });
+        this.setState({ gameInstanceId });
     }
-    
+
+    addLetters(letters) {
+        // const gameInstance = {...this.state.gameInstance};
+        this.setState({ letters });
+    }
+
+    addTimeLeft(timeLeft) {
+        // const gameInstance = {...this.state.gameInstance};
+        this.setState({ timeLeft });
+    }
+/*    
     addPlayer(player) {
         const players = {...this.state.players};
         const timestamp = Date.now();
@@ -39,25 +56,20 @@ export default class GameInstance extends Component {
         answers[`answer-${timestamp}`] = answer;
         this.setState({ answers })
     }
-
+*/
     gameSync() {
         let isActive = true;
         if(isActive)
             {
-                window.setTimeout(function() {
-                    $.ajax({
-                        url:"/gamesync",
-                        type:"GET",
-                        success: function(result) {
-                            //setState here for React to grab
-                            gameSync();
-                        },
-                        error: function() {
-                            //Error Handling lol
-                            gameSync();
-                        }
-                    })
-                }, 2500);
+                window.setInterval(() => {
+                    console.log("game");
+                    gameSyncHelper((data) => {
+                        
+                        let roundIndex = data.data.length - 1;                        
+                        console.log(data.data[roundIndex]);
+                    });
+                    this.gameSync;
+                }, 1000);
             }
     }
 
@@ -65,20 +77,16 @@ export default class GameInstance extends Component {
         let isActive = true;
         if(isActive)
             {
-                window.setTimeout(function() {
-                    $.ajax({
-                        url:"/roundsync",
-                        type:"GET",
-                        success: function(result) {
-                            //setState here for React to grab
-                            roundSync();
-                        },
-                        error: function() {
-                            //Error Handling lol
-                            roundSync();
-                        }
-                    })
-                }, 2500);
+                
+                window.setInterval(() => {
+                    roundSyncHelper((data) => {
+                    console.log("round");
+                        let roundIndex = data.data.length - 1;                        
+                        console.log(data.data[roundIndex]);
+                        this.addLetters(data.data[roundIndex].letters);
+                    });
+                    this.roundSync;
+                }, 1000);
             }
     }
     // findGamePost(event) {
@@ -97,11 +105,15 @@ export default class GameInstance extends Component {
     // }
     
     render() {
+        this.gameSync();
+        this.roundSync();
+
         return (
             <div className="row justify-content-center">
 
                 <FindGame 
                 addGameInstance={this.addGameInstance}
+                
                     // findGamePost={this.findGamePost}
                 />                
                 {/*<SubmissionStage 

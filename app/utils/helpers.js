@@ -12,3 +12,37 @@ export const addAnswer = (gameInstanceId, answer) => {
                     console.log(error);
                 });
 }
+
+export const gameSyncHelper = (cb) => {
+    return(
+        axios.get("/gamesync")
+            .then(function (result) {
+                 //setState here for React to get
+                console.log("game sync")
+                            // console.log(result.data);                            
+                            // console.log(result.data.length);
+                cb(result);
+            })
+            .catch(function (error) {
+                console.log(error);
+                            //Error Handling lol
+                            // gameSync();
+            })
+    )
+}
+
+export const roundSyncHelper = (cb) => {
+    axios.get("/roundsync")
+                        .then(function (result) {
+                 //setState here for React to get
+                            console.log("round sync")
+                            // console.log(result.data);                            
+                            // console.log(result.data.length);
+                            cb(result);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            //Error Handling lol
+                            // roundSync();
+                        });
+}
