@@ -15,8 +15,7 @@ require('./user/model');
 require('./game/gameInstance/model');
 require('./game/round/model');
 require('./game/status/model');
-const GameInstance = require("./game/gameInstance/model.js");
-const Round = require("./game/round/model.js");
+
 // Create Express server
 const app = express();
 const PORT = process.env.PORT || 4012;
@@ -45,34 +44,6 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 
-//Server syncing 
-//Gameinstance Sync
-app.get("/gamesync", function(req, res) {
-  //Searches GameInstance documents and returns all instances
-  GameInstance.find({})
-  .exec(function(error, state){
-    if(error) console.log(error);
-    else{
-      console.log(state);
-      //sends GameInstance object to client
-      res.send(state);
-    }
-  })
-})
-
-//Round Sync
-app.get("/roundsync", function(req, res) {
-  //Searches GameInstance documents and returns all instances
-  Round.find({})
-  .exec(function(error, state){
-    if(error) console.log(error);
-    else{
-      console.log(state);
-      //sends GameInstance object to client
-      res.send(state);
-    }
-  })
-})
 // Define Express Routes
 require('./user/routes')(app, passport);
 require('./game/index')(app);
