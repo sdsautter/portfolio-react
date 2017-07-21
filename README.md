@@ -54,12 +54,18 @@ Each vote is 1000 points no matter when it was submitted
 # API 
 
 ## Routes
+POST /api/games
+* Joins a game
+
+DELETE /api/games
+* Leaves a game
+
 GET /api/games/:id
 * Get the game and round information per the Schema
 
 POST /api/games/:id
-* During the answer phase accepts an answer from body.answer
-* During the voting phase accepts an answer from body.vote
+* During the round playing phase accepts an answer from body.answer
+* During the round voting phase accepts an answer from body.vote
 
 ## Schema
     gameInstance: {
