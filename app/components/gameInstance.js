@@ -4,7 +4,6 @@ import VotingStage from "./voting-stage/VotingStage.js"
 import ResultsStage from "./results-stage/ResultsStage.js"
 import FindGame from "./find-game-stage/FindGame.js";
 import { gameSyncHelper, roundSyncHelper } from "../utils/helpers";
-
 import axios from "axios";
 
 export default class GameInstance extends Component {
@@ -34,7 +33,6 @@ export default class GameInstance extends Component {
     }
 
     addGameInstance(gameInstanceId) {
-        // const gameInstance = {...this.state.gameInstance};
         this.setState({ gameInstanceId });
     }
 
@@ -43,39 +41,32 @@ export default class GameInstance extends Component {
     }
 
     addRoundNumber(roundNumber) {
-        // const gameInstance = {...this.state.gameInstance};
         this.setState({ roundNumber });
     }
 
     addRoundTimeLeft(roundTimeLeft) {
-        // const gameInstance = {...this.state.gameInstance};
         this.setState({ roundTimeLeft });
     }
 
     addRoundState(roundState) {
-        // const roundState = {...this.state.roundState};
         this.setState({ roundState });
     }
 
 
     addRoundAnswers(roundAnswers) {
-        // const roundAnswers = {...this.Answers.roundAnswers};
         this.setState({ roundAnswers });
     }
 
 
     addRoundState(roundState) {
-        // const roundState = {...this.state.roundState};
         this.setState({ roundState });
     }
 
     addRoundLetters(letters) {
-        // const gameInstance = {...this.state.gameInstance};
         this.setState({ letters });
     }
 
     addTimeLeft(timeLeft) {
-        // const gameInstance = {...this.state.gameInstance};
         this.setState({ timeLeft });
     }
 
@@ -92,12 +83,9 @@ export default class GameInstance extends Component {
         if(isActive)
             {
                 window.setInterval(() => {
-                    console.log("game");
                     gameSyncHelper(this.state.gameInstanceId, (data) => {
                         const activeRound = data.data.activeRound;
                         const gameInstanceGet = data.data.gameInstance;
-
-                        console.log(activeRound);
                             
                         this.addRoundLetters(activeRound.letters);
                         this.addRoundNumber(activeRound.number);
@@ -114,11 +102,9 @@ export default class GameInstance extends Component {
     }
 
     render() {
-        this.gameSync();
-
         return (
             <div className="row justify-content-center">
-                  <FindGame addGameInstance={this.addGameInstance}/>}}
+                  <FindGame addGameInstance={this.addGameInstance} />
                   {/*<SubmissionStage 
                     players={this.state.players} 
                     timeLeft={this.state.timeLeft}
