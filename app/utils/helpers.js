@@ -17,32 +17,10 @@ export const gameSyncHelper = (gameInstanceId, cb) => {
     return(
         axios.get(`/api/games/${gameInstanceId}`)
             .then(function (result) {
-                 //setState here for React to get
-                console.log("game sync")
-                            // console.log(result.data);                            
-                            // console.log(result.data.length);
                 cb(result);
             })
             .catch(function (error) {
                 console.log(error);
-                            //Error Handling lol
-                            // gameSync();
             })
     )
-}
-
-export const roundSyncHelper = (cb) => {
-    axios.get("/roundsync")
-                        .then(function (result) {
-                 //setState here for React to get
-                            console.log("round sync")
-                            // console.log(result.data);                            
-                            // console.log(result.data.length);
-                            cb(result);
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                            //Error Handling lol
-                            // roundSync();
-                        });
 }

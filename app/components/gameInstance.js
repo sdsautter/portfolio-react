@@ -15,13 +15,15 @@ export default class GameInstance extends Component {
             gameInstanceId: {},
             roundAnswers: {},
             letters: {},
-            timeLeft: {},
+            roundTimeLeft: 61,
             roundNumber: {},
             votingAnswers: {},
             roundState: {},
-            gameState: {}
+            gameState: {},
+            findGame: false
         }
 
+        //Binding functions to change the states
         this.addGameInstance = this.addGameInstance.bind(this);
         this.addRoundLetters = this.addRoundLetters.bind(this);  
         this.addRoundNumber = this.addRoundNumber.bind(this);        
@@ -30,6 +32,19 @@ export default class GameInstance extends Component {
         this.addRoundAnswers = this.addRoundAnswers.bind(this);
         this.addPlayers = this.addPlayers.bind(this);
         this.addGameState = this.addGameState.bind(this);
+        this.addFindGame = this.addFindGame.bind(this);
+
+        //Binding Game Renders
+        this.findGameRender = this.findGameRender.bind(this);
+        this.waitingStageRender = this.waitingStageRender.bind(this);
+        this.submissionStageRender = this.submissionStageRender.bind(this);
+        this.votingStageRender = this.votingStageRender.bind(this);
+        this.resultsStageRender = this.resultsStageRender.bind(this);
+        this.endResultsRender = this.endResultsRender.bind(this);
+    }
+
+    addFindGame() {
+        this.setState({ findGame: true });
     }
 
     addGameInstance(gameInstanceId) {
@@ -86,7 +101,7 @@ export default class GameInstance extends Component {
                     gameSyncHelper(this.state.gameInstanceId, (data) => {
                         const activeRound = data.data.activeRound;
                         const gameInstanceGet = data.data.gameInstance;
-                            
+                        console.log(activeRound);  
                         this.addRoundLetters(activeRound.letters);
                         this.addRoundNumber(activeRound.number);
                         this.addRoundState(activeRound.state);
@@ -101,11 +116,70 @@ export default class GameInstance extends Component {
             }
     }
 
+    findGameRender() {
+        if (!this.state.findGame) {
+            return (
+                <FindGame 
+                    addGameInstance={this.addGameInstance}
+                    addFindGame={this.addFindGame}
+                 /> 
+            )
+        }
+    }
+
+    waitingStageRender() {
+        if (this.state.gameState === 'waiting') {
+            return (
+                <WaitingStage players={this.state.players} />
+            )
+        }
+    }
+
+    submissionStageRender() {
+        if (this.state.roundState === 'playing') {
+            return (
+                <SubmissionStage 
+                    players={this.state.players} 
+                    timeLeft={this.state.roundTimeLeft}
+                    letters={this.state.letters}
+                    roundNumber={this.state.roundNumber}
+                    />
+            )
+        }
+    }
+
+    votingStageRender() {
+        if (this.state.roundState === 'voting') {
+            return (
+                <VotingStage
+                    answers={this.state.votingAnswers}
+                    />
+            )
+        }
+    }
+
+    resultsStageRender() {
+        if (this.state.roundState === 'results') {
+            return (
+                <ResultsStage 
+                    />
+            )
+        }
+    }
+
+    endResultsRender() {
+        
+    }
+
     render() {
         this.gameSync();
         return (
             <div className="row justify-content-center">
-                  <FindGame addGameInstance={this.addGameInstance} /> 
+                  {this.findGameRender()} 
+                  {this.waitingStageRender()}
+                  {this.submissionStageRender()}
+                  {this.votingStageRender()}
+                  {this.resultsStageRender()}
             {/*
                  
                     <WaitingStage players={this.state.players} />
