@@ -4,15 +4,6 @@ const GameInstance = mongoose.model('GameInstance');
 const User = mongoose.model('User');
 const Round = mongoose.model('Round');
 
-exports.findRounds = async(gameInstance) => {
-  const gameRounds = await Round.find({
-    gameInstance,
-  }).sort({
-    startTime: 'desc',
-  });
-  return gameRounds;
-};
-
 const generateRandomLetters = (num) => {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
   let letterArray = [];
@@ -36,6 +27,31 @@ const calculateScorePotential = (round, timeLeft) => {
     // In the final round the score potential is always the same no matter when it was answered
     return 750;
   }
+};
+
+const validateAnswer = (answer, letterArray) => {
+  const answerArray = answer.split(' ');
+  if (answerArray.length === letterArray.length) {
+    var validatedWords = 0;
+    for (let i = 0; i < letterArray.length; i++) {
+      if (answerArray[i].startsWith(letterArray[i])) {
+        validatedWords++;
+      }
+    }
+    if (validatedWords === letterArray.length) {
+      return true;
+    }
+  }
+  return false;
+};
+
+exports.findRounds = async(gameInstance) => {
+  const gameRounds = await Round.find({
+    gameInstance,
+  }).sort({
+    startTime: 'desc',
+  });
+  return gameRounds;
 };
 
 exports.setRoundState = async(_id, state) => {
@@ -98,36 +114,86 @@ exports.createRound = async(gameInstance) => {
   return newRound;
 };
 
-const validateAnswer = (answer, letterArray) => {
-  const answerArray = answer.split(' ');
-  if (answerArray.length === letterArray.length) {
-    var validatedWords = 0;
-    for (let i = 0; i < letterArray.length; i++) {
-      if (answerArray[i].startsWith(letterArray[i])) {
-        validatedWords++;
+exports.submitVote = async(gameInstanceId, playerId, voteId) => {
+  // Find the active game
+  // const gameReference = await GameInstance.findById(gameInstanceId);
+  // Find any rounds in the voting state
+  let activeRound = await Round.find({
+    gameInstance: gameInstanceId,
+    state: 'voting',
+  });
+  console.log(`Active Round: ${activeRound}`);
+  // if there is an active round
+  if (activeRound.length !== 0) {
+    console.log(`active round length isn't 0`);
+    // transform the returned array into an object
+    activeRound = activeRound[0];
+    console.log(`active round is now ${activeRound}`);
+    // make sure the player hasn't voted already
+    if (activeRound.answers.length !== 0) {
+      console.log(`active round answers length isn't 0`);
+      let playerHasVoted = false;
+      playerHasVoted = activeRound.answers.map((a) => {
+        if (a.votes.includes(playerId)) return true;
+        // for (let i = 0; i < a.votes.length; i++) {
+        //   console.log(`looking for ${parseInt(playerId)} to match ${parseInt(a.votes[i].player)}`);
+        //   if (parseInt(a.votes[i].player) === parseInt(playerId)) return true;
+        // }
+      });
+      console.log(`has the players voted? ${playerHasVoted}`);
+      // if the player has voted don't let them vote again
+      if (playerHasVoted) return {
+        error: 'Vote already submitted',
+      };
+      // find the vote from the voteId
+      const voteIsValid = activeRound.answer.map((a, i) => {
+        if (parseInt(a._id) === parseInt(voteId)) return {
+          currentPoints: a.points,
+          scorePotential: a.scorePotential,
+          index: i,
+        };
+      });
+      // if the vote is a valid one
+      if (voteIsValid) {
+        // add the player's vote and increase the score for the voted answer
+        const updatedPoints = voteIsValid.currentPoints + voteIsValid.scorePotential;
+        const answerLocation = `answers.${voteIsValid.index}`;
+        const voteLocation = `answers.${voteIsValid.index}.votes`;
+        const activeRoundWithVote = await Round.findOneAndUpdate(gameInstanceId, {
+          $push: {
+            voteLocation: {
+              player: playerId,
+            },
+          },
+          answerLocation: {
+            points: updatedPoints,
+          },
+        }, {
+          new: true,
+        });
+        // return success
+        return {
+          status: 'Success',
+        };
       }
-    }
-    if (validatedWords === letterArray.length) {
-      return true;
+      return {
+        error: 'Answer not found',
+      };
     }
   }
-  return false;
+  return {
+    error: `No rounds are currently accepting votes in game ${gameInstanceId}`,
+  };
 };
 
-exports.submitAnswer = async(req, res) => {
-  const gameInstanceId = req.params.gameInstance;
-  const answer = req.body.answer;
-  const playerId = req.session.passport.user;
-
-  // Find the active round
+exports.submitAnswer = async(gameInstanceId, playerId, answer) => {
+  // Find the active game
   const gameReference = await GameInstance.findById(gameInstanceId);
-
+  // Find any rounds in the playing state
   let activeRound = await Round.find({
     gameInstance: gameInstanceId,
     state: 'playing',
   });
-
-
   // if there is an active round
   if (activeRound.length !== 0) {
     // transform the returned array into an object
@@ -137,20 +203,17 @@ exports.submitAnswer = async(req, res) => {
       const playerHasAnswered = activeRound.answers.map((a) => {
         if (parseInt(a.player) === parseInt(playerId)) return true;
       });
-
-      if (playerHasAnswered) return res.json({
+      // If they've already answered don't let them submit another answer
+      if (playerHasAnswered) return {
         error: 'Answer already submitted',
-      });
+      };
     }
     // validate the answer is in the correct format.  
     const validatedAnswer = validateAnswer(answer, activeRound.letters);
     if (validatedAnswer) {
-      console.log('submitting valid answer ...');
       // @TODO scrub the answer for xss and injections
       const timeLapsed = 60 - Math.floor(-1 * ((activeRound.startTime - Date.now()) / 1000));
-      console.log(`timelapsed since round started ${timeLapsed}`);
       const scorePotential = calculateScorePotential(activeRound.number, timeLapsed);
-      console.log(`answer score potential: ${scorePotential}`);
       // Put the answer and score potential in the database 
       const activeRoundWithNewAnswer = await Round.findOneAndUpdate({
         gameInstance: gameInstanceId,
@@ -159,7 +222,6 @@ exports.submitAnswer = async(req, res) => {
         $push: {
           answers: {
             player: playerId,
-            // store player name until populate is working
             answer,
             scorePotential,
           },
@@ -177,15 +239,18 @@ exports.submitAnswer = async(req, res) => {
           state: 'voting',
         });
       }
-      return res.json({
+      // update the player that the answer was accepted
+      return {
         status: 'Success',
-      });
+      };
     }
-    if (!validatedAnswer) return res.json({
+    // notify the player that the answer wasn't valid
+    if (!validatedAnswer) return {
       error: 'Invalid Answer',
-    });
+    };
   }
-  return res.json({
+  // notify the player that there isn't a round accepting answers
+  return {
     error: `No rounds are currently accepting answers in game ${gameInstanceId}`,
-  });
+  };
 };
