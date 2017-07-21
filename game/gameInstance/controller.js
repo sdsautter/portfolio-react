@@ -7,14 +7,6 @@ const gameEngine = require('../gameEngine');
 exports.createGame = async(req, res, next) => {
   // LEGACY, USED TO MANUALLY CREATE GAMES WITH POST ROUTE. FUNCTIONALITY MOVED TO .joinGame
 
-  // // Run once to create mock user
-  // const user = await (new User({
-  //   username: 'Julio',
-  //   email: 'julio@test.com',
-  //   password: 'test123'
-  // })).save(); // Mock user
-  // console.log(JSON.stringify(user));
-
   // create a new blank game instance
   req.body.gameReference = await (new GameInstanceDocument()).save();
   next();
@@ -94,6 +86,7 @@ exports.listGames = async(req, res) => {
 };
 
 exports.leaveGame = async(req, res, next) => {
+  const _id = req.session.passport.user;
   // validate the user and save the reference
   const playerReference = await User.find({
     _id,
@@ -116,5 +109,5 @@ exports.leaveGame = async(req, res, next) => {
       state: 'abandoned',
     });
   }
-  return res.redirect('/games');
+  return res.redirect('/game');
 };

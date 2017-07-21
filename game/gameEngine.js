@@ -7,6 +7,25 @@ const gameInstanceController = require('./gameInstance/controller');
 const roundController = require('./round/controller');
 const statusController = require('./status/controller');
 
+exports.submitAnswerOrVote = async(req, res) => {
+  const gameInstanceId = req.params.gameInstance;
+  const playerId = req.session.passport.user;
+  console.log(JSON.stringify(req.body));
+  if (req.body.answer !== undefined) {
+    const answer = req.body.answer;
+    const answerStatus = await roundController.submitAnswer(gameInstanceId, playerId, answer);
+    return res.json(answerStatus);
+  }
+  if (req.body.vote !== undefined) {
+    const voteId = req.body.vote;
+    const voteStatus = await roundController.submitVote(gameInstanceId, playerId, voteId);
+    return res.json(voteStatus);
+  }
+  return res.json({
+    error: 'Invalid request',
+  });
+};
+
 exports.getStatus = async(req, res, next) => {
   // Get the game instance Id from the URI
   const gameInstanceId = req.params.gameInstance;

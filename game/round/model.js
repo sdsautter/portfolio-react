@@ -25,7 +25,7 @@ const RoundSchema = new Schema({
     },
     scorePotential: Number,
     votes: [{
-      players: {
+      player: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
       },
