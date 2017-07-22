@@ -11,25 +11,11 @@ exports.createAnswer = async(round, player, answer, scorePotential) => {
 };
 
 exports.findAnswerByRound = async(round) => {
-  let answerArray = [];
   const answer = await Answer.find({
     round,
   });
 
-  console.log(`found answer: ${answer}`);
-  console.log(`${answer} is an array: ${Array.isArray(answer)}`);
-  if (answer.length === 0) {
-    console.log('answer length is 0, returning false');
-    return false;
-  }
-
-  if (!Array.isArray(answer)) {
-    console.log('answer isnt an array, casting as array and returning');
-
-    answerArray.push(answer);
-    return answerArray;
-  }
-  console.log('answer is an array, returning');
+  if (answer.length === 0) return false;
   return answer;
 };
 
