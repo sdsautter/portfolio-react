@@ -13,6 +13,16 @@ const RoundSchema = new Schema({
     default: Date.now,
   },
   letters: [String],
+  scores: [{
+    player: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    score: {
+      type: Number,
+      default: 0,
+    },
+  }],
 });
 
 const Round = mongoose.model('Round', RoundSchema);
