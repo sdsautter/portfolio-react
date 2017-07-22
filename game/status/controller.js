@@ -53,14 +53,9 @@ exports.generateStatus = async(gameInstanceId) => {
     }
 
     if (round.state === 'voting') {
-      console.log('voting state:');
       timeLeft = 60 - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
       const answers = await Answer.findAnswerByRound(round._id);
-      console.log(`answers: ${answers}`);
-      console.log(`${answers} is an array: ${Array.isArray(answers)}`);
-
-      if (userAnswers.length !== 0) {
-        console.log(`userAnswers.length isn't 0`);
+      if (answers.length !== 0) {
         userAnswers = answers.map((answer) => {
           return {
             answer: answer.answer,
