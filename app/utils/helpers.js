@@ -13,6 +13,17 @@ export const addAnswer = (gameInstanceId, answer) => {
                 });
 }
 
+export const addVote = (gameInstanceId, vote) => {
+    console.log(gameInstance);
+    return axios.post(`/api/games/${gameInstanceId}`, { vote })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+}
+
 export const gameSyncHelper = (gameInstanceId, cb) => {
     return(
         axios.get(`/api/games/${gameInstanceId}`)
