@@ -9,9 +9,10 @@ export default class ResultsStage extends Component {
             {
                 Object.keys(this.props.resultsInfo).map((key) => {
                     let resultsInfo = this.props.resultsInfo[key];
+                    console.log(resultsInfo);
                     return (<ResultItem
-                        answer={resultsInfo.answer} 
-                        userScore={resultsInfo.userScoreForRound} 
+                        // answer={resultsInfo.answer} 
+                        score={resultsInfo.score} 
                         username={resultsInfo.username} 
                         />)
                     })
