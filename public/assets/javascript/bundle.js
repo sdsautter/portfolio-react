@@ -13481,15 +13481,17 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var SubmissionStage = function (_Component) {
     _inherits(SubmissionStage, _Component);
 
-    function SubmissionStage() {
+    function SubmissionStage(props) {
         _classCallCheck(this, SubmissionStage);
 
-        return _possibleConstructorReturn(this, (SubmissionStage.__proto__ || Object.getPrototypeOf(SubmissionStage)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (SubmissionStage.__proto__ || Object.getPrototypeOf(SubmissionStage)).call(this, props));
     }
 
     _createClass(SubmissionStage, [{
         key: "render",
         value: function render() {
+            var _this2 = this;
+
             return _react2.default.createElement(
                 "div",
                 { className: "col-10 main-game" },
@@ -13506,10 +13508,10 @@ var SubmissionStage = function (_Component) {
                     _react2.default.createElement(
                         "div",
                         { className: "col-3" },
-                        _react2.default.createElement(_GamePlayer2.default, { username: "Scott", points: "1337" }),
-                        _react2.default.createElement(_GamePlayer2.default, { username: "Phil", points: "666" }),
-                        _react2.default.createElement(_GamePlayer2.default, { username: "Tolu", points: "420" }),
-                        _react2.default.createElement(_GamePlayer2.default, { username: "Byron", points: "69" })
+                        Object.keys(this.props.players).map(function (key) {
+                            var currentPlayer = _this2.props.players[key];
+                            return _react2.default.createElement(_GamePlayer2.default, { username: currentPlayer.username, points: currentPlayer.points });
+                        })
                     )
                 ),
                 _react2.default.createElement("br", null),
@@ -29326,12 +29328,13 @@ var GameInstance = function (_Component) {
         _this.addFindGame = _this.addFindGame.bind(_this);
 
         //Binding Game Renders
-        _this.findGameRender = _this.findGameRender.bind(_this);
-        _this.waitingStageRender = _this.waitingStageRender.bind(_this);
-        _this.submissionStageRender = _this.submissionStageRender.bind(_this);
-        _this.votingStageRender = _this.votingStageRender.bind(_this);
-        _this.resultsStageRender = _this.resultsStageRender.bind(_this);
-        _this.endResultsRender = _this.endResultsRender.bind(_this);
+        // this.findGameRender = this.findGameRender.bind(this);
+        // this.waitingStageRender = this.waitingStageRender.bind(this);
+        // this.submissionStageRender = this.submissionStageRender.bind(this);
+        // this.votingStageRender = this.votingStageRender.bind(this);
+        // this.resultsStageRender = this.resultsStageRender.bind(this);
+        // this.endResultsRender = this.endResultsRender.bind(this);
+        _this.gameState = _this.gameState.bind(_this);
         return _this;
     }
 
@@ -29339,6 +29342,7 @@ var GameInstance = function (_Component) {
         key: "addFindGame",
         value: function addFindGame() {
             this.setState({ findGame: true });
+            this.gameSync();
         }
     }, {
         key: "addGameInstance",
@@ -29416,70 +29420,109 @@ var GameInstance = function (_Component) {
                         _this2.addGameState(gameInstanceGet.state);
                         _this2.addPlayers(gameInstanceGet.players);
                     });
-                    _this2.gameSync();
-                }, 2500);
+                }, 1000);
             }
         }
+
+        // findGameRender() {
+        //     if (!this.state.findGame) {
+        //         return (
+        //             <FindGame 
+        //                 addGameInstance={this.addGameInstance}
+        //                 addFindGame={this.addFindGame}
+        //              /> 
+        //         )
+        //     }
+        // }
+
+        // waitingStageRender() {
+        //     if (this.state.gameState === 'waiting') {
+        //         return (
+        //             <WaitingStage players={this.state.players} />
+        //         )
+        //     }
+        // }
+
+        // submissionStageRender() {
+        //     if (this.state.roundState === 'playing') {
+        //         return (
+        //             <SubmissionStage 
+        //                 players={this.state.players} 
+        //                 timeLeft={this.state.roundTimeLeft}
+        //                 letters={this.state.letters}
+        //                 roundNumber={this.state.roundNumber}
+        //                 />
+        //         )
+        //     }
+        // }
+
+        // votingStageRender() {
+        //     if (this.state.roundState === 'voting') {
+        //         return (
+        //             <VotingStage
+        //                 answers={this.state.votingAnswers}
+        //                 />
+        //         )
+        //     }
+        // }
+
+        // resultsStageRender() {
+        //     if (this.state.roundState === 'results') {
+        //         return (
+        //             <ResultsStage 
+        //                 />
+        //         )
+        //     }
+        // }
+
+        // endResultsRender() {
+
+        // }
+
     }, {
-        key: "findGameRender",
-        value: function findGameRender() {
-            if (!this.state.findGame) {
-                return _react2.default.createElement(_FindGame2.default, {
-                    addGameInstance: this.addGameInstance,
-                    addFindGame: this.addFindGame
-                });
-            }
+        key: "gameState",
+        value: function gameState() {
+            switch (this.state.roundState) {
+                case 'waiting':
+                    return _react2.default.createElement(_GameWaiting2.default, { players: this.state.players });
+                    break;
+                case 'voting':
+                    return _react2.default.createElement(_VotingStage2.default, {
+                        answers: this.state.votingAnswers
+                    });
+                    break;
+
+                case 'playing':
+                    return _react2.default.createElement(_SubmissionStage2.default, {
+                        players: this.state.players,
+                        timeLeft: this.state.roundTimeLeft,
+                        letters: this.state.letters,
+                        roundNumber: this.state.roundNumber
+                    });
+                    break;
+
+                case 'results':
+                    return _react2.default.createElement(_ResultsStage2.default, null);
+                    break;
+
+                default:
+                    if (this.state.gameState === 'waiting') {
+                        return _react2.default.createElement(_GameWaiting2.default, { players: this.state.players });
+                    } else {
+                        return _react2.default.createElement(_FindGame2.default, {
+                            addGameInstance: this.addGameInstance,
+                            addFindGame: this.addFindGame
+                        });
+                        break;
+                    }}
         }
-    }, {
-        key: "waitingStageRender",
-        value: function waitingStageRender() {
-            if (this.state.gameState === 'waiting') {
-                return _react2.default.createElement(_GameWaiting2.default, { players: this.state.players });
-            }
-        }
-    }, {
-        key: "submissionStageRender",
-        value: function submissionStageRender() {
-            if (this.state.roundState === 'playing') {
-                return _react2.default.createElement(_SubmissionStage2.default, {
-                    players: this.state.players,
-                    timeLeft: this.state.roundTimeLeft,
-                    letters: this.state.letters,
-                    roundNumber: this.state.roundNumber
-                });
-            }
-        }
-    }, {
-        key: "votingStageRender",
-        value: function votingStageRender() {
-            if (this.state.roundState === 'voting') {
-                return _react2.default.createElement(_VotingStage2.default, {
-                    answers: this.state.votingAnswers
-                });
-            }
-        }
-    }, {
-        key: "resultsStageRender",
-        value: function resultsStageRender() {
-            if (this.state.roundState === 'results') {
-                return _react2.default.createElement(_ResultsStage2.default, null);
-            }
-        }
-    }, {
-        key: "endResultsRender",
-        value: function endResultsRender() {}
     }, {
         key: "render",
         value: function render() {
-            this.gameSync();
             return _react2.default.createElement(
                 "div",
                 { className: "row justify-content-center" },
-                this.findGameRender(),
-                this.waitingStageRender(),
-                this.submissionStageRender(),
-                this.votingStageRender(),
-                this.resultsStageRender()
+                this.gameState()
             );
         }
     }]);
@@ -30637,36 +30680,10 @@ var GamePlayer = function (_Component) {
     function GamePlayer() {
         _classCallCheck(this, GamePlayer);
 
-        var _this = _possibleConstructorReturn(this, (GamePlayer.__proto__ || Object.getPrototypeOf(GamePlayer)).call(this));
-
-        _this.renderPlayer = _this.renderPlayer.bind(_this);
-        _this.renderPoints = _this.renderPoints.bind(_this);
-        return _this;
+        return _possibleConstructorReturn(this, (GamePlayer.__proto__ || Object.getPrototypeOf(GamePlayer)).call(this));
     }
 
     _createClass(GamePlayer, [{
-        key: "renderPlayer",
-        value: function renderPlayer(key) {
-            var playerName = this.props.details[key].username;
-
-            return _react2.default.createElement(
-                "p",
-                { key: key, className: "player-name" },
-                playerName
-            );
-        }
-    }, {
-        key: "renderPoints",
-        value: function renderPoints(key) {
-            var playerPoints = this.props.details[key].points;
-
-            return _react2.default.createElement(
-                "p",
-                { key: key, className: "player-points" },
-                playerPoints
-            );
-        }
-    }, {
         key: "render",
         value: function render() {
 
@@ -30687,7 +30704,11 @@ var GamePlayer = function (_Component) {
                         _react2.default.createElement(
                             "div",
                             { className: "col-12" },
-                            this.renderPlayer
+                            _react2.default.createElement(
+                                "p",
+                                { className: "player-name" },
+                                this.props.username
+                            )
                         ),
                         _react2.default.createElement(
                             "div",
@@ -30701,7 +30722,11 @@ var GamePlayer = function (_Component) {
                         _react2.default.createElement(
                             "div",
                             { className: "col-7" },
-                            this.renderPoints
+                            _react2.default.createElement(
+                                "p",
+                                { className: "player-name" },
+                                this.props.points
+                            )
                         )
                     )
                 )

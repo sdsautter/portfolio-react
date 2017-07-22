@@ -20,6 +20,7 @@ export default class GameInstance extends Component {
             votingAnswers: {},
             roundState: {},
             gameState: {},
+            resultsInfo: {},
             findGame: false
         }
 
@@ -33,6 +34,7 @@ export default class GameInstance extends Component {
         this.addPlayers = this.addPlayers.bind(this);
         this.addGameState = this.addGameState.bind(this);
         this.addFindGame = this.addFindGame.bind(this);
+        this.addResultsInfo = this.addResultsInfo.bind(this);
 
         //Binding Game Renders
         // this.findGameRender = this.findGameRender.bind(this);
@@ -91,6 +93,10 @@ export default class GameInstance extends Component {
         this.setState({ votingAnswers });
     }
 
+    addResultsInfo( resultsInfo ) {
+        this.setState({ resultsInfo })
+    }
+
     addPlayers(players) {
         this.setState({ players });
     }
@@ -110,11 +116,13 @@ export default class GameInstance extends Component {
                         this.addRoundAnswers(activeRound.submittedAnswers);
                         this.addRoundTimeLeft(activeRound.timeLeft);
                         this.addVotingAnswers(activeRound.userAnswers);
+                        this.addResultsInfo(activeRound.userScores);
                         this.addGameState(gameInstanceGet.state);
                         this.addPlayers(gameInstanceGet.players);
+                        
                     });
                     
-                }, 2500);
+                }, 1000);
             }
     }
 
@@ -183,6 +191,7 @@ export default class GameInstance extends Component {
                 return (
                     <VotingStage
                         answers={this.state.votingAnswers}
+                        timeLeft={this.state.roundTimeLeft}
                         />
                     )
                 break;
@@ -194,19 +203,25 @@ export default class GameInstance extends Component {
                         timeLeft={this.state.roundTimeLeft}
                         letters={this.state.letters}
                         roundNumber={this.state.roundNumber}
-                        />
-                    )
+                        gameInstanceId={this.state.gameInstanceId}
+                    />
+                )
                 break;
 
             case 'results': 
                 return (
                    <ResultsStage 
+                        resultsInfo={this.state.resultsInfo}
                     />
                 )
                 break;
 
             default: 
-                console.log(this.state.roundState)
+                if (this.state.gameState === 'waiting' ){
+                        return (
+                            <WaitingStage players={this.state.players} />
+                        )
+                }else {
                 return (
                     <FindGame 
                         addGameInstance={this.addGameInstance}
@@ -214,7 +229,7 @@ export default class GameInstance extends Component {
                      /> 
                 )
                 break;
-        }
+        }}
     }
 
     render() {

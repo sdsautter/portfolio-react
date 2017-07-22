@@ -6,6 +6,10 @@ import GamePlayer from "./GamePlayer.js";
 
 
 export default class SubmissionStage extends Component {
+    constructor(props) {
+        super(props);
+    }
+    
     render() {
         return (
                 <div className="col-10 main-game">
@@ -16,19 +20,22 @@ export default class SubmissionStage extends Component {
                             <GameLetters letters={this.props.letters}/>
                         </div>
                         <div className="col-3">
-
-                        
-                            <GamePlayer username="Scott" points="1337"/>
-                            <GamePlayer username="Phil" points="666"/>
-                            <GamePlayer username="Tolu" points="420"/>
-                            <GamePlayer username="Byron" points="69"/>
+                            {
+                                Object.keys(this.props.players).map((key) => {
+                                    var currentPlayer = this.props.players[key];
+                                    return (<GamePlayer username={currentPlayer.username} points={currentPlayer.points} />)
+                                })    
+                            }   
                         </div>
                     </div>
                     <br />
                     <div className="row">
                         <div className="col">
 
-                            <GameInput letters={this.props.letters}/>
+                            <GameInput 
+                                letters={this.props.letters}
+                                gameInstanceId={this.props.gameInstanceId}
+                            />
                         </div>
                     </div>
                 </div>
