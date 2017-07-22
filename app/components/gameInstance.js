@@ -115,7 +115,7 @@ export default class GameInstance extends Component {
                         this.addPlayers(gameInstanceGet.players);
                     });
                     
-                }, 2500);
+                }, 1000);
             }
     }
 
