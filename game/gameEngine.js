@@ -75,7 +75,7 @@ exports.startGame = async(gameInstanceId) => {
     //   }, 1000);
     //   // allPlayersAnswered = await getRoundStatus(newRound._id);
     // }
-    const playTimer = await createTimer(60);
+    const playTimer = await createTimer(30);
 
     // Set the round state to voting
     const roundInVotingState = await roundController.setRoundState(newRound._id, 'voting');

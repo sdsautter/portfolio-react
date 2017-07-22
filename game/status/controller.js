@@ -34,7 +34,7 @@ exports.generateStatus = async(gameInstanceId) => {
     const round = gameRounds[0];
 
     if (round.state === 'playing') {
-      timeLeft = 60 - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
+      timeLeft = 30 - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
       // If a player has submitted an answer mark it down.
       for (let i = 0; i < players.length; i++) {
         const answer = await Answer.findAnswerByRoundAndPlayer(round._id, players[i].user);
@@ -53,9 +53,14 @@ exports.generateStatus = async(gameInstanceId) => {
     }
 
     if (round.state === 'voting') {
-      timeLeft = 90 - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
+      console.log('voting state:');
+      timeLeft = 60 - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
       const answers = await Answer.findAnswerByRound(round._id);
+      console.log(`answers: ${answers}`);
+      console.log(`${answers} is an array: ${Array.isArray(answers)}`);
+
       if (userAnswers.length !== 0) {
+        console.log(`userAnswers.length isn't 0`);
         userAnswers = answers.map((answer) => {
           return {
             answer: answer.answer,
@@ -73,7 +78,7 @@ exports.generateStatus = async(gameInstanceId) => {
     }
 
     if (round.state === 'results') {
-      timeLeft = 105 - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
+      timeLeft = 75 - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
 
       activeRound = {
         number: round.number,
