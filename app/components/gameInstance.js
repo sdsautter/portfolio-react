@@ -195,8 +195,9 @@ export default class GameInstance extends Component {
                         timeLeft={this.state.roundTimeLeft}
                         letters={this.state.letters}
                         roundNumber={this.state.roundNumber}
-                        />
-                    )
+                        gameInstanceId={this.state.gameInstanceId}
+                    />
+                )
                 break;
 
             case 'results': 
