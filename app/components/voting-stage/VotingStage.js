@@ -7,6 +7,21 @@ export default class VotingStage extends Component {
         super();
     }
         
+    voteAnswerPost(event) {
+        console.log("click!"); 
+        let vote = this.props.answerId;
+
+            // axios.post(`/api/games/${this.props.gameInstanceId}`, { vote })
+            // .then((response) => {
+            //     console.log("Voted");
+            // })
+            // .catch(function (error) {
+            //     console.log(error);
+            // });
+        
+
+    }
+        
     render() {
     
         return (
@@ -17,7 +32,12 @@ export default class VotingStage extends Component {
                             {
                                 Object.keys(this.props.votingAnswers).map((key) => {
                                     let currentAnswer = this.props.votingAnswers[key];
-                                    return (<VoteButton key={key} answer={currentAnswer.answer} />)
+                                    return (<VoteButton 
+                                        key={key} 
+                                        answer={currentAnswer.answer}
+                                        answerId={currentAnswer.answerId}
+                                        gameInstanceId={this.props.gameInstanceId} 
+                                    />)
                                 })
                             }                                
                         </div>
