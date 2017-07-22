@@ -81,6 +81,8 @@ exports.startGame = async(gameInstanceId) => {
     const roundInVotingState = await roundController.setRoundState(newRound._id, 'voting');
     // After 30 seconds move to the results state
     const voteTimer = await createTimer(30);
+    // calculate the results
+    await roundController.calculatePoints(newRound._id);
     // Set the round state to results
     const roundInResultsState = await roundController.setRoundState(newRound._id, 'results');
     const resultsTimer = await createTimer(15);
