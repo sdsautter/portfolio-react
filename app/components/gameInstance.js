@@ -45,7 +45,8 @@ export default class GameInstance extends Component {
     }
 
     addFindGame() {
-        this.setState({ findGame: true });
+        this.setState({ findGame: true ,
+                        gameState: 'waiting'});
         this.gameSync();
     }
 

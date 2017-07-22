@@ -16,7 +16,15 @@ export default class SubmissionStage extends Component {
                             <GameLetters letters={this.props.letters}/>
                         </div>
                         <div className="col-3">
+                            {
+                                Object
+                                    .keys(this.props.players)
+                                    .map(key => {
+                                        console.log(key);
+                                        console.log(this.props.players[key])
+                                    })
 
+                            }
                         
                             <GamePlayer username="Scott" points="1337"/>
                             <GamePlayer username="Phil" points="666"/>

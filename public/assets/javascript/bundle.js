@@ -13490,6 +13490,8 @@ var SubmissionStage = function (_Component) {
     _createClass(SubmissionStage, [{
         key: "render",
         value: function render() {
+            var _this2 = this;
+
             return _react2.default.createElement(
                 "div",
                 { className: "col-10 main-game" },
@@ -13506,6 +13508,10 @@ var SubmissionStage = function (_Component) {
                     _react2.default.createElement(
                         "div",
                         { className: "col-3" },
+                        Object.keys(this.props.players).map(function (key) {
+                            console.log(key);
+                            console.log(_this2.props.players[key]);
+                        }),
                         _react2.default.createElement(_GamePlayer2.default, { username: "Scott", points: "1337" }),
                         _react2.default.createElement(_GamePlayer2.default, { username: "Phil", points: "666" }),
                         _react2.default.createElement(_GamePlayer2.default, { username: "Tolu", points: "420" }),
@@ -13810,7 +13816,7 @@ module.exports = Cancel;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.gameSyncHelper = exports.addAnswer = undefined;
+exports.gameSyncHelper = exports.addVote = exports.addAnswer = undefined;
 
 var _axios = __webpack_require__(46);
 
@@ -13827,6 +13833,15 @@ var addAnswer = exports.addAnswer = function addAnswer(gameInstanceId, answer) {
         console.log(error);
     });
 }; // Here we will utilize the axios library to perform GET/POST requests
+var addVote = exports.addVote = function addVote(gameInstanceId, vote) {
+    console.log(gameInstance);
+    return _axios2.default.post("/api/games/" + gameInstanceId, { vote: vote }).then(function (response) {
+        console.log(response);
+    }).catch(function (error) {
+        console.log(error);
+    });
+};
+
 var gameSyncHelper = exports.gameSyncHelper = function gameSyncHelper(gameInstanceId, cb) {
     return _axios2.default.get("/api/games/" + gameInstanceId).then(function (result) {
         cb(result);
@@ -13880,6 +13895,8 @@ var VotingStage = function (_Component) {
     _createClass(VotingStage, [{
         key: "render",
         value: function render() {
+            var _this2 = this;
+
             return _react2.default.createElement(
                 "div",
                 { className: "col-10 main-game text-center" },
@@ -13892,9 +13909,12 @@ var VotingStage = function (_Component) {
                 _react2.default.createElement(
                     "div",
                     { className: "btn-group-vertical", "data-toggle": "buttons" },
-                    _react2.default.createElement(_VoteButton2.default, { answer: "Gentrifcation Usually Betters" }),
-                    _react2.default.createElement(_VoteButton2.default, { answer: "Ginger Ultra Burn" }),
-                    _react2.default.createElement(_VoteButton2.default, { answer: "Google Underwear Brown" })
+                    Object.keys(this.state.roundAnswers).map(function (key) {
+                        return _react2.default.createElement(_VoteButton2.default, {
+                            key: key,
+                            details: _this2.state.votingAnswers[key]
+                        });
+                    })
                 ),
                 _react2.default.createElement("br", null)
             );
@@ -29339,7 +29359,8 @@ var GameInstance = function (_Component) {
     _createClass(GameInstance, [{
         key: "addFindGame",
         value: function addFindGame() {
-            this.setState({ findGame: true });
+            this.setState({ findGame: true,
+                gameState: 'waiting' });
             this.gameSync();
         }
     }, {
@@ -30843,6 +30864,8 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _helpers = __webpack_require__(123);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30857,19 +30880,30 @@ var VoteButton = function (_Component) {
     function VoteButton() {
         _classCallCheck(this, VoteButton);
 
-        return _possibleConstructorReturn(this, (VoteButton.__proto__ || Object.getPrototypeOf(VoteButton)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (VoteButton.__proto__ || Object.getPrototypeOf(VoteButton)).call(this));
+
+        _this.postAnswer = _this.postAnswer.bind(_this);
+        return _this;
     }
 
     _createClass(VoteButton, [{
+        key: "postAnswer",
+        value: function postAnswer() {
+            event.preventDefault();
+
+            var vote = this.props.details.answer;
+            return helpers.addVote(this.props.gameInstanceId, vote);
+        }
+    }, {
         key: "render",
         value: function render() {
             return _react2.default.createElement(
                 "form",
-                { action: "", method: "post" },
+                null,
                 _react2.default.createElement(
                     "button",
-                    { name: "answer", className: "btn btn-warning vote-answer", value: "" },
-                    this.props.answer
+                    { name: "answer", className: "btn btn-warning vote-answer", onSubmit: this.postAnswer() },
+                    this.props.details.answer
                 )
             );
         }
