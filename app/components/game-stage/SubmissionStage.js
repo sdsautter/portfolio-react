@@ -32,7 +32,10 @@ export default class SubmissionStage extends Component {
                     <div className="row">
                         <div className="col">
 
-                            <GameInput letters={this.props.letters}/>
+                            <GameInput 
+                                letters={this.props.letters}
+                                gameInstanceId={this.props.gameInstanceId}
+                            />
                         </div>
                     </div>
                 </div>
