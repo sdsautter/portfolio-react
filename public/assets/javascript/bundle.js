@@ -29359,8 +29359,12 @@ var GameInstance = function (_Component) {
     _createClass(GameInstance, [{
         key: "addFindGame",
         value: function addFindGame() {
+<<<<<<< HEAD
             this.setState({ findGame: true,
                 gameState: 'waiting' });
+=======
+            this.setState({ findGame: true });
+>>>>>>> 30c8a9ef80da12e9c439ec9ca9f7fdd568e6a665
             this.gameSync();
         }
     }, {
