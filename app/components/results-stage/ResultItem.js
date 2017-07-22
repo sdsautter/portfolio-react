@@ -31,7 +31,7 @@ export default class ResultsItem extends Component {
                                 <p>Points:</p>
                             </div>
                             <div className="col-1">
-                                <p>{this.props.userScore}</p>
+                                <p>{this.props.score}</p>
                             </div>
                         </div>
                     </div>
