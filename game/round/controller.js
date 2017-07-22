@@ -194,25 +194,18 @@ exports.submitAnswer = async(gameInstance, player, answer) => {
 };
 
 exports.calculatePoints = async(_id) => {
-  console.log('calcuating points');
   // find each answer for the round
   const answers = await Answer.findAnswerByRound(_id);
-  console.log(`answers in round: ${_id} - ${answers}`);
 
   if (!answers) return false;
-  console.log('Found answer');
 
   // find how many votes each answer got
   let votes = [];
   for (let i = 0; i < answers.length; i++) {
-    console.log(`looking for votes for answer: ${answers[i]}`);
     votes = await Vote.findVotesByAnswer(answers[i]._id);
-    console.log(`found ${votes.length} for answer: ${answers[i]}`);
     // multiply the scorePotential by the number of votes received and add it to the user's points total for the round      
     const totalPointsForRound = answers[i].scorePotential * votes.length;
-    console.log(`totalPointsForRound: ${totalPointsForRound}`);
     // Add the player's score to the round
-    console.log('Updating round...');
 
     const updatedRound = await Round.findOneAndUpdate({
       _id,
@@ -226,9 +219,12 @@ exports.calculatePoints = async(_id) => {
     }, {
       new: true,
     });
-
-    console.log(`updated round: ${updatedRound}`);
   }
   // 
   return true;
 };
+
+exports.addPointToGameInstance = async(round) => {
+  const roundWithScores = await Round.findById(round);
+  gameInstance = round.gameInstance;
+}

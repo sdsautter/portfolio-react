@@ -75,6 +75,18 @@ exports.generateStatus = async(gameInstanceId) => {
     if (round.state === 'results') {
       timeLeft = 75 - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
 
+      // search players for the Id and get the username and store the username and points
+      for (let i = 0; i < round.scores.length; i++) {
+        for (let j = 0; j < players.length; j++) {
+          if (parseInt(players[j].user) === parseInt(round.scores[i].player)) {
+            userScore.push({
+              username: players[j].username,
+              score: round.scores[i].score,
+            });
+          }
+        }
+      }
+
       activeRound = {
         number: round.number,
         letters: round.letters,
