@@ -85,7 +85,7 @@ exports.generateStatus = async(gameInstanceId) => {
     }
   }
 
-  const status = {
+  return {
     gameInstance: {
       Id: gameId,
       state: gameState,
@@ -93,6 +93,4 @@ exports.generateStatus = async(gameInstanceId) => {
     },
     activeRound,
   };
-
-  return status;
 };
