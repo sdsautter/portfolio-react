@@ -183,6 +183,7 @@ export default class GameInstance extends Component {
                 return (
                     <VotingStage
                         answers={this.state.votingAnswers}
+                        timeLeft={this.state.roundTimeLeft}
                         />
                     )
                 break;
