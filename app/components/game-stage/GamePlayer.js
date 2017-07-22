@@ -6,6 +6,7 @@ export default class GamePlayer extends Component {
         super();
     }
 
+
     render() {     
 
         return(
@@ -16,13 +17,13 @@ export default class GamePlayer extends Component {
                 <div className="col-8">
                     <div className="row">
                         <div className="col-12">
-                        {this.props.username}
+                        <p className="player-name">{this.props.username}</p>
                         </div>
                         <div className="col-5">
                             <p className="points-text">Points:</p>
                         </div>
                         <div className="col-7">
-                        {this.props.points}
+                        <p className="player-name">{this.props.points}</p>
                         </div>
                     </div>
                 </div>

@@ -17,7 +17,7 @@ export default class GameInput extends Component {
         var answerArray = answer.split(" ");
         console.log(answerArray);
         console.log(lettersArray);
-        // console.log(addAnswer(this.props.gameInstance));
+        console.log(addAnswer(this.props.gameInstance));
         //First we'll see if there's any time left
         if (this.props.timeLeft > 0  && !alreadyAnswered) {
             //We check to see if the answer array is the same length as the letter array
@@ -50,7 +50,7 @@ export default class GameInput extends Component {
         let alreadyAnswered = false;
 
         return(          
-            <form className="input-group" onSubmit={(event) => this.submitAnswer(event)}>
+            <form className="input-group" onSubmit={this.submitAnswer}>
                 <input 
                     ref={(input) => {this.playerAnswer = input}}
                     name="answer" 
