@@ -29349,19 +29349,6 @@ var GameInstance = function (_Component) {
             gameState: {},
             resultsInfo: {},
             findGame: false
-            // const io = require('socket.io-client');
-            // const socket = io.connect('http://localhost')
-            //When component is mounted. This is technically when a user "connects" to game server.
-            // componentDidMount(){
-            //Customer even Welcome from server. On represents a listen port to receive an event. 
-            //With Data being param sent from server. In this case a string "Welcome user"
-            // socket.on('welcome', function(data){
-            //     console.log(data);
-            //     //Client emits a custom 'return' event to confirm receipt.
-            //     //sends an example JSON object "Thanks" that will print to server console.
-            //     //the JSON object can be compiled inline or elsewhere, or be any variable from within the component. 
-            //     socket.emit('return', {my:'thanks'});
-            // });
 
             //Binding functions to change the states
         };_this.addGameInstance = _this.addGameInstance.bind(_this);
@@ -29489,8 +29476,7 @@ var GameInstance = function (_Component) {
                     if (this.state.votingAnswers != null) {
                         return _react2.default.createElement(_VotingStage2.default, {
                             votingAnswers: this.state.votingAnswers,
-                            timeLeft: this.state.roundTimeLeft,
-                            gameInstanceId: this.state.gameInstanceId
+                            timeLeft: this.state.roundTimeLeft
                         });
                     }
                     break;
