@@ -29,5 +29,5 @@ exports.isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) return next();
   // keep track of where the user is to send back after they login
   req.session.returnTo = req.path;
-  return res.redirect('/login');
+  return res.redirect('/');
 };
