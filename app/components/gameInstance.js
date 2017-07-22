@@ -174,12 +174,8 @@ export default class GameInstance extends Component {
         
     // }
     gameState() {
+
         switch(this.state.roundState){
-            case 'waiting':
-                return (
-                    <WaitingStage players={this.state.players} />
-                )
-                break;
             case 'voting': 
                 return (
                     <VotingStage
@@ -208,6 +204,11 @@ export default class GameInstance extends Component {
 
             default: 
                 console.log(this.state.roundState)
+                if (this.state.gameState === 'waiting' ){
+                        return (
+                            <WaitingStage players={this.state.players} />
+                        )
+                }else {
                 return (
                     <FindGame 
                         addGameInstance={this.addGameInstance}
@@ -215,13 +216,15 @@ export default class GameInstance extends Component {
                      /> 
                 )
                 break;
+                }
         }
     }
 
     render() {
         return (
             <div className="row justify-content-center">
-                  {this.gameState()} 
+                  
+                {this.gameState()} 
             {/*
                  
                     <WaitingStage players={this.state.players} />

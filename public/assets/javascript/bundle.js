@@ -29502,10 +29502,8 @@ var GameInstance = function (_Component) {
     }, {
         key: "gameState",
         value: function gameState() {
+
             switch (this.state.roundState) {
-                case 'waiting':
-                    return _react2.default.createElement(_GameWaiting2.default, { players: this.state.players });
-                    break;
                 case 'voting':
                     return _react2.default.createElement(_VotingStage2.default, {
                         answers: this.state.votingAnswers
@@ -29527,11 +29525,15 @@ var GameInstance = function (_Component) {
 
                 default:
                     console.log(this.state.roundState);
-                    return _react2.default.createElement(_FindGame2.default, {
-                        addGameInstance: this.addGameInstance,
-                        addFindGame: this.addFindGame
-                    });
-                    break;
+                    if (this.state.gameState === 'waiting') {
+                        return _react2.default.createElement(_GameWaiting2.default, { players: this.state.players });
+                    } else {
+                        return _react2.default.createElement(_FindGame2.default, {
+                            addGameInstance: this.addGameInstance,
+                            addFindGame: this.addFindGame
+                        });
+                        break;
+                    }
             }
         }
     }, {
