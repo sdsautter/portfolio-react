@@ -13,7 +13,7 @@ export default class GameLetters extends Component{
     render() {
         return (
             <div className="row text-center">
-                <div className="col-6 offset-4">
+                <div className="col">
                     <p className="game-letters">{this.stringLetters()}</p>
                 </div>
             </div>

@@ -13982,13 +13982,13 @@ var ResultsStage = function (_Component) {
                 { className: "col-10 main-game text-center" },
                 Object.keys(this.props.resultsInfo).map(function (key) {
                     var resultsInfo = _this2.props.resultsInfo[key];
-                    return _react2.default.createElement(_ResultItem2.default, {
-                        answer: resultsInfo.answer,
-                        userScore: resultsInfo.userScoreForRound,
+                    return _react2.default.createElement(_ResultItem2.default
+                    // answer={resultsInfo.answer}
+                    , { key: key,
+                        score: resultsInfo.score,
                         username: resultsInfo.username
                     });
-                }),
-                "}"
+                })
             );
         }
     }]);
@@ -29451,14 +29451,13 @@ var GameInstance = function (_Component) {
                     (0, _helpers.gameSyncHelper)(_this2.state.gameInstanceId, function (data) {
                         var activeRound = data.data.activeRound;
                         var gameInstanceGet = data.data.gameInstance;
-                        // console.log(activeRound.userAnswers);  
                         _this2.addRoundLetters(activeRound.letters);
                         _this2.addRoundNumber(activeRound.number);
                         _this2.addRoundState(activeRound.state);
                         _this2.addRoundAnswers(activeRound.submittedAnswers);
                         _this2.addRoundTimeLeft(activeRound.timeLeft);
                         _this2.addVotingAnswers(activeRound.userAnswers);
-                        _this2.addResultsInfo(activeRound.userScores);
+                        _this2.addResultsInfo(activeRound.userScore);
                         _this2.addGameState(gameInstanceGet.state);
                         _this2.addPlayers(gameInstanceGet.players);
                     });
@@ -29635,7 +29634,7 @@ var GameLetters = function (_Component) {
                 { className: "row text-center" },
                 _react2.default.createElement(
                     "div",
-                    { className: "col-6 offset-4" },
+                    { className: "col" },
                     _react2.default.createElement(
                         "p",
                         { className: "game-letters" },
@@ -30954,7 +30953,7 @@ var ResultsItem = function (_Component) {
                             _react2.default.createElement(
                                 "p",
                                 null,
-                                this.props.userScore
+                                this.props.score
                             )
                         )
                     )

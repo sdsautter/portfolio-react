@@ -110,14 +110,13 @@ export default class GameInstance extends Component {
                     gameSyncHelper(this.state.gameInstanceId, (data) => {
                         const activeRound = data.data.activeRound;
                         const gameInstanceGet = data.data.gameInstance;
-                        // console.log(activeRound.userAnswers);  
                         this.addRoundLetters(activeRound.letters);
                         this.addRoundNumber(activeRound.number);
                         this.addRoundState(activeRound.state);
                         this.addRoundAnswers(activeRound.submittedAnswers);
                         this.addRoundTimeLeft(activeRound.timeLeft);
                         this.addVotingAnswers(activeRound.userAnswers);
-                        this.addResultsInfo(activeRound.userScores);
+                        this.addResultsInfo(activeRound.userScore);
                         this.addGameState(gameInstanceGet.state);
                         this.addPlayers(gameInstanceGet.players);
                         
