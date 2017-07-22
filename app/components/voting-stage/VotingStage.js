@@ -17,7 +17,7 @@ export default class VotingStage extends Component {
                             {
                                 Object.keys(this.props.votingAnswers).map((key) => {
                                     let currentAnswer = this.props.votingAnswers[key];
-                                    return (<VoteButton answer={currentAnswer.answer} />)
+                                    return (<VoteButton key={key} answer={currentAnswer.answer} />)
                                 })
                             }                                
                         </div>
