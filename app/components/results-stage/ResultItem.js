@@ -9,13 +9,13 @@ export default class ResultsItem extends Component {
                     </div>
                     <div className="col-10">
                         <div className="row">
-                            <div className="col-12">
+                            {/*<div className="col-12">
                                 <p className="results-answer">{this.props.answer}</p>
-                            </div>
+                            </div>*/}
                             <div className="col">
                                 <p className="player-name">{this.props.username}</p>
                             </div>
-                            <div className="col-1">
+                            {/*<div className="col-1">
                                 <p>Votes:</p>
                             </div>
                             <div className="col-1">
@@ -26,12 +26,12 @@ export default class ResultsItem extends Component {
                             </div>
                             <div className="col-1">
                                 <p>{this.props.timeLeft}</p>
-                            </div>
+                            </div>*/}
                             <div className="col">
                                 <p>Points:</p>
                             </div>
                             <div className="col-1">
-                                <p>{this.props.points}</p>
+                                <p>{this.props.userScore}</p>
                             </div>
                         </div>
                     </div>

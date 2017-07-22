@@ -11,17 +11,13 @@ export default class VotingStage extends Component {
                     <legend className="vote-for-text">Vote For Your Favorite Answer</legend>
                         <div className="btn-group-vertical" data-toggle="buttons">
                             {console.log(this.props.votingAnswers)} 
-                            {() => {
-
-                                if (this.props.votingAnswers != null) {
+                            {
                                 Object.keys(this.props.votingAnswers).map((key) => {
-                                let currentAnswer = this.props.votingAnswers[key];
-                                return (<VoteButton answer={currentAnswer.answer} />)
+                                    let currentAnswer = this.props.votingAnswers[key];
+                                    return (<VoteButton answer={currentAnswer.answer} />)
                                 })
-                                }
-                            }
-                                
-                            }
+                            }                                
+                            
                             {/*<VoteButton answer="Gentrifcation Usually Betters"/>
                             <VoteButton answer="Ginger Ultra Burn" />
                             <VoteButton answer="Google Underwear Brown" />*/}
