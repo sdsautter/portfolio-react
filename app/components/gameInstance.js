@@ -35,6 +35,7 @@ export default class GameInstance extends Component {
         this.addGameState = this.addGameState.bind(this);
         this.addFindGame = this.addFindGame.bind(this);
         this.addResultsInfo = this.addResultsInfo.bind(this);
+        this.addVotingAnswers = this.addVotingAnswers.bind(this)
 
         //Binding Game Renders
         // this.findGameRender = this.findGameRender.bind(this);
@@ -109,7 +110,7 @@ export default class GameInstance extends Component {
                     gameSyncHelper(this.state.gameInstanceId, (data) => {
                         const activeRound = data.data.activeRound;
                         const gameInstanceGet = data.data.gameInstance;
-                        console.log(activeRound);  
+                        // console.log(activeRound.userAnswers);  
                         this.addRoundLetters(activeRound.letters);
                         this.addRoundNumber(activeRound.number);
                         this.addRoundState(activeRound.state);
@@ -126,60 +127,6 @@ export default class GameInstance extends Component {
             }
     }
 
-    // findGameRender() {
-    //     if (!this.state.findGame) {
-    //         return (
-    //             <FindGame 
-    //                 addGameInstance={this.addGameInstance}
-    //                 addFindGame={this.addFindGame}
-    //              /> 
-    //         )
-    //     }
-    // }
-
-    // waitingStageRender() {
-    //     if (this.state.gameState === 'waiting') {
-    //         return (
-    //             <WaitingStage players={this.state.players} />
-    //         )
-    //     }
-    // }
-
-    // submissionStageRender() {
-    //     if (this.state.roundState === 'playing') {
-    //         return (
-    //             <SubmissionStage 
-    //                 players={this.state.players} 
-    //                 timeLeft={this.state.roundTimeLeft}
-    //                 letters={this.state.letters}
-    //                 roundNumber={this.state.roundNumber}
-    //                 />
-    //         )
-    //     }
-    // }
-
-    // votingStageRender() {
-    //     if (this.state.roundState === 'voting') {
-    //         return (
-    //             <VotingStage
-    //                 answers={this.state.votingAnswers}
-    //                 />
-    //         )
-    //     }
-    // }
-
-    // resultsStageRender() {
-    //     if (this.state.roundState === 'results') {
-    //         return (
-    //             <ResultsStage 
-    //                 />
-    //         )
-    //     }
-    // }
-
-    // endResultsRender() {
-        
-    // }
     gameState() {
         switch(this.state.roundState){
             case 'waiting':
@@ -188,12 +135,14 @@ export default class GameInstance extends Component {
                 )
                 break;
             case 'voting': 
-                return (
+            if (this.state.votingAnswers != null) {    
+                return (    
                     <VotingStage
-                        answers={this.state.votingAnswers}
+                        votingAnswers={this.state.votingAnswers}
                         timeLeft={this.state.roundTimeLeft}
-                        />
-                    )
+                    />
+                )
+            }
                 break;
 
             case 'playing': 
@@ -209,11 +158,13 @@ export default class GameInstance extends Component {
                 break;
 
             case 'results': 
-                return (
-                   <ResultsStage 
-                        resultsInfo={this.state.resultsInfo}
-                    />
-                )
+                if (this.state.resultsInfo != null) {
+                    return (
+                    <ResultsStage 
+                            resultsInfo={this.state.resultsInfo}
+                        />
+                    )
+                }
                 break;
 
             default: 
@@ -235,24 +186,7 @@ export default class GameInstance extends Component {
     render() {
         return (
             <div className="row justify-content-center">
-                  {this.gameState()} 
-            {/*
-                 
-                    <WaitingStage players={this.state.players} />
-
-                    <SubmissionStage 
-                    players={this.state.players} 
-                    timeLeft={this.state.timeLeft}
-                    letters={this.state.letters}
-                    roundNumber={this.state.roundNumber}
-                    />
-
-                    <VotingStage
-                    answers={this.state.votingAnswers}
-                    />
-                    
-                    <ResultsStage 
-                    />*/}
+                  {this.gameState()}
             </div>
         )
     }
