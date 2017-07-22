@@ -35,16 +35,18 @@ export default class GameInstance extends Component {
         this.addFindGame = this.addFindGame.bind(this);
 
         //Binding Game Renders
-        this.findGameRender = this.findGameRender.bind(this);
-        this.waitingStageRender = this.waitingStageRender.bind(this);
-        this.submissionStageRender = this.submissionStageRender.bind(this);
-        this.votingStageRender = this.votingStageRender.bind(this);
-        this.resultsStageRender = this.resultsStageRender.bind(this);
-        this.endResultsRender = this.endResultsRender.bind(this);
+        // this.findGameRender = this.findGameRender.bind(this);
+        // this.waitingStageRender = this.waitingStageRender.bind(this);
+        // this.submissionStageRender = this.submissionStageRender.bind(this);
+        // this.votingStageRender = this.votingStageRender.bind(this);
+        // this.resultsStageRender = this.resultsStageRender.bind(this);
+        // this.endResultsRender = this.endResultsRender.bind(this);
+        this.gameState = this.gameState.bind(this);
     }
 
     addFindGame() {
         this.setState({ findGame: true });
+        this.gameSync();
     }
 
     addGameInstance(gameInstanceId) {
@@ -111,75 +113,114 @@ export default class GameInstance extends Component {
                         this.addGameState(gameInstanceGet.state);
                         this.addPlayers(gameInstanceGet.players);
                     });
-                    this.gameSync();
+                    
                 }, 2500);
             }
     }
 
-    findGameRender() {
-        if (!this.state.findGame) {
-            return (
-                <FindGame 
-                    addGameInstance={this.addGameInstance}
-                    addFindGame={this.addFindGame}
-                 /> 
-            )
-        }
-    }
+    // findGameRender() {
+    //     if (!this.state.findGame) {
+    //         return (
+    //             <FindGame 
+    //                 addGameInstance={this.addGameInstance}
+    //                 addFindGame={this.addFindGame}
+    //              /> 
+    //         )
+    //     }
+    // }
 
-    waitingStageRender() {
-        if (this.state.gameState === 'waiting') {
-            return (
-                <WaitingStage players={this.state.players} />
-            )
-        }
-    }
+    // waitingStageRender() {
+    //     if (this.state.gameState === 'waiting') {
+    //         return (
+    //             <WaitingStage players={this.state.players} />
+    //         )
+    //     }
+    // }
 
-    submissionStageRender() {
-        if (this.state.roundState === 'playing') {
-            return (
-                <SubmissionStage 
-                    players={this.state.players} 
-                    timeLeft={this.state.roundTimeLeft}
-                    letters={this.state.letters}
-                    roundNumber={this.state.roundNumber}
-                    />
-            )
-        }
-    }
+    // submissionStageRender() {
+    //     if (this.state.roundState === 'playing') {
+    //         return (
+    //             <SubmissionStage 
+    //                 players={this.state.players} 
+    //                 timeLeft={this.state.roundTimeLeft}
+    //                 letters={this.state.letters}
+    //                 roundNumber={this.state.roundNumber}
+    //                 />
+    //         )
+    //     }
+    // }
 
-    votingStageRender() {
-        if (this.state.roundState === 'voting') {
-            return (
-                <VotingStage
-                    answers={this.state.votingAnswers}
-                    />
-            )
-        }
-    }
+    // votingStageRender() {
+    //     if (this.state.roundState === 'voting') {
+    //         return (
+    //             <VotingStage
+    //                 answers={this.state.votingAnswers}
+    //                 />
+    //         )
+    //     }
+    // }
 
-    resultsStageRender() {
-        if (this.state.roundState === 'results') {
-            return (
-                <ResultsStage 
-                    />
-            )
-        }
-    }
+    // resultsStageRender() {
+    //     if (this.state.roundState === 'results') {
+    //         return (
+    //             <ResultsStage 
+    //                 />
+    //         )
+    //     }
+    // }
 
-    endResultsRender() {
+    // endResultsRender() {
         
+    // }
+    gameState() {
+        switch(this.state.roundState){
+            case 'waiting':
+                return (
+                    <WaitingStage players={this.state.players} />
+                )
+                break;
+            case 'voting': 
+                return (
+                    <VotingStage
+                        answers={this.state.votingAnswers}
+                        />
+                    )
+                break;
+
+            case 'playing': 
+                return (
+                    <SubmissionStage 
+                        players={this.state.players} 
+                        timeLeft={this.state.roundTimeLeft}
+                        letters={this.state.letters}
+                        roundNumber={this.state.roundNumber}
+                        />
+                    )
+                break;
+
+            case 'results': 
+                return (
+                   <ResultsStage 
+                    />
+                )
+                break;
+
+            default: 
+                console.log(this.state.roundState)
+                return (
+                    <FindGame 
+                        addGameInstance={this.addGameInstance}
+                        addFindGame={this.addFindGame}
+                     /> 
+                )
+                break;
+        }
     }
 
     render() {
-        this.gameSync();
         return (
             <div className="row justify-content-center">
-                  {this.findGameRender()} 
-                  {this.waitingStageRender()}
-                  {this.submissionStageRender()}
-                  {this.votingStageRender()}
-                  {this.resultsStageRender()}
+                  {this.gameState()} 
             {/*
                  
                     <WaitingStage players={this.state.players} />
