@@ -9,18 +9,9 @@ export default class VotingStage extends Component {
                 <VoteTime/>
                     <legend className="vote-for-text">Vote For Your Favorite Answer</legend>
                         <div className="btn-group-vertical" data-toggle="buttons">
-                            {
-                                Object
-                                .keys(this.state.roundAnswers)
-                                .map(key => <VoteButton
-                                    key={key}
-                                    details={this.state.votingAnswers[key]}
-                                    />)
-                            }
-                            {/*<VoteButton answer="Gentrifcation Usually Betters"/>
-                             <VoteButton answer="Ginger Ultra Burn" />
+                            <VoteButton answer="Gentrifcation Usually Betters"/>
+                            <VoteButton answer="Ginger Ultra Burn" />
                             <VoteButton answer="Google Underwear Brown" />
-                            <VoteButton answer="Google Underwear Brown" />*/}
                         </div>
                     <br />
             </div>

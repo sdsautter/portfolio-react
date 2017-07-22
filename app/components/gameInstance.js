@@ -45,8 +45,7 @@ export default class GameInstance extends Component {
     }
 
     addFindGame() {
-        this.setState({ findGame: true ,
-                        gameState: 'waiting'});
+        this.setState({ findGame: true });
         this.gameSync();
     }
 
@@ -174,8 +173,12 @@ export default class GameInstance extends Component {
         
     // }
     gameState() {
-
         switch(this.state.roundState){
+            case 'waiting':
+                return (
+                    <WaitingStage players={this.state.players} />
+                )
+                break;
             case 'voting': 
                 return (
                     <VotingStage
@@ -203,7 +206,6 @@ export default class GameInstance extends Component {
                 break;
 
             default: 
-                console.log(this.state.roundState)
                 if (this.state.gameState === 'waiting' ){
                         return (
                             <WaitingStage players={this.state.players} />
@@ -216,15 +218,13 @@ export default class GameInstance extends Component {
                      /> 
                 )
                 break;
-                }
-        }
+        }}
     }
 
     render() {
         return (
             <div className="row justify-content-center">
-                  
-                {this.gameState()} 
+                  {this.gameState()} 
             {/*
                  
                     <WaitingStage players={this.state.players} />
