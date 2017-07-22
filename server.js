@@ -52,19 +52,19 @@ app.set('view engine', 'handlebars');
 require('./user/routes')(app, passport);
 require('./game/index')(app);
 
-//Websocket
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
-server.listen(80);
-//'connection' is an event built into io, will run function
-io.on('connection', function (socket) {
-  //'welcome' is a custom event. Will send the string "Welcome User" to browser console.
-  socket.emit('welcome', 'Welcome User!');
-  //'return' is a custom event. Data is param received from client. Will print to server console.
-  socket.on('return', function(data) {
-    console.log(data);
-  })
-})
+// //Websocket
+// const server = require('http').Server(app);
+// const io = require('socket.io')(server);
+// server.listen(80);
+// //'connection' is an event built into io, will run function
+// io.on('connection', function (socket) {
+//   //'welcome' is a custom event. Will send the string "Welcome User" to browser console.
+//   socket.emit('welcome', 'Welcome User!');
+//   //'return' is a custom event. Data is param received from client. Will print to server console.
+//   socket.on('return', function(data) {
+//     console.log(data);
+//   })
+// })
 // Connect to the database
 mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
 const db = mongoose.connection;
