@@ -36,7 +36,7 @@ const validateAnswer = (answer, letterArray) => {
   if (answerArray.length === letterArray.length) {
     var validatedWords = 0;
     for (let i = 0; i < letterArray.length; i++) {
-      if (answerArray[i].startsWith(letterArray[i])) {
+      if (answerArray[i].startsWith(letterArray[i].toLowerCase())) {
         validatedWords++;
       }
     }
