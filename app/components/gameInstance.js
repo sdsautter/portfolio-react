@@ -153,6 +153,7 @@ export default class GameInstance extends Component {
                     <VotingStage
                         votingAnswers={this.state.votingAnswers}
                         timeLeft={this.state.roundTimeLeft}
+                        gameInstanceId={this.state.gameInstanceId}
                     />
                 )
             }
