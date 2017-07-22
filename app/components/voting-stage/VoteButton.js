@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import axios from "axios";
 
 export default class VoteButton extends Component {
     constructor() {
@@ -9,14 +10,15 @@ export default class VoteButton extends Component {
     voteAnswerPost(event) {
         console.log("click!"); 
         let vote = this.props.answerId;
+        console.log(vote);
 
-            // axios.post(`/api/games/${this.props.gameInstanceId}`, { vote })
-            // .then((response) => {
-            //     console.log("Voted");
-            // })
-            // .catch(function (error) {
-            //     console.log(error);
-            // });
+            axios.post(`/api/games/${this.props.gameInstanceId}`, { vote })
+            .then((response) => {
+                console.log("Voted");
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         
 
     }
@@ -25,14 +27,14 @@ export default class VoteButton extends Component {
         return (
 
 
-            <form onSubmit={this.voteAnswerPost}>
-                <button 
+            
+                <button onClick={this.voteAnswerPost}
                     name="findGame"
                     className="btn btn-success vote-answer"
                 >
                     {this.props.answer}
                 </button>
-            </form>
+            
 
 
             // <form onSubmit={this.voteAnswerPost}>
