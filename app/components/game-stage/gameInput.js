@@ -16,8 +16,7 @@ export default class GameInput extends Component {
 
         axios.post(`/api/games/${this.props.gameInstanceId}`, { answer })
             .then((response) => {
-                console.log(response);
-                console.log("Input added");
+                console.log(`answer submitted - server response: ${JSON.stringify(response.data)}`);
             })
             .catch(function (error) {
                 console.log(error);
