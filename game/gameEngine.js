@@ -6,6 +6,7 @@ const Status = mongoose.model('Status');
 const gameInstanceController = require('./gameInstance/controller');
 const roundController = require('./round/controller');
 const statusController = require('./status/controller');
+const gameConfig = require('./config');
 
 exports.submitAnswerOrVote = async(req, res) => {
   const gameInstanceId = req.params.gameInstance;
@@ -47,16 +48,16 @@ exports.startGame = async(gameInstanceId) => {
     
     if (newRound.error) return newRound.error;
     // Start the round timer for 60 seconds
-    const playTimer = await createTimer(30);
+    const playTimer = await createTimer(gameConfig.PLAYTIMER);
     // Set the round state to voting
     const roundInVotingState = await roundController.setRoundState(newRound._id, 'voting');
     // After 30 seconds move to the results state
-    const voteTimer = await createTimer(30);
+    const voteTimer = await createTimer(gameConfig.VOTETIMER);
     // calculate the results for the round
     await roundController.calculatePoints(newRound._id);
     // Set the round state to results
     const roundInResultsState = await roundController.setRoundState(newRound._id, 'results');
-    const resultsTimer = await createTimer(15);
+    const resultsTimer = await createTimer(gameConfig.RESULTSTIMER);
     // After 15 seconds move to the complete state
     // add the points for the round to the game instance
     // await roundController.addPointToGameInstance(newRound._id);
