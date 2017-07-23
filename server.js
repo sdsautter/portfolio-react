@@ -19,7 +19,7 @@ require('./game/status/model');
 
 // Create Express server
 const app = express();
-const PORT = process.env.PORT || 4013;
+const PORT = process.env.PORT || 4012;
 // Define public directory
 app.use(express.static(path.join(__dirname, 'public')));
 // Define BodyParser

@@ -1,9 +1,10 @@
 import React, {Component} from "react";
-import SubmissionStage from "./game-stage/SubmissionStage.js"
-import VotingStage from "./voting-stage/VotingStage.js"
-import ResultsStage from "./results-stage/ResultsStage.js"
+import SubmissionStage from "./game-stage/SubmissionStage.js";
+import VotingStage from "./voting-stage/VotingStage.js";
+import ResultsStage from "./results-stage/ResultsStage.js";
 import FindGame from "./find-game-stage/FindGame.js";
 import WaitingStage from "./waiting-stage/GameWaiting.js";
+import FinalResults from "./final-results/FinalResultsStage";
 import { gameSyncHelper, roundSyncHelper } from "../utils/helpers";
 import axios from "axios";
 
@@ -23,6 +24,19 @@ export default class GameInstance extends Component {
             resultsInfo: {},
             findGame: false
         }
+    // const io = require('socket.io-client');
+    // const socket = io.connect('http://localhost')
+    // //When component is mounted. This is technically when a user "connects" to game server.
+    // componentDidMount(){
+    //     //Customer even Welcome from server. On represents a listen port to receive an event. 
+    //     //With Data being param sent from server. In this case a string "Welcome user"
+    //     socket.on('welcome', function(data){
+    //         console.log(data);
+    //         //Client emits a custom 'return' event to confirm receipt.
+    //         //sends an example JSON object "Thanks" that will print to server console.
+    //         //the JSON object can be compiled inline or elsewhere, or be any variable from within the component. 
+    //         socket.emit('return', {my:'thanks'});
+    //     });
 
         //Binding functions to change the states
         this.addGameInstance = this.addGameInstance.bind(this);
@@ -37,13 +51,7 @@ export default class GameInstance extends Component {
         this.addResultsInfo = this.addResultsInfo.bind(this);
         this.addVotingAnswers = this.addVotingAnswers.bind(this)
 
-        //Binding Game Renders
-        // this.findGameRender = this.findGameRender.bind(this);
-        // this.waitingStageRender = this.waitingStageRender.bind(this);
-        // this.submissionStageRender = this.submissionStageRender.bind(this);
-        // this.votingStageRender = this.votingStageRender.bind(this);
-        // this.resultsStageRender = this.resultsStageRender.bind(this);
-        // this.endResultsRender = this.endResultsRender.bind(this);
+
         this.gameState = this.gameState.bind(this);
     }
 
@@ -118,8 +126,8 @@ export default class GameInstance extends Component {
                         this.addVotingAnswers(activeRound.userAnswers);
                         this.addResultsInfo(activeRound.userScore);
                         this.addGameState(gameInstanceGet.state);
-                        this.addPlayers(gameInstanceGet.players);
-                        
+                        this.addPlayers(gameInstanceGet.players);  
+                        console.log(data)       
                     });
                     
                 }, 1000);
@@ -127,13 +135,18 @@ export default class GameInstance extends Component {
     }
 
     gameState() {
+        if(this.state.gameState === 'complete') {
+            return (<FinalResults 
+                    results={this.state.players}
+                     />)
+        } else {
         switch(this.state.roundState){
             case 'waiting':
                 return (
                     <WaitingStage players={this.state.players} />
                 )
                 break;
-            case 'voting': 
+            case 'voting':  
             if (this.state.votingAnswers != null) {    
                 return (    
                     <VotingStage
@@ -181,6 +194,7 @@ export default class GameInstance extends Component {
                 )
                 break;
         }}
+    }
     }
 
     render() {
