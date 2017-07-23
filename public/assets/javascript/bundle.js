@@ -29702,7 +29702,7 @@ var GameInput = function (_Component) {
             var lettersArray = this.props.letters;
 
             _axios2.default.post("/api/games/" + this.props.gameInstanceId, { answer: answer }).then(function (response) {
-                console.log("answer submitted - server response: " + response.data);
+                console.log("answer submitted - server response: " + JSON.stringify(response.data));
             }).catch(function (error) {
                 console.log(error);
             });
