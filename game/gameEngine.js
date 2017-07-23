@@ -59,7 +59,7 @@ exports.startGame = async(gameInstanceId) => {
     const resultsTimer = await createTimer(15);
     // After 15 seconds move to the complete state
     // add the points for the round to the game instance
-    await roundController.addPointToGameInstance(newRound._id);
+    // await roundController.addPointToGameInstance(newRound._id);
     // Set the round state to complete
     const roundInCompleteState = await roundController.setRoundState(newRound._id, 'complete');
   }
