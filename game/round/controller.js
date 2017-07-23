@@ -5,6 +5,7 @@ const Vote = require('../vote/controller');
 const GameInstance = mongoose.model('GameInstance');
 const User = mongoose.model('User');
 const Round = mongoose.model('Round');
+const gameConfig = require('../config');
 
 const generateRandomLetters = (num) => {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
@@ -182,7 +183,7 @@ exports.submitAnswer = async(gameInstance, player, answer) => {
   };
 
   // @TODO scrub the answer for xss and injections
-  const timeLapsed = 60 - Math.floor(-1 * ((activeRound.startTime - Date.now()) / 1000));
+  const timeLapsed = gameConfig.PLAYTIMER - Math.floor(-1 * ((activeRound.startTime - Date.now()) / 1000));
   const scorePotential = calculateScorePotential(activeRound.number, timeLapsed);
   // Put the answer and score potential in the database 
   const newAnswer = await Answer.createAnswer(activeRound._id, player, answer, scorePotential);

@@ -3,6 +3,8 @@ const Status = mongoose.model('Status');
 const GameInstance = mongoose.model('GameInstance');
 const Round = require('../round/controller');
 const Answer = require('../answer/controller');
+const gameConfig = require('../config');
+
 
 exports.generateStatus = async(gameInstanceId) => {
   let activeRound = {};
@@ -34,7 +36,7 @@ exports.generateStatus = async(gameInstanceId) => {
     const round = gameRounds[0];
 
     if (round.state === 'playing') {
-      timeLeft = 30 - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
+      timeLeft = gameConfig.PLAYTIMER - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
       // If a player has submitted an answer mark it down.
       for (let i = 0; i < players.length; i++) {
         const answer = await Answer.findAnswerByRoundAndPlayer(round._id, players[i].user);
@@ -53,7 +55,7 @@ exports.generateStatus = async(gameInstanceId) => {
     }
 
     if (round.state === 'voting') {
-      timeLeft = 60 - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
+      timeLeft = (gameConfig.PLAYTIMER + gameConfig.VOTETIMER) - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
       const answers = await Answer.findAnswerByRound(round._id);
       if (Array.isArray(answers)) {
         if (answers.length !== 0) {
@@ -76,7 +78,7 @@ exports.generateStatus = async(gameInstanceId) => {
     }
 
     if (round.state === 'results') {
-      timeLeft = 75 - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
+      timeLeft = (gameConfig.PLAYTIMER + gameConfig.VOTETIMER + gameConfig.RESULTSTIMER) - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
 
       // search players for the Id and get the username and store the username and points
       for (let i = 0; i < round.scores.length; i++) {
