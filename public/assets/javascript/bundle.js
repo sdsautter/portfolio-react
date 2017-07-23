@@ -29785,7 +29785,7 @@ var GameInput = function (_Component) {
                     { className: "input-group-btn" },
                     _react2.default.createElement(
                         "button",
-                        { id: "answerSubmit", className: "btn btn-secondary", type: "button" },
+                        { id: "answerSubmit", className: "btn btn-secondary", type: "submit" },
                         "Submit!"
                     )
                 )

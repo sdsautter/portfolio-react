@@ -73,7 +73,7 @@ export default class GameInput extends Component {
                     value=""
                 />
                     <span className="input-group-btn">
-                        <button id="answerSubmit" className="btn btn-secondary" type="button">Submit!</button>
+                        <button id="answerSubmit" className="btn btn-secondary" type="submit">Submit!</button>
                     </span>
             </form>    
         )
