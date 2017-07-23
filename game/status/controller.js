@@ -55,14 +55,17 @@ exports.generateStatus = async(gameInstanceId) => {
     if (round.state === 'voting') {
       timeLeft = 60 - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
       const answers = await Answer.findAnswerByRound(round._id);
-      if (answers.length !== 0) {
-        userAnswers = answers.map((answer) => {
-          return {
-            answer: answer.answer,
-            answerId: answer._id,
-          };
-        });
+      if (Array.isArray(answers)) {
+        if (answers.length !== 0) {
+          userAnswers = answers.map((answer) => {
+            return {
+              answer: answer.answer,
+              answerId: answer._id,
+            };
+          });
+        }
       }
+
       activeRound = {
         number: round.number,
         letters: round.letters,
