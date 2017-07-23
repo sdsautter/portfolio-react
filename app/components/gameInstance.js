@@ -4,7 +4,7 @@ import VotingStage from "./voting-stage/VotingStage.js";
 import ResultsStage from "./results-stage/ResultsStage.js";
 import FindGame from "./find-game-stage/FindGame.js";
 import WaitingStage from "./waiting-stage/GameWaiting.js";
-import FinalResults from "./game-over-stage/FinalResultsStage";
+import FinalResults from "./final-results/FinalResultsStage";
 import { gameSyncHelper, roundSyncHelper } from "../utils/helpers";
 import axios from "axios";
 
@@ -135,7 +135,7 @@ export default class GameInstance extends Component {
     }
 
     gameState() {
-        if(this.state.gameState === 'complete'){
+        if(this.state.gameState === 'complete') {
             return (<FinalResults 
                     results={this.state.players}
                      />)

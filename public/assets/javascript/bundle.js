@@ -29315,6 +29315,10 @@ var _GameWaiting = __webpack_require__(288);
 
 var _GameWaiting2 = _interopRequireDefault(_GameWaiting);
 
+var _FinalResultsStage = __webpack_require__(289);
+
+var _FinalResultsStage2 = _interopRequireDefault(_FinalResultsStage);
+
 var _helpers = __webpack_require__(123);
 
 var _axios = __webpack_require__(34);
@@ -29349,6 +29353,19 @@ var GameInstance = function (_Component) {
             gameState: {},
             resultsInfo: {},
             findGame: false
+            // const io = require('socket.io-client');
+            // const socket = io.connect('http://localhost')
+            // //When component is mounted. This is technically when a user "connects" to game server.
+            // componentDidMount(){
+            //     //Customer even Welcome from server. On represents a listen port to receive an event. 
+            //     //With Data being param sent from server. In this case a string "Welcome user"
+            //     socket.on('welcome', function(data){
+            //         console.log(data);
+            //         //Client emits a custom 'return' event to confirm receipt.
+            //         //sends an example JSON object "Thanks" that will print to server console.
+            //         //the JSON object can be compiled inline or elsewhere, or be any variable from within the component. 
+            //         socket.emit('return', {my:'thanks'});
+            //     });
 
             //Binding functions to change the states
         };_this.addGameInstance = _this.addGameInstance.bind(_this);
@@ -29363,13 +29380,6 @@ var GameInstance = function (_Component) {
         _this.addResultsInfo = _this.addResultsInfo.bind(_this);
         _this.addVotingAnswers = _this.addVotingAnswers.bind(_this);
 
-        //Binding Game Renders
-        // this.findGameRender = this.findGameRender.bind(this);
-        // this.waitingStageRender = this.waitingStageRender.bind(this);
-        // this.submissionStageRender = this.submissionStageRender.bind(this);
-        // this.votingStageRender = this.votingStageRender.bind(this);
-        // this.resultsStageRender = this.resultsStageRender.bind(this);
-        // this.endResultsRender = this.endResultsRender.bind(this);
         _this.gameState = _this.gameState.bind(_this);
         return _this;
     }
@@ -29457,9 +29467,10 @@ var GameInstance = function (_Component) {
                         _this2.addRoundAnswers(activeRound.submittedAnswers);
                         _this2.addRoundTimeLeft(activeRound.timeLeft);
                         _this2.addVotingAnswers(activeRound.userAnswers);
-                        _this2.addResultsInfo(activeRound.userScore);
+                        _this2.addResultsInfo(activeRound.userScores);
                         _this2.addGameState(gameInstanceGet.state);
                         _this2.addPlayers(gameInstanceGet.players);
+                        console.log(data);
                     });
                 }, 1000);
             }
@@ -29467,48 +29478,54 @@ var GameInstance = function (_Component) {
     }, {
         key: "gameState",
         value: function gameState() {
-            switch (this.state.roundState) {
-                case 'waiting':
-                    return _react2.default.createElement(_GameWaiting2.default, { players: this.state.players });
-                    break;
-                case 'voting':
-                    if (this.state.votingAnswers != null) {
-                        return _react2.default.createElement(_VotingStage2.default, {
-                            votingAnswers: this.state.votingAnswers,
+            if (this.state.gameState === 'complete') {
+                return _react2.default.createElement(_FinalResultsStage2.default, {
+                    results: this.state.players
+                });
+            } else {
+                switch (this.state.roundState) {
+                    case 'waiting':
+                        return _react2.default.createElement(_GameWaiting2.default, { players: this.state.players });
+                        break;
+                    case 'voting':
+                        if (this.state.votingAnswers != null) {
+                            return _react2.default.createElement(_VotingStage2.default, {
+                                votingAnswers: this.state.votingAnswers,
+                                timeLeft: this.state.roundTimeLeft,
+                                gameInstanceId: this.state.gameInstanceId
+                            });
+                        }
+                        break;
+
+                    case 'playing':
+                        return _react2.default.createElement(_SubmissionStage2.default, {
+                            players: this.state.players,
                             timeLeft: this.state.roundTimeLeft,
+                            letters: this.state.letters,
+                            roundNumber: this.state.roundNumber,
                             gameInstanceId: this.state.gameInstanceId
                         });
-                    }
-                    break;
-
-                case 'playing':
-                    return _react2.default.createElement(_SubmissionStage2.default, {
-                        players: this.state.players,
-                        timeLeft: this.state.roundTimeLeft,
-                        letters: this.state.letters,
-                        roundNumber: this.state.roundNumber,
-                        gameInstanceId: this.state.gameInstanceId
-                    });
-                    break;
-
-                case 'results':
-                    if (this.state.resultsInfo != null) {
-                        return _react2.default.createElement(_ResultsStage2.default, {
-                            resultsInfo: this.state.resultsInfo
-                        });
-                    }
-                    break;
-
-                default:
-                    if (this.state.gameState === 'waiting') {
-                        return _react2.default.createElement(_GameWaiting2.default, { players: this.state.players });
-                    } else {
-                        return _react2.default.createElement(_FindGame2.default, {
-                            addGameInstance: this.addGameInstance,
-                            addFindGame: this.addFindGame
-                        });
                         break;
-                    }}
+
+                    case 'results':
+                        if (this.state.resultsInfo != null) {
+                            return _react2.default.createElement(_ResultsStage2.default, {
+                                resultsInfo: this.state.resultsInfo
+                            });
+                        }
+                        break;
+
+                    default:
+                        if (this.state.gameState === 'waiting') {
+                            return _react2.default.createElement(_GameWaiting2.default, { players: this.state.players });
+                        } else {
+                            return _react2.default.createElement(_FindGame2.default, {
+                                addGameInstance: this.addGameInstance,
+                                addFindGame: this.addFindGame
+                            });
+                            break;
+                        }}
+            }
         }
     }, {
         key: "render",
@@ -29702,7 +29719,7 @@ var GameInput = function (_Component) {
             var lettersArray = this.props.letters;
 
             _axios2.default.post("/api/games/" + this.props.gameInstanceId, { answer: answer }).then(function (response) {
-                console.log("answer submitted - server response: " + response.data);
+                console.log("answer submitted - server response: " + JSON.stringify(response.data));
             }).catch(function (error) {
                 console.log(error);
             });
@@ -31033,6 +31050,163 @@ var WaitingStage = function (_Component) {
 }(_react.Component);
 
 exports.default = WaitingStage;
+
+/***/ }),
+/* 289 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _FinalResultItem = __webpack_require__(290);
+
+var _FinalResultItem2 = _interopRequireDefault(_FinalResultItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FinalResultsStage = function (_Component) {
+    _inherits(FinalResultsStage, _Component);
+
+    function FinalResultsStage(props) {
+        _classCallCheck(this, FinalResultsStage);
+
+        var _this = _possibleConstructorReturn(this, (FinalResultsStage.__proto__ || Object.getPrototypeOf(FinalResultsStage)).call(this, props));
+
+        _this.finalResults = _this.finalResults.bind(_this);
+        return _this;
+    }
+
+    _createClass(FinalResultsStage, [{
+        key: "finalResults",
+        value: function finalResults() {
+            console.log(this.props.results);
+            return this.props.results.map(function (player) {
+                return _react2.default.createElement(_FinalResultItem2.default, {
+                    score: player.points,
+                    username: player.username
+                });
+            });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "col-10 main-game text-center" },
+                this.finalResults()
+            );
+        }
+    }]);
+
+    return FinalResultsStage;
+}(_react.Component);
+
+exports.default = FinalResultsStage;
+
+/***/ }),
+/* 290 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FinalResultsItem = function (_Component) {
+    _inherits(FinalResultsItem, _Component);
+
+    function FinalResultsItem() {
+        _classCallCheck(this, FinalResultsItem);
+
+        return _possibleConstructorReturn(this, (FinalResultsItem.__proto__ || Object.getPrototypeOf(FinalResultsItem)).apply(this, arguments));
+    }
+
+    _createClass(FinalResultsItem, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "row results-all" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "col-2" },
+                    _react2.default.createElement("img", { className: "avatar-results", src: "assets/images/avatar1.png" })
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "col-10" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col" },
+                            _react2.default.createElement(
+                                "p",
+                                { className: "player-name" },
+                                this.props.username
+                            )
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col" },
+                            _react2.default.createElement(
+                                "p",
+                                null,
+                                "Points:"
+                            )
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-1" },
+                            _react2.default.createElement(
+                                "p",
+                                null,
+                                this.props.score
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return FinalResultsItem;
+}(_react.Component);
+
+exports.default = FinalResultsItem;
 
 /***/ })
 /******/ ]);
