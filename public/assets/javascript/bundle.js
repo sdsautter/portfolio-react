@@ -29568,7 +29568,7 @@ var GameTime = function (_Component) {
                 { className: "row text-center" },
                 _react2.default.createElement(
                     "div",
-                    { className: "col-6 offset-4" },
+                    { className: "col" },
                     _react2.default.createElement(
                         "p",
                         { className: "time-left" },
