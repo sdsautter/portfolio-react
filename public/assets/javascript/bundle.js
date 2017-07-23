@@ -29467,7 +29467,7 @@ var GameInstance = function (_Component) {
                         _this2.addRoundAnswers(activeRound.submittedAnswers);
                         _this2.addRoundTimeLeft(activeRound.timeLeft);
                         _this2.addVotingAnswers(activeRound.userAnswers);
-                        _this2.addResultsInfo(activeRound.userScores);
+                        _this2.addResultsInfo(activeRound.userScore);
                         _this2.addGameState(gameInstanceGet.state);
                         _this2.addPlayers(gameInstanceGet.players);
                         console.log(data);
