@@ -22,6 +22,7 @@ export default class GameInstance extends Component {
             roundState: {},
             gameState: {},
             resultsInfo: {},
+            answerSubmitted: "not yet",
             findGame: false
         }
     // const io = require('socket.io-client');
@@ -49,7 +50,8 @@ export default class GameInstance extends Component {
         this.addGameState = this.addGameState.bind(this);
         this.addFindGame = this.addFindGame.bind(this);
         this.addResultsInfo = this.addResultsInfo.bind(this);
-        this.addVotingAnswers = this.addVotingAnswers.bind(this)
+        this.addVotingAnswers = this.addVotingAnswers.bind(this);
+        this.setAnswerSubmitted = this.setAnswerSubmitted.bind(this);
 
 
         this.gameState = this.gameState.bind(this);
@@ -58,6 +60,10 @@ export default class GameInstance extends Component {
     addFindGame() {
         this.setState({ findGame: true });
         this.gameSync();
+    }
+
+    setAnswerSubmitted(answerSubmitted) {
+        this.setState({ answerSubmitted });
     }
 
     addGameInstance(gameInstanceId) {
@@ -165,6 +171,8 @@ export default class GameInstance extends Component {
                         letters={this.state.letters}
                         roundNumber={this.state.roundNumber}
                         gameInstanceId={this.state.gameInstanceId}
+                        answerSubmitted={this.state.answerSubmitted}
+                        setAnswerSubmitted={this.setAnswerSubmitted}
                     />
                 )
                 break;
