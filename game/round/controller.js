@@ -195,43 +195,66 @@ exports.submitAnswer = async(gameInstance, player, answer) => {
   };
 };
 
-exports.calculatePoints = async(_id) => {
-  // find each answer for the round
-  const answers = await Answer.findAnswerByRound(_id);
-
-  if (!answers) return false;
-
-  // find how many votes each answer got
-
-  for (let i = 0; i < answers.length; i++) {
-    const votes = await Vote.findVotesByAnswer(answers[i]._id);
-    // multiply the scorePotential by the number of votes received and add it to the user's points total for the round      
-    let totalPointsForRound = 0;
-    if (votes) {
-      totalPointsForRound = answers[i].scorePotential * votes.length;
+exports.calculatePoints = async(game, round) => {
+  // console.log(`Looking for game instance: ${game}`);
+  // find the game instance
+  const gameInstance = await GameInstance.findById(game);
+  // console.log(`Found game instance: ${gameInstance}`);
+  // console.log(`Looping through ${gameInstance.players.length} players ...`);
+  // Loop through the players
+  for (let i = 0; i < gameInstance.players.length; i++) {
+    // console.log(`player-${i}: ${gameInstance.players[i].user}`);
+    const player = gameInstance.players[i].user;
+    // find the player's answer for the round
+    // console.log('Looking for answers ...')
+    let playerAnswer = await Answer.findAnswerByRoundAndPlayer(round, player);
+    let score = 0;
+    // if the player answered
+    if (playerAnswer) {
+      // convert the answer from and array into an object
+      playerAnswer = playerAnswer[0];
+      // console.log(`found answers for player: ${player}`);
+      // console.log(`${playerAnswer}`);
+      // find any votes for the answer
+      // console.log(`Looking for votes for answer: ${playerAnswer._id} ...`);
+      const votes = await Vote.findVotesByAnswer(playerAnswer._id);
+      // console.log(`votes: ${votes}`);
+      // if there are any votes
+      if (votes) {
+        // console.log(`Found votes: ${votes}`);
+        // calculate the score
+        score = parseInt(playerAnswer.scorePotential) * votes.length;
+        // console.log(`setting score to ${parseInt(playerAnswer.scorePotential) * votes.length} from Score Potential: ${parseInt(playerAnswer.scorePotential)} and Votes: ${votes.length}`);
+      }
     }
+    // console.log('updating round with new information');
     // Add the player's score to the round
     const updatedRound = await Round.findOneAndUpdate({
-      _id,
+      _id: round,
     }, {
       $push: {
         scores: {
-          player: answers[i].player,
-          score: totalPointsForRound,
+          player,
+          score,
         },
       },
     }, {
       new: true,
     });
+    // console.log(`round update: ${updatedRound}`);
   }
   // 
   return true;
 };
 
 exports.addPointToGameInstance = async(round) => {
+  console.log('Adding poitns to game instance');
+  console.log(`Looking for round id: ${round}`)
   const roundWithScores = await Round.findById(round);
-  const game = await GameInstance.findById(round.gameInstance);
-
+  console.log(`found round: ${roundWithScores}`);
+  console.log(`looking for game instance: ${roundWithScores.gameInstance}`);
+  const game = await GameInstance.findById(roundWithScores.gameInstance);
+  console.log(`found round: ${game}`);
   for (let i = 0; i < roundWithScores.scores.length; i++) {
     // find the existing score in the game
     const currentPoints = game.players.map((player) => {
@@ -240,7 +263,7 @@ exports.addPointToGameInstance = async(round) => {
       }
     });
     console.log(currentPoints);
-    const newScore = currentPoints + roundWithScores.scores[i].score;
+    const newScore = parseInt(currentPoints) + parseInt(roundWithScores.scores[i].score);
     console.log(newScore);
     GameInstance.findOneAndUpdate({
       _id: round.gameInstance,

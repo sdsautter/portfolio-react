@@ -55,7 +55,8 @@ exports.generateStatus = async(gameInstanceId) => {
     }
 
     if (round.state === 'voting') {
-timeLeft = (gameConfig.PLAYTIMER + gameConfig.VOTETIMER) - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));      const answers = await Answer.findAnswerByRound(round._id);
+      timeLeft = (gameConfig.PLAYTIMER + gameConfig.VOTETIMER) - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
+      const answers = await Answer.findAnswerByRound(round._id);
       if (Array.isArray(answers)) {
         if (answers.length !== 0) {
           userAnswers = answers.map((answer) => {
@@ -77,14 +78,17 @@ timeLeft = (gameConfig.PLAYTIMER + gameConfig.VOTETIMER) - Math.floor(-1 * ((rou
     }
 
     if (round.state === 'results') {
-timeLeft = (gameConfig.PLAYTIMER + gameConfig.VOTETIMER + gameConfig.RESULTSTIMER) - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
+      // console.log(`Generating results for round: ${round}`);
+      timeLeft = (gameConfig.PLAYTIMER + gameConfig.VOTETIMER + gameConfig.RESULTSTIMER) - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
       // search players for the Id and get the username and store the username and points
+      // console.log(`scores: ${round.scores}`);
+      // console.log(`players: ${players}`);
       for (let i = 0; i < round.scores.length; i++) {
         for (let j = 0; j < players.length; j++) {
-          if (parseInt(players[j].user) === parseInt(round.scores[i].player)) {
+          if (players[j].user.equals(round.scores[i].player)) {
             userScore.push({
               username: players[j].username,
-              score: round.scores[i].score,
+              score: parseInt(round.scores[i].score),
             });
           }
         }
