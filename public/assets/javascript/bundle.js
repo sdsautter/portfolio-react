@@ -29309,7 +29309,7 @@ var Navbar = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 "nav",
-                { className: "navbar fixed-top navbar-toggleable-md navbar-inverse bg-inverse" },
+                { className: "navbar navbar-toggleable-md navbar-inverse bg-inverse" },
                 _react2.default.createElement(
                     "button",
                     { className: "navbar-toggler navbar-toggler-right", type: "button", "data-toggle": "collapse", "data-target": "#navbarNavAltMarkup",
