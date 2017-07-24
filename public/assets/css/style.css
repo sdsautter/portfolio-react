@@ -171,3 +171,7 @@ h1 {
   right: 3%;
   top: 20%;
 }
+
+.navbar {
+  background-color: rgba(41,43,44,10) !important;
+}
