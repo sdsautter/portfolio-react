@@ -162,12 +162,12 @@ h1 {
 }
 
 .navbar-brand {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   margin-left: 2%;
 }
 
 .nav-item {
-  position: absolute;
+  position: absolute; 
   right: 3%;
   top: 20%;
 }
