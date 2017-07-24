@@ -4,6 +4,7 @@
 // var Link = require("react-router").Link;
 
 import React, {Component} from 'react';
+import Navbar from "./Navbar.js"
 import GameInstance from "./GameInstance";
 
 
@@ -15,11 +16,7 @@ export default class Main extends Component {
 
     return (
         <div className="container-fluid z-index-2">
-        <div className="row">
-            <div className="col">
-                <h1 className="text-center">Acronauts</h1>
-            </div>
-        </div>
+        <Navbar />
         <br />
             <GameInstance />
     </div>

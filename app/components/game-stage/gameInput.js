@@ -17,6 +17,17 @@ export default class GameInput extends Component {
         axios.post(`/api/games/${this.props.gameInstanceId}`, { answer })
             .then((response) => {
                 console.log(`answer submitted - server response: ${JSON.stringify(response.data)}`);
+                //Will be true if answer is invalid
+                if (JSON.stringify(response.data).includes("Invalid") ) {
+                    this.props.setAnswerSubmitted("Invalid");
+                } else if (JSON.stringify(response.data).includes("Success")) {
+                    this.props.setAnswerSubmitted("Success");
+                    
+                } else if (JSON.stringify(response.data).includes("submitted")) {
+                    this.props.setAnswerSubmitted("submitted");          
+                }
+                
+                
             })
             .catch(function (error) {
                 console.log(error);
