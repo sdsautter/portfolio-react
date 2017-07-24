@@ -127,7 +127,6 @@ export default class GameInstance extends Component {
                         this.addResultsInfo(activeRound.userScore);
                         this.addGameState(gameInstanceGet.state);
                         this.addPlayers(gameInstanceGet.players);  
-                        console.log(data)       
                     });
                     
                 }, 1000);
