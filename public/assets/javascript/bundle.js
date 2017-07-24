@@ -13984,6 +13984,11 @@ var VotingStage = function (_Component) {
     }
 
     _createClass(VotingStage, [{
+        key: "componentWillMount",
+        value: function componentWillMount() {
+            this.props.setVotedBool(false);
+        }
+    }, {
         key: "voteAnswerPost",
         value: function voteAnswerPost(event) {
             console.log("click!");
@@ -14021,7 +14026,9 @@ var VotingStage = function (_Component) {
                             key: key,
                             answer: currentAnswer.answer,
                             answerId: currentAnswer.answerId,
-                            gameInstanceId: _this2.props.gameInstanceId
+                            gameInstanceId: _this2.props.gameInstanceId,
+                            setVotedBool: _this2.props.setVotedBool,
+                            votedBool: _this2.props.votedBool
                         });
                     })
                 ),
@@ -29528,6 +29535,7 @@ var GameInstance = function (_Component) {
             resultsInfo: {},
             answerSubmitted: "not yet",
             submittedBool: false,
+            votedBool: false,
             findGame: false
             // const io = require('socket.io-client');
             // const socket = io.connect('http://localhost')
@@ -29557,6 +29565,7 @@ var GameInstance = function (_Component) {
         _this.addVotingAnswers = _this.addVotingAnswers.bind(_this);
         _this.setAnswerSubmitted = _this.setAnswerSubmitted.bind(_this);
         _this.setSubmittedBool = _this.setSubmittedBool.bind(_this);
+        _this.setVotedBool = _this.setVotedBool.bind(_this);
 
         _this.gameState = _this.gameState.bind(_this);
         return _this;
@@ -29577,6 +29586,11 @@ var GameInstance = function (_Component) {
         key: "setAnswerSubmitted",
         value: function setAnswerSubmitted(answerSubmitted) {
             this.setState({ answerSubmitted: answerSubmitted });
+        }
+    }, {
+        key: "setVotedBool",
+        value: function setVotedBool(votedBool) {
+            this.setState({ votedBool: votedBool });
         }
     }, {
         key: "addGameInstance",
@@ -29679,7 +29693,9 @@ var GameInstance = function (_Component) {
                             return _react2.default.createElement(_VotingStage2.default, {
                                 votingAnswers: this.state.votingAnswers,
                                 timeLeft: this.state.roundTimeLeft,
-                                gameInstanceId: this.state.gameInstanceId
+                                gameInstanceId: this.state.gameInstanceId,
+                                setVotedBool: this.setVotedBool,
+                                votedBool: this.state.votedBool
                             });
                         }
                         break;
@@ -31059,12 +31075,15 @@ var VoteButton = function (_Component) {
     _createClass(VoteButton, [{
         key: "voteAnswerPost",
         value: function voteAnswerPost(event) {
+            var _this2 = this;
+
             console.log("click!");
             var vote = this.props.answerId;
             console.log(vote);
 
             _axios2.default.post("/api/games/" + this.props.gameInstanceId, { vote: vote }).then(function (response) {
                 console.log("Voted");
+                _this2.props.setVotedBool(true);
             }).catch(function (error) {
                 console.log(error);
             });
@@ -31075,6 +31094,7 @@ var VoteButton = function (_Component) {
             return _react2.default.createElement(
                 "button",
                 { onClick: this.voteAnswerPost,
+                    disabled: this.props.votedBool,
                     name: "findGame",
                     className: "btn btn-success vote-answer"
                 },
