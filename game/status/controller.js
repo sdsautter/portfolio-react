@@ -55,8 +55,7 @@ exports.generateStatus = async(gameInstanceId) => {
     }
 
     if (round.state === 'voting') {
-      timeLeft = gameConfig.VOTETIMER - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
-      const answers = await Answer.findAnswerByRound(round._id);
+timeLeft = (gameConfig.PLAYTIMER + gameConfig.VOTETIMER) - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));      const answers = await Answer.findAnswerByRound(round._id);
       if (Array.isArray(answers)) {
         if (answers.length !== 0) {
           userAnswers = answers.map((answer) => {
@@ -78,8 +77,7 @@ exports.generateStatus = async(gameInstanceId) => {
     }
 
     if (round.state === 'results') {
-      timeLeft = gameConfig.RESULTSTIMER - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
-
+timeLeft = (gameConfig.PLAYTIMER + gameConfig.VOTETIMER + gameConfig.RESULTSTIMER) - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
       // search players for the Id and get the username and store the username and points
       for (let i = 0; i < round.scores.length; i++) {
         for (let j = 0; j < players.length; j++) {
