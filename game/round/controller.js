@@ -202,13 +202,15 @@ exports.calculatePoints = async(_id) => {
   if (!answers) return false;
 
   // find how many votes each answer got
-  let votes = [];
-  for (let i = 0; i < answers.length; i++) {
-    votes = await Vote.findVotesByAnswer(answers[i]._id);
-    // multiply the scorePotential by the number of votes received and add it to the user's points total for the round      
-    const totalPointsForRound = answers[i].scorePotential * votes.length;
-    // Add the player's score to the round
 
+  for (let i = 0; i < answers.length; i++) {
+    const votes = await Vote.findVotesByAnswer(answers[i]._id);
+    // multiply the scorePotential by the number of votes received and add it to the user's points total for the round      
+    let totalPointsForRound = 0;
+    if (votes) {
+      totalPointsForRound = answers[i].scorePotential * votes.length;
+    }
+    // Add the player's score to the round
     const updatedRound = await Round.findOneAndUpdate({
       _id,
     }, {
@@ -228,5 +230,26 @@ exports.calculatePoints = async(_id) => {
 
 exports.addPointToGameInstance = async(round) => {
   const roundWithScores = await Round.findById(round);
-  gameInstance = round.gameInstance;
-}
+  const game = await GameInstance.findById(round.gameInstance);
+
+  for (let i = 0; i < roundWithScores.scores.length; i++) {
+    // find the existing score in the game
+    const currentPoints = game.players.map((player) => {
+      if (parseInt(player.user) === parseInt(roundWithScores.scores[i].player)) {
+        return player.points;
+      }
+    });
+    console.log(currentPoints);
+    const newScore = currentPoints + roundWithScores.scores[i].score;
+    console.log(newScore);
+    GameInstance.findOneAndUpdate({
+      _id: round.gameInstance,
+      'players.user': roundWithScores.scores[i].player,
+    }, {
+      $set: {
+        'players.$.points': newScore,
+      },
+    });
+  }
+  return true;
+};
