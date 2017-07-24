@@ -29785,6 +29785,14 @@ var GameInput = function (_Component) {
 
             _axios2.default.post("/api/games/" + this.props.gameInstanceId, { answer: answer }).then(function (response) {
                 console.log("answer submitted - server response: " + JSON.stringify(response.data));
+                //Will be true if answer is invalid
+                if (JSON.stringify(response.data).includes("Invalid")) {
+                    alert("Invalid answer. Try again.");
+                } else if (JSON.stringify(response.data).includes("Success")) {
+                    alert("Answer submitted!");
+                } else if (JSON.stringify(response.data).includes("submitted")) {
+                    alert("You can only submit one answer, doofus!");
+                }
             }).catch(function (error) {
                 console.log(error);
             });
