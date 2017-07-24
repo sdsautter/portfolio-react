@@ -13486,6 +13486,7 @@ var SubmissionStage = function (_Component) {
         key: "componentWillMount",
         value: function componentWillMount() {
             this.props.setAnswerSubmitted("not yet");
+            this.props.setSubmittedBool(false);
         }
     }, {
         key: "inputRender",
@@ -13501,7 +13502,7 @@ var SubmissionStage = function (_Component) {
                                 { className: "col" },
                                 _react2.default.createElement(
                                     "p",
-                                    null,
+                                    { className: "p-make" },
                                     "Make an acronym with the above letters"
                                 )
                             )
@@ -13519,7 +13520,7 @@ var SubmissionStage = function (_Component) {
                                 { className: "col" },
                                 _react2.default.createElement(
                                     "p",
-                                    null,
+                                    { className: "p-invalid" },
                                     "Your answer wasn't valid. Try harder."
                                 )
                             )
@@ -13537,7 +13538,7 @@ var SubmissionStage = function (_Component) {
                                 { className: "col" },
                                 _react2.default.createElement(
                                     "p",
-                                    null,
+                                    { className: "p-success" },
                                     "Hey, way to make an answer!"
                                 )
                             )
@@ -13555,8 +13556,8 @@ var SubmissionStage = function (_Component) {
                                 { className: "col" },
                                 _react2.default.createElement(
                                     "p",
-                                    null,
-                                    "You've already answered, doofus."
+                                    { className: "p-submitted" },
+                                    "You've already answered..."
                                 )
                             )
                         );
@@ -13573,7 +13574,7 @@ var SubmissionStage = function (_Component) {
                                 { className: "col" },
                                 _react2.default.createElement(
                                     "p",
-                                    null,
+                                    { className: "p-make" },
                                     "Make an acronym with the above letters"
                                 )
                             )
@@ -13621,7 +13622,9 @@ var SubmissionStage = function (_Component) {
                         _react2.default.createElement(_GameInput2.default, {
                             letters: this.props.letters,
                             gameInstanceId: this.props.gameInstanceId,
-                            setAnswerSubmitted: this.props.setAnswerSubmitted
+                            setAnswerSubmitted: this.props.setAnswerSubmitted,
+                            setSubmittedBool: this.props.setSubmittedBool,
+                            submittedBool: this.props.submittedBool
                         })
                     )
                 )
@@ -29524,6 +29527,7 @@ var GameInstance = function (_Component) {
             gameState: {},
             resultsInfo: {},
             answerSubmitted: "not yet",
+            submittedBool: false,
             findGame: false
             // const io = require('socket.io-client');
             // const socket = io.connect('http://localhost')
@@ -29552,6 +29556,7 @@ var GameInstance = function (_Component) {
         _this.addResultsInfo = _this.addResultsInfo.bind(_this);
         _this.addVotingAnswers = _this.addVotingAnswers.bind(_this);
         _this.setAnswerSubmitted = _this.setAnswerSubmitted.bind(_this);
+        _this.setSubmittedBool = _this.setSubmittedBool.bind(_this);
 
         _this.gameState = _this.gameState.bind(_this);
         return _this;
@@ -29562,6 +29567,11 @@ var GameInstance = function (_Component) {
         value: function addFindGame() {
             this.setState({ findGame: true });
             this.gameSync();
+        }
+    }, {
+        key: "setSubmittedBool",
+        value: function setSubmittedBool(submittedBool) {
+            this.setState({ submittedBool: submittedBool });
         }
     }, {
         key: "setAnswerSubmitted",
@@ -29682,7 +29692,9 @@ var GameInstance = function (_Component) {
                             roundNumber: this.state.roundNumber,
                             gameInstanceId: this.state.gameInstanceId,
                             answerSubmitted: this.state.answerSubmitted,
-                            setAnswerSubmitted: this.setAnswerSubmitted
+                            setAnswerSubmitted: this.setAnswerSubmitted,
+                            setSubmittedBool: this.setSubmittedBool,
+                            submittedBool: this.state.submittedBool
                         });
                         break;
 
@@ -29906,6 +29918,7 @@ var GameInput = function (_Component) {
                     _this2.props.setAnswerSubmitted("Invalid");
                 } else if (JSON.stringify(response.data).includes("Success")) {
                     _this2.props.setAnswerSubmitted("Success");
+                    _this2.props.setSubmittedBool(true);
                 } else if (JSON.stringify(response.data).includes("submitted")) {
                     _this2.props.setAnswerSubmitted("submitted");
                 }
@@ -29959,22 +29972,21 @@ var GameInput = function (_Component) {
                         _this3.playerAnswer = input;
                     },
                     name: "answer",
+                    disabled: this.props.submittedBool,
                     type: "text",
                     className: "form-control",
                     required: true, placeholder: "Type Answer Here"
-                }),
-                _react2.default.createElement("input", {
-                    type: "hidden",
-                    name: "playerId"
-                    //We'll have to pull local player for this value
-                    , value: ""
                 }),
                 _react2.default.createElement(
                     "span",
                     { className: "input-group-btn" },
                     _react2.default.createElement(
                         "button",
-                        { id: "answerSubmit", className: "btn btn-secondary", type: "submit" },
+                        {
+                            id: "answerSubmit",
+                            className: "btn btn-secondary",
+                            disabled: this.props.submittedBool,
+                            type: "submit" },
                         "Submit!"
                     )
                 )

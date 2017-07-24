@@ -175,3 +175,23 @@ h1 {
 .navbar {
   background-color: rgba(41,43,44,10) !important;
 }
+
+.p-make, .p-invalid, .p-success, .p-submitted {
+  font-size: 1.5rem;
+}
+
+.p-make {
+  color: yellow;
+}
+
+.p-invalid {
+  color: rgb(80%, 10%, 0%)
+}
+
+.p-success {
+  color: greenyellow;
+}
+
+.p-submitted {
+  color: pink;
+}

@@ -22,7 +22,7 @@ export default class GameInput extends Component {
                     this.props.setAnswerSubmitted("Invalid");
                 } else if (JSON.stringify(response.data).includes("Success")) {
                     this.props.setAnswerSubmitted("Success");
-                    
+                    this.props.setSubmittedBool(true);
                 } else if (JSON.stringify(response.data).includes("submitted")) {
                     this.props.setAnswerSubmitted("submitted");          
                 }
@@ -72,19 +72,20 @@ export default class GameInput extends Component {
             <form className="input-group" onSubmit={this.submitAnswer}>
                 <input 
                     ref={(input) => {this.playerAnswer = input}}
-                    name="answer" 
+                    name="answer"
+                    disabled={this.props.submittedBool} 
                     type="text" 
                     className="form-control" 
                     required placeholder="Type Answer Here" 
                 />
-                <input 
-                    type="hidden" 
-                    name="playerId" 
-                    //We'll have to pull local player for this value
-                    value=""
-                />
                     <span className="input-group-btn">
-                        <button id="answerSubmit" className="btn btn-secondary" type="submit">Submit!</button>
+                        <button 
+                        id="answerSubmit" 
+                        className="btn btn-secondary"
+                        disabled={this.props.submittedBool}                      
+                        type="submit">
+                            Submit!
+                        </button>
                     </span>
             </form>    
         )

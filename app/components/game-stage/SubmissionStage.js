@@ -13,6 +13,7 @@ export default class SubmissionStage extends Component {
 
     componentWillMount() {
         this.props.setAnswerSubmitted("not yet");
+        this.props.setSubmittedBool(false);
     }
 
     inputRender() {
@@ -21,7 +22,7 @@ export default class SubmissionStage extends Component {
                 return(
                     <div className="row">
                         <div className="col">
-                            <p>Make an acronym with the above letters</p>
+                            <p className="p-make">Make an acronym with the above letters</p>
                         </div>                        
                     </div>
                 )
@@ -32,7 +33,7 @@ export default class SubmissionStage extends Component {
                 return(
                     <div className="row">
                         <div className="col">
-                            <p>Your answer wasn't valid. Try harder.</p>
+                            <p className="p-invalid">Your answer wasn't valid. Try harder.</p>
                         </div>                        
                     </div>
                 )
@@ -43,7 +44,7 @@ export default class SubmissionStage extends Component {
                 return(
                     <div className="row">
                         <div className="col">
-                            <p>Hey, way to make an answer!</p>
+                            <p className="p-success">Hey, way to make an answer!</p>
                         </div>                        
                     </div>
                 )
@@ -54,7 +55,7 @@ export default class SubmissionStage extends Component {
                 return(
                     <div className="row">
                         <div className="col">
-                            <p>You've already answered...</p>
+                            <p className="p-submitted">You've already answered...</p>
                         </div>                        
                     </div>
                 )
@@ -65,7 +66,7 @@ export default class SubmissionStage extends Component {
                 return(
                     <div className="row">
                         <div className="col">
-                            <p>Make an acronym with the above letters</p>
+                            <p className="p-make">Make an acronym with the above letters</p>
                         </div>                     
                     </div>
                 )
@@ -101,6 +102,8 @@ export default class SubmissionStage extends Component {
                                 letters={this.props.letters}
                                 gameInstanceId={this.props.gameInstanceId}
                                 setAnswerSubmitted={this.props.setAnswerSubmitted}
+                                setSubmittedBool={this.props.setSubmittedBool}
+                                submittedBool={this.props.submittedBool}
                             />
                         </div>
                     </div>
