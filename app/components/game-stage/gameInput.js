@@ -19,11 +19,12 @@ export default class GameInput extends Component {
                 console.log(`answer submitted - server response: ${JSON.stringify(response.data)}`);
                 //Will be true if answer is invalid
                 if (JSON.stringify(response.data).includes("Invalid") ) {
-                    alert("Invalid answer. Try again.")
+                    this.props.setAnswerSubmitted("Invalid");
                 } else if (JSON.stringify(response.data).includes("Success")) {
-                    alert("Answer submitted!");
+                    this.props.setAnswerSubmitted("Success");
+                    
                 } else if (JSON.stringify(response.data).includes("submitted")) {
-                    alert("You can only submit one answer, doofus!");
+                    this.props.setAnswerSubmitted("submitted");          
                 }
                 
                 

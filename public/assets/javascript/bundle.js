@@ -13476,10 +13476,114 @@ var SubmissionStage = function (_Component) {
     function SubmissionStage(props) {
         _classCallCheck(this, SubmissionStage);
 
-        return _possibleConstructorReturn(this, (SubmissionStage.__proto__ || Object.getPrototypeOf(SubmissionStage)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (SubmissionStage.__proto__ || Object.getPrototypeOf(SubmissionStage)).call(this, props));
+
+        _this.inputRender = _this.inputRender.bind(_this);
+        return _this;
     }
 
     _createClass(SubmissionStage, [{
+        key: "componentWillMount",
+        value: function componentWillMount() {
+            this.props.setAnswerSubmitted("not yet");
+        }
+    }, {
+        key: "inputRender",
+        value: function inputRender() {
+            switch (this.props.answerSubmitted) {
+                case "not yet":
+                    {
+                        return _react2.default.createElement(
+                            "div",
+                            { className: "row" },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "col" },
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Make an acronym with the above letters"
+                                )
+                            )
+                        );
+                        break;
+                    }
+
+                case "Invalid":
+                    {
+                        return _react2.default.createElement(
+                            "div",
+                            { className: "row" },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "col" },
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Your answer wasn't valid. Try harder."
+                                )
+                            )
+                        );
+                        break;
+                    }
+
+                case "Success":
+                    {
+                        return _react2.default.createElement(
+                            "div",
+                            { className: "row" },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "col" },
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Hey, way to make an answer!"
+                                )
+                            )
+                        );
+                        break;
+                    }
+
+                case "submitted":
+                    {
+                        return _react2.default.createElement(
+                            "div",
+                            { className: "row" },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "col" },
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "You've already answered, doofus."
+                                )
+                            )
+                        );
+                        break;
+                    }
+
+                default:
+                    {
+                        return _react2.default.createElement(
+                            "div",
+                            { className: "row" },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "col" },
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Make an acronym with the above letters"
+                                )
+                            )
+                        );
+                        break;
+                    }
+
+            }
+        }
+    }, {
         key: "render",
         value: function render() {
             var _this2 = this;
@@ -13507,6 +13611,7 @@ var SubmissionStage = function (_Component) {
                     )
                 ),
                 _react2.default.createElement("br", null),
+                this.inputRender(),
                 _react2.default.createElement(
                     "div",
                     { className: "row" },
@@ -13515,7 +13620,8 @@ var SubmissionStage = function (_Component) {
                         { className: "col" },
                         _react2.default.createElement(_GameInput2.default, {
                             letters: this.props.letters,
-                            gameInstanceId: this.props.gameInstanceId
+                            gameInstanceId: this.props.gameInstanceId,
+                            setAnswerSubmitted: this.props.setAnswerSubmitted
                         })
                     )
                 )
@@ -29417,6 +29523,7 @@ var GameInstance = function (_Component) {
             roundState: {},
             gameState: {},
             resultsInfo: {},
+            answerSubmitted: "not yet",
             findGame: false
             // const io = require('socket.io-client');
             // const socket = io.connect('http://localhost')
@@ -29444,6 +29551,7 @@ var GameInstance = function (_Component) {
         _this.addFindGame = _this.addFindGame.bind(_this);
         _this.addResultsInfo = _this.addResultsInfo.bind(_this);
         _this.addVotingAnswers = _this.addVotingAnswers.bind(_this);
+        _this.setAnswerSubmitted = _this.setAnswerSubmitted.bind(_this);
 
         _this.gameState = _this.gameState.bind(_this);
         return _this;
@@ -29454,6 +29562,11 @@ var GameInstance = function (_Component) {
         value: function addFindGame() {
             this.setState({ findGame: true });
             this.gameSync();
+        }
+    }, {
+        key: "setAnswerSubmitted",
+        value: function setAnswerSubmitted(answerSubmitted) {
+            this.setState({ answerSubmitted: answerSubmitted });
         }
     }, {
         key: "addGameInstance",
@@ -29535,7 +29648,6 @@ var GameInstance = function (_Component) {
                         _this2.addResultsInfo(activeRound.userScore);
                         _this2.addGameState(gameInstanceGet.state);
                         _this2.addPlayers(gameInstanceGet.players);
-                        console.log(data);
                     });
                 }, 1000);
             }
@@ -29568,7 +29680,9 @@ var GameInstance = function (_Component) {
                             timeLeft: this.state.roundTimeLeft,
                             letters: this.state.letters,
                             roundNumber: this.state.roundNumber,
-                            gameInstanceId: this.state.gameInstanceId
+                            gameInstanceId: this.state.gameInstanceId,
+                            answerSubmitted: this.state.answerSubmitted,
+                            setAnswerSubmitted: this.setAnswerSubmitted
                         });
                         break;
 
@@ -29778,6 +29892,8 @@ var GameInput = function (_Component) {
     _createClass(GameInput, [{
         key: "submitAnswer",
         value: function submitAnswer(event) {
+            var _this2 = this;
+
             event.preventDefault();
 
             var answer = this.playerAnswer.value.trim();
@@ -29787,11 +29903,11 @@ var GameInput = function (_Component) {
                 console.log("answer submitted - server response: " + JSON.stringify(response.data));
                 //Will be true if answer is invalid
                 if (JSON.stringify(response.data).includes("Invalid")) {
-                    alert("Invalid answer. Try again.");
+                    _this2.props.setAnswerSubmitted("Invalid");
                 } else if (JSON.stringify(response.data).includes("Success")) {
-                    alert("Answer submitted!");
+                    _this2.props.setAnswerSubmitted("Success");
                 } else if (JSON.stringify(response.data).includes("submitted")) {
-                    alert("You can only submit one answer, doofus!");
+                    _this2.props.setAnswerSubmitted("submitted");
                 }
             }).catch(function (error) {
                 console.log(error);
@@ -29831,7 +29947,7 @@ var GameInput = function (_Component) {
     }, {
         key: "render",
         value: function render() {
-            var _this2 = this;
+            var _this3 = this;
 
             var alreadyAnswered = false;
 
@@ -29840,7 +29956,7 @@ var GameInput = function (_Component) {
                 { className: "input-group", onSubmit: this.submitAnswer },
                 _react2.default.createElement("input", {
                     ref: function ref(input) {
-                        _this2.playerAnswer = input;
+                        _this3.playerAnswer = input;
                     },
                     name: "answer",
                     type: "text",
