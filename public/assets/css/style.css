@@ -160,3 +160,14 @@ h1 {
   font-size: 500%;
   padding-top: 10%;
 }
+
+.navbar-brand {
+  font-size: 2.5rem;
+  margin-left: 2%;
+}
+
+.nav-item {
+  position: absolute;
+  right: 3%;
+  top: 20%;
+}
