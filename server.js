@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const exphbs = require('express-handlebars');
 const express = require('express');
+const sslRedirect = require('./ssl-redirect');
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 const logger = require('morgan');
@@ -41,6 +42,8 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 // Load passport strategies
 require('./user/passport/passport.js')(passport);
+// SSL Redirect
+app.use(sslRedirect());
 
 // Define handlebars for static pages
 app.engine('handlebars', exphbs({
