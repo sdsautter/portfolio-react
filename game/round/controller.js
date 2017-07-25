@@ -33,7 +33,7 @@ const calculateScorePotential = (round, timeLeft) => {
 
 const validateAnswer = (answer, letterArray) => {
   const answerArray = answer.toLowerCase().split(' ');
-  console.log(answerArray);
+  // console.log(answerArray);
   if (answerArray.length === letterArray.length) {
     var validatedWords = 0;
     for (let i = 0; i < letterArray.length; i++) {
@@ -280,25 +280,3 @@ exports.addPointToGameInstance = async(round) => {
   }
   return true;
 };
-// let currentPoints = game.players.map((player) => {
-//   console.log(`checking to see if ${player.user} is the same as ${roundWithScores.scores[i].player}`);
-//   if (player.user.equals(roundWithScores.scores[i].player)) {
-//     console.log(`it is, getting player points ${parseInt(player.points)}`);
-//     return parseInt(player.points);
-//   }
-// })[0];
-// if (currentPoints === undefined) currentPoints = 0;
-// console.log(`currentPoints for ${roundWithScores.scores[i].player} is ${currentPoints}`);
-// const newScore = parseInt(currentPoints) + parseInt(roundWithScores.scores[i].score);
-// console.log(`newScore: ${newScore}`);
-// const newGame = await GameInstance.findOneAndUpdate({
-//   _id: roundWithScores.gameInstance,
-//   'players.user': roundWithScores.scores[i].player,
-// }, {
-//   $set: {
-//     'players.$.points': newScore,
-//   },
-// }, {
-//   new: true,
-// });
-// console.log(`updated game instance: ${newGame}`);

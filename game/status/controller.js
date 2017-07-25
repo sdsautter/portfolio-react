@@ -12,8 +12,19 @@ exports.generateStatus = async(gameInstanceId) => {
   let userAnswers = [];
   let userScore = [];
   let timeLeft;
+
+  const idIsValid = mongoose.Types.ObjectId.isValid(gameInstanceId);
+
+  if (!idIsValid) return {
+    error: 'Invalid game ID.',
+  };
+
   // find the game instance
   const gameInstance = await GameInstance.findById(gameInstanceId);
+
+  if (gameInstance.length === 0) return {
+    error: 'game not found, please enter a valid game ID.',
+  };
 
   const gameId = gameInstance._id;
   const gameState = gameInstance.state;

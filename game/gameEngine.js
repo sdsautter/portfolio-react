@@ -11,6 +11,13 @@ const gameConfig = require('./config');
 exports.submitAnswerOrVote = async(req, res) => {
   const gameInstanceId = req.params.gameInstance;
   const playerId = req.session.passport.user;
+
+  const idIsValid = mongoose.Types.ObjectId.isValid(gameInstanceId);
+
+  if (!idIsValid) return res.json({
+    error: 'Invalid game ID.',
+  });
+
   if (req.body.answer != null) {
     const answer = req.body.answer;
     const answerStatus = await roundController.submitAnswer(gameInstanceId, playerId, answer);
