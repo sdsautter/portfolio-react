@@ -15,6 +15,7 @@ export default class VoteButton extends Component {
             axios.post(`/api/games/${this.props.gameInstanceId}`, { vote })
             .then((response) => {
                 console.log("Voted");
+                this.props.setVotedBool(true);
             })
             .catch(function (error) {
                 console.log(error);
@@ -29,6 +30,7 @@ export default class VoteButton extends Component {
 
             
                 <button onClick={this.voteAnswerPost}
+                    disabled={this.props.votedBool}
                     name="findGame"
                     className="btn btn-success vote-answer"
                 >

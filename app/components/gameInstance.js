@@ -24,6 +24,7 @@ export default class GameInstance extends Component {
             resultsInfo: {},
             answerSubmitted: "not yet",
             submittedBool: false,
+            votedBool: false,
             findGame: false
         }
     // const io = require('socket.io-client');
@@ -54,6 +55,7 @@ export default class GameInstance extends Component {
         this.addVotingAnswers = this.addVotingAnswers.bind(this);
         this.setAnswerSubmitted = this.setAnswerSubmitted.bind(this);
         this.setSubmittedBool = this.setSubmittedBool.bind(this);
+        this.setVotedBool = this.setVotedBool.bind(this);
 
 
         this.gameState = this.gameState.bind(this);
@@ -70,6 +72,10 @@ export default class GameInstance extends Component {
 
     setAnswerSubmitted(answerSubmitted) {
         this.setState({ answerSubmitted });
+    }
+
+    setVotedBool(votedBool) {
+        this.setState({ votedBool });
     }
 
     addGameInstance(gameInstanceId) {
@@ -164,6 +170,8 @@ export default class GameInstance extends Component {
                         votingAnswers={this.state.votingAnswers}
                         timeLeft={this.state.roundTimeLeft}
                         gameInstanceId={this.state.gameInstanceId}
+                        setVotedBool={this.setVotedBool}
+                        votedBool={this.state.votedBool}
                     />
                 )
             }

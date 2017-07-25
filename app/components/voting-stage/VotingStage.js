@@ -6,6 +6,10 @@ export default class VotingStage extends Component {
     constructor() {
         super();
     }
+
+    componentWillMount() {
+        this.props.setVotedBool(false);
+    }
         
     voteAnswerPost(event) {
         console.log("click!"); 
@@ -36,7 +40,9 @@ export default class VotingStage extends Component {
                                         key={key} 
                                         answer={currentAnswer.answer}
                                         answerId={currentAnswer.answerId}
-                                        gameInstanceId={this.props.gameInstanceId} 
+                                        gameInstanceId={this.props.gameInstanceId}
+                                        setVotedBool={this.props.setVotedBool}
+                                        votedBool={this.props.votedBool} 
                                     />)
                                 })
                             }                                
