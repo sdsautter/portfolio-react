@@ -11,7 +11,7 @@ exports.generateStatus = async(gameInstanceId) => {
   let submittedAnswers = [];
   let userAnswers = [];
   let userScore = [];
-  let timeLeft;
+  let stateLength;
 
   const idIsValid = mongoose.Types.ObjectId.isValid(gameInstanceId);
 
@@ -47,7 +47,7 @@ exports.generateStatus = async(gameInstanceId) => {
     const round = gameRounds[0];
 
     if (round.state === 'playing') {
-      timeLeft = gameConfig.PLAYTIMER - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
+      stateLength = gameConfig.PLAYTIMER;
       // If a player has submitted an answer mark it down.
       for (let i = 0; i < players.length; i++) {
         const answer = await Answer.findAnswerByRoundAndPlayer(round._id, players[i].user);
@@ -59,14 +59,14 @@ exports.generateStatus = async(gameInstanceId) => {
       activeRound = {
         number: round.number,
         letters: round.letters,
-        timeLeft,
         state: round.state,
+        stateLength,
         submittedAnswers,
       };
     }
 
     if (round.state === 'voting') {
-      timeLeft = (gameConfig.PLAYTIMER + gameConfig.VOTETIMER) - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
+      stateLength = gameConfig.VOTETIMER;
       const answers = await Answer.findAnswerByRound(round._id);
       if (Array.isArray(answers)) {
         if (answers.length !== 0) {
@@ -82,15 +82,15 @@ exports.generateStatus = async(gameInstanceId) => {
       activeRound = {
         number: round.number,
         letters: round.letters,
-        timeLeft,
         state: round.state,
+        stateLength,
         userAnswers,
       };
     }
 
     if (round.state === 'results') {
       // console.log(`Generating results for round: ${round}`);
-      timeLeft = (gameConfig.PLAYTIMER + gameConfig.VOTETIMER + gameConfig.RESULTSTIMER) - Math.floor(-1 * ((round.startTime - Date.now()) / 1000));
+      stateLength = gameConfig.RESULTSTIMER;
       // search players for the Id and get the username and store the username and points
       // console.log(`scores: ${round.scores}`);
       // console.log(`players: ${players}`);
@@ -108,8 +108,8 @@ exports.generateStatus = async(gameInstanceId) => {
       activeRound = {
         number: round.number,
         letters: round.letters,
-        timeLeft,
         state: round.state,
+        stateLength,
         userScore,
       };
     }
