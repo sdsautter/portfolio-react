@@ -17,6 +17,14 @@ exports.findVotesByAnswer = async(answer) => {
   return vote;
 };
 
+exports.findVotesByRound = async(round) => {
+  const vote = await Vote.find({
+    round,
+  });
+  if (vote.length === 0) return false;
+  return vote;
+};
+
 exports.findVotesByRoundAndPlayer = async(round, player) => {
   const vote = await Vote.find({
     round,
