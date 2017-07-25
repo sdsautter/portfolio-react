@@ -16,7 +16,7 @@ export default class GameInstance extends Component {
             gameInstanceId: {},
             roundAnswers: {},
             letters: {},
-            roundTimeLeft: 61,
+            timeLeft: {},
             roundNumber: {},
             votingAnswers: {},
             roundState: {},
@@ -46,7 +46,7 @@ export default class GameInstance extends Component {
         this.addRoundLetters = this.addRoundLetters.bind(this);  
         this.addRoundNumber = this.addRoundNumber.bind(this);        
         this.addRoundState = this.addRoundState.bind(this);  
-        this.addRoundTimeLeft = this.addRoundTimeLeft.bind(this);
+        this.addTimeLeft = this.addTimeLeft.bind(this);
         this.addRoundAnswers = this.addRoundAnswers.bind(this);
         this.addPlayers = this.addPlayers.bind(this);
         this.addGameState = this.addGameState.bind(this);
@@ -90,8 +90,10 @@ export default class GameInstance extends Component {
         this.setState({ roundNumber });
     }
 
-    addRoundTimeLeft(roundTimeLeft) {
-        this.setState({ roundTimeLeft });
+    addTimeLeft(TimeLeft) {
+        if (timeLeft != null ) {
+        this.setState({ timeLeft });
+        }
     }
 
     addRoundState(roundState) {
@@ -110,10 +112,6 @@ export default class GameInstance extends Component {
 
     addRoundLetters(letters) {
         this.setState({ letters });
-    }
-
-    addTimeLeft(timeLeft) {
-        this.setState({ timeLeft });
     }
 
     addVotingAnswers(votingAnswers) {
@@ -140,11 +138,13 @@ export default class GameInstance extends Component {
                         this.addRoundNumber(activeRound.number);
                         this.addRoundState(activeRound.state);
                         this.addRoundAnswers(activeRound.submittedAnswers);
-                        this.addRoundTimeLeft(activeRound.timeLeft);
+                        if (activeRound.TimeLeft > 0) {
+                        this.addTimeLeft(activeRound.stateLength);
+                        }
                         this.addVotingAnswers(activeRound.userAnswers);
                         this.addResultsInfo(activeRound.userScore);
                         this.addGameState(gameInstanceGet.state);
-                        this.addPlayers(gameInstanceGet.players);  
+                        this.addPlayers(gameInstanceGet.players);
                     });
                     
                 }, 1000);
@@ -168,20 +168,24 @@ export default class GameInstance extends Component {
                 return (    
                     <VotingStage
                         votingAnswers={this.state.votingAnswers}
-                        timeLeft={this.state.roundTimeLeft}
+                        voteLength={this.state.voteLength}
                         gameInstanceId={this.state.gameInstanceId}
                         setVotedBool={this.setVotedBool}
                         votedBool={this.state.votedBool}
+                        timeLeft={this.state.timeLeft}  
+                        addTimeLeft={this.addTimeLeft}                                              
                     />
                 )
             }
                 break;
 
             case 'playing': 
-                return (
+            if (this.state.timeLeft != null) {    
+                
+            return (
                     <SubmissionStage 
                         players={this.state.players} 
-                        timeLeft={this.state.roundTimeLeft}
+                        submitLength={this.state.submitLength}
                         letters={this.state.letters}
                         roundNumber={this.state.roundNumber}
                         gameInstanceId={this.state.gameInstanceId}
@@ -189,8 +193,11 @@ export default class GameInstance extends Component {
                         setAnswerSubmitted={this.setAnswerSubmitted}
                         setSubmittedBool={this.setSubmittedBool}
                         submittedBool={this.state.submittedBool}
+                        /*timeLeft={this.state.timeLeft}
+                        addTimeLeft={this.addTimeLeft}*/
                     />
                 )
+            }
                 break;
 
             case 'results': 
