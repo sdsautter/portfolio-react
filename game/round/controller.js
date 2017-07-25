@@ -248,31 +248,58 @@ exports.calculatePoints = async(game, round) => {
 };
 
 exports.addPointToGameInstance = async(round) => {
-  console.log('Adding poitns to game instance');
-  console.log(`Looking for round id: ${round}`)
+  // console.log('Adding points to game instance');
+  // console.log(`Looking for round id: ${round}`);
   const roundWithScores = await Round.findById(round);
-  console.log(`found round: ${roundWithScores}`);
-  console.log(`looking for game instance: ${roundWithScores.gameInstance}`);
+  // console.log(`found round: ${roundWithScores}`);
+  // console.log(`looking for game instance: ${roundWithScores.gameInstance}`);
   const game = await GameInstance.findById(roundWithScores.gameInstance);
-  console.log(`found round: ${game}`);
+  // console.log(`found round: ${game}`);
   for (let i = 0; i < roundWithScores.scores.length; i++) {
+    let currentPoints = 0;
     // find the existing score in the game
-    const currentPoints = game.players.map((player) => {
-      if (parseInt(player.user) === parseInt(roundWithScores.scores[i].player)) {
-        return player.points;
+    for (let j = 0; j < game.players.length; j++) {
+      // console.log(`checking to see if ${game.players[j].user} is the same ${roundWithScores.scores[i].player}`);
+      if (game.players[j].user.equals(roundWithScores.scores[i].player)) {
+        // console.log(`they match, current points is ${game.players[j].points}`);
+        currentPoints = parseInt(game.players[j].points);
       }
-    });
-    console.log(currentPoints);
-    const newScore = parseInt(currentPoints) + parseInt(roundWithScores.scores[i].score);
-    console.log(newScore);
-    GameInstance.findOneAndUpdate({
-      _id: round.gameInstance,
+    }
+    // console.log(`The new score will be ${currentPoints + parseInt(roundWithScores.scores[i].score)}`);
+    const newScore = currentPoints + parseInt(roundWithScores.scores[i].score);
+    const newGame = await GameInstance.findOneAndUpdate({
+      _id: roundWithScores.gameInstance,
       'players.user': roundWithScores.scores[i].player,
     }, {
       $set: {
         'players.$.points': newScore,
       },
+    }, {
+      new: true,
     });
+    // console.log(`updated game instance: ${newGame}`);
   }
   return true;
 };
+// let currentPoints = game.players.map((player) => {
+//   console.log(`checking to see if ${player.user} is the same as ${roundWithScores.scores[i].player}`);
+//   if (player.user.equals(roundWithScores.scores[i].player)) {
+//     console.log(`it is, getting player points ${parseInt(player.points)}`);
+//     return parseInt(player.points);
+//   }
+// })[0];
+// if (currentPoints === undefined) currentPoints = 0;
+// console.log(`currentPoints for ${roundWithScores.scores[i].player} is ${currentPoints}`);
+// const newScore = parseInt(currentPoints) + parseInt(roundWithScores.scores[i].score);
+// console.log(`newScore: ${newScore}`);
+// const newGame = await GameInstance.findOneAndUpdate({
+//   _id: roundWithScores.gameInstance,
+//   'players.user': roundWithScores.scores[i].player,
+// }, {
+//   $set: {
+//     'players.$.points': newScore,
+//   },
+// }, {
+//   new: true,
+// });
+// console.log(`updated game instance: ${newGame}`);

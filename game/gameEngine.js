@@ -60,7 +60,7 @@ exports.startGame = async(gameInstanceId) => {
     // After 15 seconds move to the complete state
     await createTimer(gameConfig.RESULTSTIMER);
     // add the points for the round to the game instance
-    // await roundController.addPointToGameInstance(newRound._id);
+    await roundController.addPointToGameInstance(newRound._id);
     // Set the round state to complete
     await roundController.setRoundState(newRound._id, 'complete');
   }
