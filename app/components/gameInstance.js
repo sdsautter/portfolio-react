@@ -220,6 +220,7 @@ export default class GameInstance extends Component {
                     <FindGame 
                         addGameInstance={this.addGameInstance}
                         addFindGame={this.addFindGame}
+                        findGame={this.state.findGame}
                      /> 
                 )
                 break;

@@ -14187,7 +14187,11 @@ var FindGame = function (_Component) {
                             { onSubmit: this.findGamePost },
                             _react2.default.createElement(
                                 "button",
-                                { name: "findGame", className: "btn btn-success vote-answer" },
+                                {
+                                    name: "findGame",
+                                    className: "btn btn-success vote-answer",
+                                    disabled: this.props.findGame
+                                },
                                 "Find Game"
                             )
                         )
@@ -29699,7 +29703,8 @@ var GameInstance = function (_Component) {
                         } else {
                             return _react2.default.createElement(_FindGame2.default, {
                                 addGameInstance: this.addGameInstance,
-                                addFindGame: this.addFindGame
+                                addFindGame: this.addFindGame,
+                                findGame: this.state.findGame
                             });
                             break;
                         }}
