@@ -13496,15 +13496,11 @@ var SubmissionStage = function (_Component) {
                     {
                         return _react2.default.createElement(
                             "div",
-                            { className: "row" },
+                            { className: "col" },
                             _react2.default.createElement(
-                                "div",
-                                { className: "col" },
-                                _react2.default.createElement(
-                                    "p",
-                                    { className: "p-make" },
-                                    "Make an acronym with the above letters"
-                                )
+                                "p",
+                                { className: "p-make" },
+                                "Make an acronym with the above letters"
                             )
                         );
                         break;
@@ -13514,15 +13510,11 @@ var SubmissionStage = function (_Component) {
                     {
                         return _react2.default.createElement(
                             "div",
-                            { className: "row" },
+                            { className: "col" },
                             _react2.default.createElement(
-                                "div",
-                                { className: "col" },
-                                _react2.default.createElement(
-                                    "p",
-                                    { className: "p-invalid" },
-                                    "Your answer wasn't valid. Try harder."
-                                )
+                                "p",
+                                { className: "p-invalid" },
+                                "Your answer wasn't valid. Try harder."
                             )
                         );
                         break;
@@ -13532,15 +13524,11 @@ var SubmissionStage = function (_Component) {
                     {
                         return _react2.default.createElement(
                             "div",
-                            { className: "row" },
+                            { className: "col" },
                             _react2.default.createElement(
-                                "div",
-                                { className: "col" },
-                                _react2.default.createElement(
-                                    "p",
-                                    { className: "p-success" },
-                                    "Hey, way to make an answer!"
-                                )
+                                "p",
+                                { className: "p-success" },
+                                "Hey, way to make an answer!"
                             )
                         );
                         break;
@@ -13550,15 +13538,11 @@ var SubmissionStage = function (_Component) {
                     {
                         return _react2.default.createElement(
                             "div",
-                            { className: "row" },
+                            { className: "col" },
                             _react2.default.createElement(
-                                "div",
-                                { className: "col" },
-                                _react2.default.createElement(
-                                    "p",
-                                    { className: "p-submitted" },
-                                    "You've already answered..."
-                                )
+                                "p",
+                                { className: "p-submitted" },
+                                "You've already answered..."
                             )
                         );
                         break;
@@ -13568,15 +13552,11 @@ var SubmissionStage = function (_Component) {
                     {
                         return _react2.default.createElement(
                             "div",
-                            { className: "row" },
+                            { className: "col" },
                             _react2.default.createElement(
-                                "div",
-                                { className: "col" },
-                                _react2.default.createElement(
-                                    "p",
-                                    { className: "p-make" },
-                                    "Make an acronym with the above letters"
-                                )
+                                "p",
+                                { className: "p-make" },
+                                "Make an acronym with the above letters"
                             )
                         );
                         break;
@@ -13591,43 +13571,43 @@ var SubmissionStage = function (_Component) {
 
             return _react2.default.createElement(
                 "div",
-                { className: "col-10 main-game" },
+                { className: "col-sm-12 col-md-10 main-game" },
                 _react2.default.createElement(
                     "div",
                     { className: "row" },
                     _react2.default.createElement(
                         "div",
-                        { className: "col-9" },
+                        { className: "col-sm-12 col-md-9" },
                         _react2.default.createElement(_GameTime2.default, null),
                         _react2.default.createElement("br", null),
-                        _react2.default.createElement(_GameLetters2.default, { letters: this.props.letters })
+                        _react2.default.createElement(_GameLetters2.default, { letters: this.props.letters }),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "row" },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "col-12" },
+                                _react2.default.createElement(_GameInput2.default, {
+                                    letters: this.props.letters,
+                                    gameInstanceId: this.props.gameInstanceId,
+                                    setAnswerSubmitted: this.props.setAnswerSubmitted,
+                                    setSubmittedBool: this.props.setSubmittedBool,
+                                    submittedBool: this.props.submittedBool
+                                })
+                            ),
+                            this.inputRender()
+                        )
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "col-3" },
+                        { className: "col-sm-12 col-md-3" },
                         Object.keys(this.props.players).map(function (key) {
                             var currentPlayer = _this2.props.players[key];
                             return _react2.default.createElement(_GamePlayer2.default, { key: key, username: currentPlayer.username, points: currentPlayer.points });
                         })
                     )
                 ),
-                _react2.default.createElement("br", null),
-                this.inputRender(),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col" },
-                        _react2.default.createElement(_GameInput2.default, {
-                            letters: this.props.letters,
-                            gameInstanceId: this.props.gameInstanceId,
-                            setAnswerSubmitted: this.props.setAnswerSubmitted,
-                            setSubmittedBool: this.props.setSubmittedBool,
-                            submittedBool: this.props.submittedBool
-                        })
-                    )
-                )
+                _react2.default.createElement("br", null)
             );
         }
     }]);
@@ -14175,38 +14155,23 @@ var FindGame = function (_Component) {
                         { className: "col text-center" },
                         _react2.default.createElement(
                             "h1",
-                            null,
+                            { className: "rules-header" },
                             "Game Rules"
                         ),
                         _react2.default.createElement(
                             "p",
                             { className: "game-rule" },
-                            "There are 5 rounds and a final round."
+                            "Create an acronym with the provided letters in the order given."
                         ),
                         _react2.default.createElement(
                             "p",
                             { className: "game-rule" },
-                            "You have 60 seconds to submit an answer."
+                            "Vote for your favorite answer."
                         ),
                         _react2.default.createElement(
                             "p",
                             { className: "game-rule" },
-                            "In each round you create an acronym using the letters provided."
-                        ),
-                        _react2.default.createElement(
-                            "p",
-                            { className: "game-rule" },
-                            "After everyone submits an answer, or the time runs out, you then vote for your favorite answer."
-                        ),
-                        _react2.default.createElement(
-                            "p",
-                            { className: "game-rule" },
-                            "The quicker you submit an answer, the more points you can earn per vote."
-                        ),
-                        _react2.default.createElement(
-                            "p",
-                            { className: "game-rule" },
-                            "If you don't vote, you can't earn points for that round."
+                            "The quicker you submit, the more points you can earn."
                         )
                     )
                 ),
@@ -14216,7 +14181,7 @@ var FindGame = function (_Component) {
                     { className: "row" },
                     _react2.default.createElement(
                         "div",
-                        { className: "col-3 offset-5" },
+                        { className: "col text-center" },
                         _react2.default.createElement(
                             "form",
                             { onSubmit: this.findGamePost },
@@ -29795,7 +29760,6 @@ var GameTime = function (_Component) {
         };
 
         _this.timer = _this.timer.bind(_this);
-        // this.cear = this.clear.bind(this);
         return _this;
     }
 
@@ -29821,12 +29785,6 @@ var GameTime = function (_Component) {
         value: function componentWillUnmount() {
             clearInterval(this.state.timerId);
         }
-
-        // clear() {
-        //     this.setState({ timerSet: false })
-        //     this.setState({ timeLeft: 60 })
-        // }
-
     }, {
         key: "render",
         value: function render() {
@@ -31002,7 +30960,7 @@ var GamePlayer = function (_Component) {
                             { className: "col-7" },
                             _react2.default.createElement(
                                 "p",
-                                { className: "player-name" },
+                                { className: "player-points" },
                                 this.props.points
                             )
                         )
