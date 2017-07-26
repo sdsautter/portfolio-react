@@ -99,4 +99,11 @@ POST /api/games/:id
         userScoreForRound: Number,
       }],
     }
+    
+# Social Media Links
+* https://twitter.com/Acronauts
+* https://www.facebook.com/AcronautsTheGame/
+* https://www.reddit.com/r/Acronauts/
+* https://www.instagram.com/acronauts/
+
 
