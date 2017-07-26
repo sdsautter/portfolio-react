@@ -40,7 +40,11 @@ export default class FindGame extends Component {
                     <div className="row">
                         <div className="col text-center">
                             <form onSubmit={this.findGamePost}>
-                                <button name="findGame" className="btn btn-success vote-answer">Find Game</button>
+                                <button 
+                                name="findGame" 
+                                className="btn btn-success vote-answer"
+                                disabled={this.props.findGame}
+                                >Find Game</button>
                             </form>
                         </div>
                     </div>
