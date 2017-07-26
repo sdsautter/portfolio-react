@@ -48,6 +48,26 @@ const validateAnswer = (answer, letterArray) => {
   return false;
 };
 
+const allPlayersHaveAnswered = async(gameInstance, round) => {
+  const game = await GameInstance.findById(gameInstance);
+  const answers = await Answer.findAnswerByRound(round);
+  if (game.players.length === answers.length) {
+    setRoundState(round, 'voting');
+    return true;
+  }
+  return false;
+};
+
+const allPlayersHaveVoted = async(gameInstance, round) => {
+  const game = await GameInstance.findById(gameInstance);
+  const votes = await Vote.findVotesByRound(round);
+  if (game.players.length === votes.length) {
+    setRoundState(round, 'results');
+    return true;
+  }
+  return false;
+};
+
 exports.findRounds = async(gameInstance) => {
   const gameRounds = await Round.find({
     gameInstance,
@@ -57,7 +77,13 @@ exports.findRounds = async(gameInstance) => {
   return gameRounds;
 };
 
-exports.setRoundState = async(_id, state) => {
+exports.getRoundState = async(_id) => {
+  const round = await Round.findById(_id);
+  if (round.length === 0) return false;
+  return round.state;
+};
+
+const setRoundState = async(_id, state) => {
   const roundWithNewState = await Round.findByIdAndUpdate({
     _id,
   }, {
@@ -68,6 +94,8 @@ exports.setRoundState = async(_id, state) => {
 
   return roundWithNewState;
 };
+
+exports.setRoundState = setRoundState;
 
 exports.createRound = async(gameInstance) => {
   // Create the game reference
@@ -147,6 +175,8 @@ exports.submitVote = async(gameInstance, player, answer) => {
   };
   // submit the vote
   const newVote = await Vote.submitVote(activeRound._id, player, validAnswer._id);
+  // check to see if all players have voted
+  allPlayersHaveVoted(gameInstance, activeRound._id);
   // return success
   return {
     status: 'Success',
@@ -187,7 +217,7 @@ exports.submitAnswer = async(gameInstance, player, answer) => {
   // Put the answer and score potential in the database 
   const newAnswer = await Answer.createAnswer(activeRound._id, player, answer, scorePotential);
   // @TODO - See if everyone has answered and if they have change the state to voting 
-
+  allPlayersHaveAnswered(gameInstance, activeRound._id);
   // update the player that the answer was accepted
   return {
     status: 'Success',

@@ -42,10 +42,18 @@ exports.getStatus = async(req, res, next) => {
 };
 
 const createTimer = (time) => {
-  time = time * 1000;
   return new Promise((resolve) => {
-    setTimeout(resolve, time);
+    setTimeout(resolve, time * 1000);
   });
+};
+
+const pollForRoundStateChange = async(round, state, time) => {
+  for (let i = 0; i < time; i++) {
+    await createTimer(1);
+    const roundState = await roundController.getRoundState(round);
+    if (roundState === state) return true;
+  }
+  return false;
 };
 
 exports.startGame = async(gameInstanceId) => {
@@ -54,16 +62,16 @@ exports.startGame = async(gameInstanceId) => {
     const newRound = await roundController.createRound(gameInstanceId);
 
     if (newRound.error) return newRound.error;
-    // Start the round timer for 60 seconds
-    await createTimer(gameConfig.PLAYTIMER);
-    // Set the round state to voting
-    await roundController.setRoundState(newRound._id, 'voting');
+    // Start the round timer for N seconds
+    const roundInVotingState = await pollForRoundStateChange(newRound.id, 'voting', gameConfig.PLAYTIMER);
+    // If the round state didn't change set the round state to voting    
+    if (!roundInVotingState) await roundController.setRoundState(newRound._id, 'voting');
     // After 30 seconds move to the results state
-    await createTimer(gameConfig.VOTETIMER);
+    const roundInResultsState = await pollForRoundStateChange(newRound.id, 'results', gameConfig.VOTETIMER);
     // calculate the results for the round
     await roundController.calculatePoints(gameInstanceId, newRound._id);
     // Set the round state to results
-    await roundController.setRoundState(newRound._id, 'results');
+    if (!roundInResultsState) await roundController.setRoundState(newRound._id, 'results');    
     // After 15 seconds move to the complete state
     await createTimer(gameConfig.RESULTSTIMER);
     // add the points for the round to the game instance
@@ -71,7 +79,6 @@ exports.startGame = async(gameInstanceId) => {
     // Set the round state to complete
     await roundController.setRoundState(newRound._id, 'complete');
   }
-
   const competeGameInstanceReference = await GameInstance.findOneAndUpdate({
     _id: gameInstanceId,
   }, {
@@ -82,3 +89,39 @@ exports.startGame = async(gameInstanceId) => {
 
   return competeGameInstanceReference;
 };
+
+
+// exports.startGame = async(gameInstanceId) => {
+//   for (let i = 1; i < 7; i++) {
+//     // create a new round for the game
+//     const newRound = await roundController.createRound(gameInstanceId);
+
+//     if (newRound.error) return newRound.error;
+//     // Start the round timer for 60 seconds
+//     await createTimer(gameConfig.PLAYTIMER);
+//     // Set the round state to voting
+//     await roundController.setRoundState(newRound._id, 'voting');
+//     // After 30 seconds move to the results state
+//     await createTimer(gameConfig.VOTETIMER);
+//     // calculate the results for the round
+//     await roundController.calculatePoints(gameInstanceId, newRound._id);
+//     // Set the round state to results
+//     await roundController.setRoundState(newRound._id, 'results');
+//     // After 15 seconds move to the complete state
+//     await createTimer(gameConfig.RESULTSTIMER);
+//     // add the points for the round to the game instance
+//     await roundController.addPointToGameInstance(newRound._id);
+//     // Set the round state to complete
+//     await roundController.setRoundState(newRound._id, 'complete');
+//   }
+
+//   const competeGameInstanceReference = await GameInstance.findOneAndUpdate({
+//     _id: gameInstanceId,
+//   }, {
+//     state: 'complete',
+//   }, {
+//     new: true,
+//   });
+
+//   return competeGameInstanceReference;
+// };

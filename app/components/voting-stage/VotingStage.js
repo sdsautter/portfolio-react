@@ -30,7 +30,7 @@ export default class VotingStage extends Component {
     
         return (
             <div className="col-10 main-game text-center">
-                <VoteTime timeLeft={this.props.timeLeft} />
+                <VoteTime  />
                     <legend className="vote-for-text">Vote For Your Favorite Answer</legend>
                         <div className="btn-group-vertical" data-toggle="buttons">
                             {

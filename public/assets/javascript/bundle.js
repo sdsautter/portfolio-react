@@ -13598,7 +13598,7 @@ var SubmissionStage = function (_Component) {
                     _react2.default.createElement(
                         "div",
                         { className: "col-9" },
-                        _react2.default.createElement(_GameTime2.default, { timeLeft: this.props.timeLeft }),
+                        _react2.default.createElement(_GameTime2.default, null),
                         _react2.default.createElement("br", null),
                         _react2.default.createElement(_GameLetters2.default, { letters: this.props.letters })
                     ),
@@ -14011,7 +14011,7 @@ var VotingStage = function (_Component) {
             return _react2.default.createElement(
                 "div",
                 { className: "col-10 main-game text-center" },
-                _react2.default.createElement(_VoteTime2.default, { timeLeft: this.props.timeLeft }),
+                _react2.default.createElement(_VoteTime2.default, null),
                 _react2.default.createElement(
                     "legend",
                     { className: "vote-for-text" },
@@ -29527,7 +29527,7 @@ var GameInstance = function (_Component) {
             gameInstanceId: {},
             roundAnswers: {},
             letters: {},
-            roundTimeLeft: 61,
+            timeLeft: {},
             roundNumber: {},
             votingAnswers: {},
             roundState: {},
@@ -29556,7 +29556,7 @@ var GameInstance = function (_Component) {
         _this.addRoundLetters = _this.addRoundLetters.bind(_this);
         _this.addRoundNumber = _this.addRoundNumber.bind(_this);
         _this.addRoundState = _this.addRoundState.bind(_this);
-        _this.addRoundTimeLeft = _this.addRoundTimeLeft.bind(_this);
+        _this.addTimeLeft = _this.addTimeLeft.bind(_this);
         _this.addRoundAnswers = _this.addRoundAnswers.bind(_this);
         _this.addPlayers = _this.addPlayers.bind(_this);
         _this.addGameState = _this.addGameState.bind(_this);
@@ -29608,9 +29608,11 @@ var GameInstance = function (_Component) {
             this.setState({ roundNumber: roundNumber });
         }
     }, {
-        key: "addRoundTimeLeft",
-        value: function addRoundTimeLeft(roundTimeLeft) {
-            this.setState({ roundTimeLeft: roundTimeLeft });
+        key: "addTimeLeft",
+        value: function addTimeLeft(TimeLeft) {
+            if (timeLeft != null) {
+                this.setState({ timeLeft: timeLeft });
+            }
         }
     }, {
         key: "addRoundState",
@@ -29631,11 +29633,6 @@ var GameInstance = function (_Component) {
         key: "addRoundLetters",
         value: function addRoundLetters(letters) {
             this.setState({ letters: letters });
-        }
-    }, {
-        key: "addTimeLeft",
-        value: function addTimeLeft(timeLeft) {
-            this.setState({ timeLeft: timeLeft });
         }
     }, {
         key: "addVotingAnswers",
@@ -29667,7 +29664,9 @@ var GameInstance = function (_Component) {
                         _this2.addRoundNumber(activeRound.number);
                         _this2.addRoundState(activeRound.state);
                         _this2.addRoundAnswers(activeRound.submittedAnswers);
-                        _this2.addRoundTimeLeft(activeRound.timeLeft);
+                        if (activeRound.TimeLeft > 0) {
+                            _this2.addTimeLeft(activeRound.stateLength);
+                        }
                         _this2.addVotingAnswers(activeRound.userAnswers);
                         _this2.addResultsInfo(activeRound.userScore);
                         _this2.addGameState(gameInstanceGet.state);
@@ -29692,26 +29691,33 @@ var GameInstance = function (_Component) {
                         if (this.state.votingAnswers != null) {
                             return _react2.default.createElement(_VotingStage2.default, {
                                 votingAnswers: this.state.votingAnswers,
-                                timeLeft: this.state.roundTimeLeft,
+                                voteLength: this.state.voteLength,
                                 gameInstanceId: this.state.gameInstanceId,
                                 setVotedBool: this.setVotedBool,
-                                votedBool: this.state.votedBool
+                                votedBool: this.state.votedBool,
+                                timeLeft: this.state.timeLeft,
+                                addTimeLeft: this.addTimeLeft
                             });
                         }
                         break;
 
                     case 'playing':
-                        return _react2.default.createElement(_SubmissionStage2.default, {
-                            players: this.state.players,
-                            timeLeft: this.state.roundTimeLeft,
-                            letters: this.state.letters,
-                            roundNumber: this.state.roundNumber,
-                            gameInstanceId: this.state.gameInstanceId,
-                            answerSubmitted: this.state.answerSubmitted,
-                            setAnswerSubmitted: this.setAnswerSubmitted,
-                            setSubmittedBool: this.setSubmittedBool,
-                            submittedBool: this.state.submittedBool
-                        });
+                        if (this.state.timeLeft != null) {
+
+                            return _react2.default.createElement(_SubmissionStage2.default, {
+                                players: this.state.players,
+                                submitLength: this.state.submitLength,
+                                letters: this.state.letters,
+                                roundNumber: this.state.roundNumber,
+                                gameInstanceId: this.state.gameInstanceId,
+                                answerSubmitted: this.state.answerSubmitted,
+                                setAnswerSubmitted: this.setAnswerSubmitted,
+                                setSubmittedBool: this.setSubmittedBool,
+                                submittedBool: this.state.submittedBool
+                                /*timeLeft={this.state.timeLeft}
+                                addTimeLeft={this.addTimeLeft}*/
+                            });
+                        }
                         break;
 
                     case 'results':
@@ -29781,22 +29787,60 @@ var GameTime = function (_Component) {
     function GameTime() {
         _classCallCheck(this, GameTime);
 
-        return _possibleConstructorReturn(this, (GameTime.__proto__ || Object.getPrototypeOf(GameTime)).call(this));
+        var _this = _possibleConstructorReturn(this, (GameTime.__proto__ || Object.getPrototypeOf(GameTime)).call(this));
+
+        _this.state = {
+            timeLeft: 60,
+            timerId: {}
+        };
+
+        _this.timer = _this.timer.bind(_this);
+        // this.cear = this.clear.bind(this);
+        return _this;
     }
 
     _createClass(GameTime, [{
+        key: "timer",
+        value: function timer() {
+            var _this2 = this;
+
+            var timerId = setInterval(function () {
+                var time = _this2.state.timeLeft - 1;
+                _this2.setState({ timeLeft: time });
+            }, 1000);
+
+            this.setState({ timerId: timerId });
+        }
+    }, {
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.timer();
+        }
+    }, {
+        key: "componentWillUnmount",
+        value: function componentWillUnmount() {
+            clearInterval(this.state.timerId);
+        }
+
+        // clear() {
+        //     this.setState({ timerSet: false })
+        //     this.setState({ timeLeft: 60 })
+        // }
+
+    }, {
         key: "render",
         value: function render() {
+
             return _react2.default.createElement(
                 "div",
-                { className: "row text-center" },
+                { className: "row" },
                 _react2.default.createElement(
                     "div",
-                    { className: "col" },
+                    { className: "col text-center" },
                     _react2.default.createElement(
                         "p",
                         { className: "time-left" },
-                        this.props.timeLeft
+                        this.state.timeLeft
                     )
                 )
             );
@@ -31004,12 +31048,43 @@ var VoteTime = function (_Component) {
     function VoteTime() {
         _classCallCheck(this, VoteTime);
 
-        return _possibleConstructorReturn(this, (VoteTime.__proto__ || Object.getPrototypeOf(VoteTime)).call(this));
+        var _this = _possibleConstructorReturn(this, (VoteTime.__proto__ || Object.getPrototypeOf(VoteTime)).call(this));
+
+        _this.state = {
+            timeLeft: 30,
+            timerId: {}
+        };
+
+        _this.timer = _this.timer.bind(_this);
+        return _this;
     }
 
     _createClass(VoteTime, [{
+        key: "timer",
+        value: function timer() {
+            var _this2 = this;
+
+            var timerId = setInterval(function () {
+                var time = _this2.state.timeLeft - 1;
+                _this2.setState({ timeLeft: time });
+            }, 1000);
+
+            this.setState({ timerId: timerId });
+        }
+    }, {
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.timer();
+        }
+    }, {
+        key: "componentWillUnmount",
+        value: function componentWillUnmount() {
+            clearInterval(this.state.timerId);
+        }
+    }, {
         key: "render",
         value: function render() {
+
             return _react2.default.createElement(
                 "div",
                 { className: "row" },
@@ -31019,7 +31094,7 @@ var VoteTime = function (_Component) {
                     _react2.default.createElement(
                         "p",
                         { className: "time-left" },
-                        this.props.timeLeft
+                        this.state.timeLeft
                     )
                 )
             );
