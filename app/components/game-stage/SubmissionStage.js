@@ -20,55 +20,55 @@ export default class SubmissionStage extends Component {
         switch (this.props.answerSubmitted) {
             case "not yet": {
                 return(
-                    <div className="row">
+                    
                         <div className="col">
                             <p className="p-make">Make an acronym with the above letters</p>
                         </div>                        
-                    </div>
+                    
                 )
                 break;
             }
 
             case "Invalid": {
                 return(
-                    <div className="row">
+                    
                         <div className="col">
                             <p className="p-invalid">Your answer wasn't valid. Try harder.</p>
                         </div>                        
-                    </div>
+                    
                 )
                 break;
             }
 
             case "Success": {
                 return(
-                    <div className="row">
+                    
                         <div className="col">
                             <p className="p-success">Hey, way to make an answer!</p>
                         </div>                        
-                    </div>
+                    
                 )
                 break;
             }
 
             case "submitted": {
                 return(
-                    <div className="row">
+                    
                         <div className="col">
                             <p className="p-submitted">You've already answered...</p>
                         </div>                        
-                    </div>
+                    
                 )
                 break;
             }
 
             default: {
                 return(
-                    <div className="row">
+                    
                         <div className="col">
                             <p className="p-make">Make an acronym with the above letters</p>
                         </div>                     
-                    </div>
+                    
                 )
                 break;
             }
@@ -78,16 +78,29 @@ export default class SubmissionStage extends Component {
     
     render() {
         return (
-                <div className="col-10 main-game">
+                <div className="col-sm-12 col-md-10 main-game">
                     <div className="row">
-                        <div className="col-9">
+                        <div className="col-sm-12 col-md-9">
                             <GameTime 
 
                             />
                             <br />
                             <GameLetters letters={this.props.letters}/>
+                            <div className="row">
+                            <div className="col-12">
+                            <GameInput 
+                                letters={this.props.letters}
+                                gameInstanceId={this.props.gameInstanceId}
+                                setAnswerSubmitted={this.props.setAnswerSubmitted}
+                                setSubmittedBool={this.props.setSubmittedBool}
+                                submittedBool={this.props.submittedBool}
+                            />
+                            </div>
+                    {this.inputRender()}
+                            
                         </div>
-                        <div className="col-3">
+                        </div>
+                        <div className="col-sm-12 col-md-3">
                             {
                                 Object.keys(this.props.players).map((key) => {
                                     var currentPlayer = this.props.players[key];
@@ -97,8 +110,7 @@ export default class SubmissionStage extends Component {
                         </div>
                     </div>
                     <br />
-                    {this.inputRender()}
-                    <div className="row">
+                    {/*<div className="row">
                         <div className="col">
                             <GameInput 
                                 letters={this.props.letters}
@@ -108,7 +120,7 @@ export default class SubmissionStage extends Component {
                                 submittedBool={this.props.submittedBool}
                             />
                         </div>
-                    </div>
+                    </div>*/}
                 </div>
         )
     }

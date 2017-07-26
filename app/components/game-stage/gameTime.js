@@ -11,7 +11,6 @@ export default class GameTime extends Component{
         }
 
         this.timer = this.timer.bind(this);
-        // this.cear = this.clear.bind(this);
     }
 
     timer() {
@@ -33,11 +32,6 @@ export default class GameTime extends Component{
         clearInterval(this.state.timerId);
     }
 
-    // clear() {
-    //     this.setState({ timerSet: false })
-    //     this.setState({ timeLeft: 60 })
-    // }
-    
     render() {
 
         return (

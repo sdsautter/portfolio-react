@@ -1,3 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Bungee+Shade');
+
+@font-face {
+    font-family: SpacePatrol;
+    src: url('../fonts/SpacePatrol.ttf');
+}
+
+@font-face {
+    font-family: DigitGraphics;
+    src: url('../fonts/01-digitgraphics.regular.ttf');
+}
+
+@font-face {
+  font-family: PressStart;
+  src: url('../fonts/PressStart2P.ttf')
+}
+
 body {
   color: whitesmoke;
   background-color: black;
@@ -109,8 +126,13 @@ h1 {
 }
 
 .game-letters {
-  color: red;
+  position: relative;
+  top: -30px;
+  font-family: 'Bungee Shade', cursive;
+  color: whitesmoke;
   font-size: 7rem;
+  text-shadow: -3px 4px 1px red;
+
 }
 
 .avatar {
@@ -128,15 +150,28 @@ h1 {
   font-size: 1.25rem;
 }
 
+.player-points {
+    font-family: PressStart;
+
+}
+
 .time-left{
+  font-family: DigitGraphics;  
   color:rgb(100%, 76.9%, 0%);
   font-size: 3rem;
 }
 
 .points-text {
+  position: relative;
+  left: -10px;
+  font-family: DigitGraphics;
   color: rgb(100%, 0%, 0%);
 }
 
+.vote-for-text {
+  font-family: DigitGraphics;
+
+}
 .vote-answer {
   font-size: 1.5rem;
   margin-bottom: 3%;
@@ -162,11 +197,13 @@ h1 {
 }
 
 .navbar-brand {
+  font-family: SpacePatrol;  
   font-size: 1.8rem;
   margin-left: 2%;
 }
 
 .nav-item {
+  font-family: SpacePatrol;
   position: absolute; 
   right: 3%;
   top: 20%;
@@ -177,7 +214,10 @@ h1 {
 }
 
 .p-make, .p-invalid, .p-success, .p-submitted {
+  font-family: SpacePatrol;  
   font-size: 1.5rem;
+  padding-top: 2%;
+  margin-bottom: 5%;
 }
 
 .p-make {
@@ -194,4 +234,17 @@ h1 {
 
 .p-submitted {
   color: pink;
+}
+
+.game-rule {
+  font-family: PressStart;
+}
+
+.rules-header {
+  font-family: PressStart;
+  margin-bottom: 5%;  
+}
+
+button {
+    font-family: DigitGraphics;
 }

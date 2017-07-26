@@ -30,18 +30,15 @@ export default class FindGame extends Component {
                 <div className="col-10 main-game">
                     <div className="row">
                         <div className="col text-center">
-                            <h1>Game Rules</h1>
-                                <p className="game-rule">There are 5 rounds and a final round.</p>
-                                <p className="game-rule">You have 60 seconds to submit an answer.</p>
-                                <p className="game-rule">In each round you create an acronym using the letters provided.</p>
-                                <p className="game-rule">After everyone submits an answer, or the time runs out, you then vote for your favorite answer.</p>                                
-                                <p className="game-rule">The quicker you submit an answer, the more points you can earn per vote.</p>
-                                <p className="game-rule">If you don't vote, you can't earn points for that round.</p>
+                            <h1 className="rules-header">Game Rules</h1>
+                                <p className="game-rule">Create an acronym with the provided letters in the order given.</p>
+                                <p className="game-rule">Vote for your favorite answer.</p>
+                                <p className="game-rule">The quicker you submit, the more points you can earn.</p>
                         </div>
                     </div>
                     <br />
                     <div className="row">
-                        <div className="col-3 offset-5">
+                        <div className="col text-center">
                             <form onSubmit={this.findGamePost}>
                                 <button name="findGame" className="btn btn-success vote-answer">Find Game</button>
                             </form>
