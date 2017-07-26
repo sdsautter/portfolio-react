@@ -23,7 +23,7 @@ export default class GamePlayer extends Component {
                             <p className="points-text">Points:</p>
                         </div>
                         <div className="col-7">
-                        <p className="player-name">{this.props.points}</p>
+                        <p className="player-points">{this.props.points}</p>
                         </div>
                     </div>
                 </div>

@@ -30002,7 +30002,7 @@ var GameInput = function (_Component) {
                         "button",
                         {
                             id: "answerSubmit",
-                            className: "btn btn-secondary",
+                            className: "btn btn-sm btn-secondary",
                             disabled: this.props.submittedBool,
                             type: "submit" },
                         "Submit!"
