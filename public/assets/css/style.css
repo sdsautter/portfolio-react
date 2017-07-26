@@ -196,7 +196,7 @@ h1 {
 
 .waiting-stage {
   color: red;
-  font-size: 500%;
+  font-size: 3.5rem;
   padding-top: 10%;
 }
 
@@ -296,7 +296,7 @@ button {
 .waiting-stage {
   font-family: PressStart;
   color: red;
-  font-size: 3rem;
+  font-size: 1.5rem;
   padding-top: 10%;
 }
 
@@ -444,5 +444,10 @@ button {
   margin-left: 2%;
 }
 
+.waiting-stage {
+  color: red;
+  font-size: 3.5rem;
+  padding-top: 10%;
+}
 
 }
