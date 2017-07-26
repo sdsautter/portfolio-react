@@ -81,7 +81,7 @@ export default class GameInput extends Component {
                     <span className="input-group-btn">
                         <button 
                         id="answerSubmit" 
-                        className="btn btn-secondary"
+                        className="btn btn-sm btn-secondary"
                         disabled={this.props.submittedBool}                      
                         type="submit">
                             Submit!
