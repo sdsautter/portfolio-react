@@ -32,8 +32,14 @@ const calculateScorePotential = (round, timeLeft) => {
 };
 
 const validateAnswer = (answer, letterArray) => {
-  const answerArray = answer.toLowerCase().split(' ');
-  // console.log(answerArray);
+  const rawAnswerArray = answer.toLowerCase().split(' ');
+  const answerArray = [];
+  for (var i = 0; i < rawAnswerArray.length; i++) {
+    if (rawAnswerArray[i]) {
+      answerArray.push(rawAnswerArray[i]);
+    }
+  }
+  
   if (answerArray.length === letterArray.length) {
     var validatedWords = 0;
     for (let i = 0; i < letterArray.length; i++) {
