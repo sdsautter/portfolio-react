@@ -123,6 +123,7 @@ export default class GameInstance extends Component {
     }
 
     addPlayers(players) {
+        players.sort((a, b) => {return a.points - b.points)};
         this.setState({ players });
     }
 
