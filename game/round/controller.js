@@ -7,7 +7,7 @@ const Round = mongoose.model('Round');
 const gameConfig = require('../config');
 
 const generateRandomLetters = (num) => {
-  const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+  const alphabet = 'abcdefghijklmnopqrstuvwyz'.split('');
   let letterArray = [];
   let letterIndex = '';
   for (let i = 0; i < num; i++) {
@@ -39,7 +39,7 @@ const validateAnswer = (answer, letterArray) => {
       answerArray.push(rawAnswerArray[i]);
     }
   }
-  
+
   if (answerArray.length === letterArray.length) {
     var validatedWords = 0;
     for (let i = 0; i < letterArray.length; i++) {
