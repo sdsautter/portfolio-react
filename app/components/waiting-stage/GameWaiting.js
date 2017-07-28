@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PlayerWaiting from "./PlayerWaiting.js";
 
 export default class WaitingStage extends Component {
     constructor() {
@@ -18,8 +19,20 @@ export default class WaitingStage extends Component {
     
     render() {
         return (
-            <div className="col-10 main-game text-center">
-                <p className="waiting-stage">{this.waitingRender()}</p>    
+            <div className="col-11 main-game text-center">
+                <div className="row">
+                    <div className="col-sm-12 col-md-8">
+                    <p className="waiting-stage">{this.waitingRender()}</p>    
+                    </div>
+                    <div className="col-sm-12 col-md-4">
+                        {
+                            Object.keys(this.props.players).map((key) => {
+                                var currentPlayer = this.props.players[key];
+                                return (<PlayerWaiting key={key} username={currentPlayer.username} />)
+                            })    
+                        }   
+                    </div>
+                </div>
             </div>
         )
     }
