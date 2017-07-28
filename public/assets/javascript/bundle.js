@@ -13571,7 +13571,7 @@ var SubmissionStage = function (_Component) {
 
             return _react2.default.createElement(
                 "div",
-                { className: "col-sm-12 col-md-10 main-game" },
+                { className: "col-sm-12 col-md-11 align-self-center main-game" },
                 _react2.default.createElement(
                     "div",
                     { className: "row" },
@@ -29465,7 +29465,7 @@ var _GameWaiting = __webpack_require__(289);
 
 var _GameWaiting2 = _interopRequireDefault(_GameWaiting);
 
-var _FinalResultsStage = __webpack_require__(290);
+var _FinalResultsStage = __webpack_require__(291);
 
 var _FinalResultsStage2 = _interopRequireDefault(_FinalResultsStage);
 
@@ -29616,6 +29616,9 @@ var GameInstance = function (_Component) {
     }, {
         key: "addPlayers",
         value: function addPlayers(players) {
+            players.sort(function (a, b) {
+                return b.points - a.points;
+            });
             this.setState({ players: players });
         }
     }, {
@@ -31259,6 +31262,10 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _PlayerWaiting = __webpack_require__(290);
+
+var _PlayerWaiting2 = _interopRequireDefault(_PlayerWaiting);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31293,13 +31300,31 @@ var WaitingStage = function (_Component) {
     }, {
         key: "render",
         value: function render() {
+            var _this2 = this;
+
             return _react2.default.createElement(
                 "div",
-                { className: "col-10 main-game text-center" },
+                { className: "col-11 main-game text-center" },
                 _react2.default.createElement(
-                    "p",
-                    { className: "waiting-stage" },
-                    this.waitingRender()
+                    "div",
+                    { className: "row" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-sm-12 col-md-8" },
+                        _react2.default.createElement(
+                            "p",
+                            { className: "waiting-stage" },
+                            this.waitingRender()
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-sm-12 col-md-4" },
+                        Object.keys(this.props.players).map(function (key) {
+                            var currentPlayer = _this2.props.players[key];
+                            return _react2.default.createElement(_PlayerWaiting2.default, { key: key, username: currentPlayer.username });
+                        })
+                    )
                 )
             );
         }
@@ -31327,7 +31352,71 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _FinalResultItem = __webpack_require__(291);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var GamePlayer = function (_Component) {
+    _inherits(GamePlayer, _Component);
+
+    function GamePlayer() {
+        _classCallCheck(this, GamePlayer);
+
+        return _possibleConstructorReturn(this, (GamePlayer.__proto__ || Object.getPrototypeOf(GamePlayer)).call(this));
+    }
+
+    _createClass(GamePlayer, [{
+        key: "render",
+        value: function render() {
+
+            return _react2.default.createElement(
+                "div",
+                { className: "row waiting-player" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "col-3 align-self-center" },
+                    _react2.default.createElement("img", { className: "avatar", src: "assets/images/avatar1.png" })
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "col-9 align-self-center" },
+                    _react2.default.createElement(
+                        "p",
+                        { className: "waiting-name" },
+                        this.props.username
+                    )
+                )
+            );
+        }
+    }]);
+
+    return GamePlayer;
+}(_react.Component);
+
+exports.default = GamePlayer;
+
+/***/ }),
+/* 291 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _FinalResultItem = __webpack_require__(292);
 
 var _FinalResultItem2 = _interopRequireDefault(_FinalResultItem);
 
@@ -31379,7 +31468,7 @@ var FinalResultsStage = function (_Component) {
 exports.default = FinalResultsStage;
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
