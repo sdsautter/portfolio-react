@@ -116,7 +116,7 @@ export default class GameInstance extends Component {
     }
 
     addVotingAnswers(votingAnswers) {
-        if (votingAnswers) {this.shuffle(votingAnswers);}        
+        // if (votingAnswers) {this.shuffle(votingAnswers);}        
         this.setState({ votingAnswers });
     }
 
