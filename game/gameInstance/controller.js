@@ -96,7 +96,6 @@ exports.getActiveGame = async(req, res) => {
     }],
     'players.user': playerId,
   });
-  console.log(`Active Games: ${activeGames}`);
   if (activeGames.length > 0) {
     return res.json({
       gameInstance: {
