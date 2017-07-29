@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import VoteTime from "./VoteTime.js";
 import VoteButton from "./VoteButton.js";
 import LeaveButton from "../LeaveButton.js";
+import RoundNumber from "../RoundNumber.js";
 
 export default class VotingStage extends Component {
     constructor() {
@@ -31,8 +32,10 @@ export default class VotingStage extends Component {
     
         return (
             <div className="col-11 main-game text-center">
-                <LeaveButton gameInstanceId={this.props.gameInstanceId} />
-                <VoteTime  />
+                <div className="row justify-content-between">
+                    <LeaveButton gameInstanceId={this.props.gameInstanceId} />
+                    <RoundNumber roundNumber={this.props.roundNumber} />
+                </div>                <VoteTime  />
                     <legend className="vote-for-text">Vote For Your Favorite Answer</legend>
                         <div className="btn-group-vertical" data-toggle="buttons">
                             {
