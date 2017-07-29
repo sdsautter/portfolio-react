@@ -29706,9 +29706,7 @@ var GameInstance = function (_Component) {
     }, {
         key: "addVotingAnswers",
         value: function addVotingAnswers(votingAnswers) {
-            if (votingAnswers) {
-                this.shuffle(votingAnswers);
-            }
+            // if (votingAnswers) {this.shuffle(votingAnswers);}        
             this.setState({ votingAnswers: votingAnswers });
         }
     }, {
