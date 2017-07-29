@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import VoteTime from "./VoteTime.js";
 import VoteButton from "./VoteButton.js";
+import LeaveButton from "../LeaveButton.js";
 
 export default class VotingStage extends Component {
     constructor() {
@@ -29,7 +30,8 @@ export default class VotingStage extends Component {
     render() {
     
         return (
-            <div className="col-10 main-game text-center">
+            <div className="col-11 main-game text-center">
+                <LeaveButton gameInstanceId={this.props.gameInstanceId} />
                 <VoteTime  />
                     <legend className="vote-for-text">Vote For Your Favorite Answer</legend>
                         <div className="btn-group-vertical" data-toggle="buttons">

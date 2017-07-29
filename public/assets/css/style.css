@@ -225,7 +225,6 @@ h1 {
 .waiting-stage {
   color: red;
   font-size: 3.5rem;
-  padding-top: 10%;
 }
 
 .navbar-brand {
@@ -270,9 +269,14 @@ h1 {
   margin-bottom: 5%;  
 }
 
-button {
+ button {
     font-family: PressStart;
     font-size: 50%;
+}
+
+.leave-button {
+  max-height: 30px;
+  margin-bottom: 10%;
 }
 
 @media only screen and (min-width: 0px) {
@@ -325,7 +329,6 @@ button {
   font-family: PressStart;
   color: red;
   font-size: 1.5rem;
-  padding-top: 10%;
 }
 
 .navbar-brand {
@@ -484,7 +487,6 @@ button {
 .waiting-stage {
   color: red;
   font-size: 3.5rem;
-  padding-top: 10%;
 }
 
 .vote-for-text {

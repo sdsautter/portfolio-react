@@ -3,12 +3,15 @@ import GameTime from "./GameTime.js";
 import GameLetters from "./GameLetters.js";
 import GameInput from "./GameInput.js";
 import GamePlayer from "./GamePlayer.js";
+import LeaveButton from "../LeaveButton.js";
+import axios from "axios";
 
 
 export default class SubmissionStage extends Component {
     constructor(props) {
         super(props);
         this.inputRender = this.inputRender.bind(this);
+        this.leaveClick = this.leaveClick.bind(this);
     }
 
     componentWillMount() {
@@ -20,11 +23,9 @@ export default class SubmissionStage extends Component {
         switch (this.props.answerSubmitted) {
             case "not yet": {
                 return(
-                    
                         <div className="col">
                             <p className="p-make">Make an acronym with the above letters</p>
-                        </div>                        
-                    
+                        </div>                                           
                 )
                 break;
             }
@@ -76,9 +77,20 @@ export default class SubmissionStage extends Component {
         }
     }
     
+    leaveClick() {
+        axios.delete("/api/games")
+            .then((response) => {
+                console.log("Goodbye");
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     render() {
         return (
                 <div className="col-sm-12 col-md-11 align-self-center main-game">
+                <LeaveButton gameInstanceId={this.props.gameInstanceId} />
                     <div className="row">
                         <div className="col-sm-12 col-md-9">
                             <GameTime 

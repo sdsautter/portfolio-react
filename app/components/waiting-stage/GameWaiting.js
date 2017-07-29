@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import PlayerWaiting from "./PlayerWaiting.js";
+import LeaveButton from "../LeaveButton.js";
 
 export default class WaitingStage extends Component {
     constructor() {
@@ -20,6 +21,7 @@ export default class WaitingStage extends Component {
     render() {
         return (
             <div className="col-11 main-game text-center">
+            <LeaveButton gameInstanceId={this.props.gameInstanceId} />
                 <div className="row">
                     <div className="col-sm-12 col-md-8">
                     <p className="waiting-stage">{this.waitingRender()}</p>    
