@@ -86,17 +86,22 @@ exports.listGames = async(req, res) => {
 };
 
 exports.leaveGame = async(req, res, next) => {
-  const _id = req.session.passport.user;
+  const playerId = req.session.passport.user;
+  const gameInstanceId = req.params.gameInstance;
+
   // validate the user and save the reference
-  const playerReference = await User.find({
-    _id,
-  });
+  // const playerReference = await User.find({
+  //   _id,
+  // });
   // find the newly created game instance and add the first user
   let updatedGameReference = await GameInstanceDocument.findOneAndUpdate({
-    _id: req.body.gameReference,
+    _id: gameInstanceId,
+    // 'players.user': playerId,
   }, {
     $pull: {
-      players: playerReference,
+      players: {
+        user: playerId,
+      },
     },
   }, {
     new: true,
