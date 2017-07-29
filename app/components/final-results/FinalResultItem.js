@@ -5,7 +5,7 @@ export default class FinalResultsItem extends Component {
         return (
             <div className="row results-all">
                     <div className="col-2">
-                        <img className="avatar-results" src="assets/images/avatar1.png" />
+                        <img className="avatar-results" src="assets/images/avatar1.svg" />
                     </div>
                     <div className="col-10">
                         <div className="row">

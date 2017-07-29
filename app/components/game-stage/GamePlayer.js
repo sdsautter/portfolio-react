@@ -12,7 +12,7 @@ export default class GamePlayer extends Component {
         return(
             <div className="row player-info">
                 <div className="col-4 align-self-center">
-                    <img className="avatar" src="assets/images/avatar1.png" />
+                    <img className="avatar" src="assets/images/avatar1.svg" />
                 </div>
                 <div className="col-8">
                     <div className="row">
