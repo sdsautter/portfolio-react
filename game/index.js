@@ -9,13 +9,14 @@ const isLoggedIn = user.isLoggedIn;
 module.exports = (app) => {
   app.route('/api/games/:gameInstance')
     .get(isLoggedIn, gameEngine.getStatus)
-    .post(isLoggedIn, gameEngine.submitAnswerOrVote);
+    .post(isLoggedIn, gameEngine.submitAnswerOrVote)
+    .delete(isLoggedIn, gameInstance.leaveGame);
   // .put(isLoggedIn, round.createNewRound);
 
   app.route('/api/games')
     // .get(isLoggedIn, gameInstance.listGames)
-    .post(isLoggedIn, gameInstance.joinGame)
-    .delete(isLoggedIn, gameInstance.leaveGame);
+    .post(isLoggedIn, gameInstance.joinGame);
+
 
   app.get('/game', isLoggedIn,
     (req, res) => {
