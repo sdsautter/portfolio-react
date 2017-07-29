@@ -29611,6 +29611,11 @@ var GameInstance = function (_Component) {
     }, {
         key: "addResultsInfo",
         value: function addResultsInfo(resultsInfo) {
+            if (resultsInfo) {
+                resultsInfo.sort(function (a, b) {
+                    return b.score - a.score;
+                });
+            }
             this.setState({ resultsInfo: resultsInfo });
         }
     }, {

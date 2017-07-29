@@ -119,6 +119,9 @@ export default class GameInstance extends Component {
     }
 
     addResultsInfo( resultsInfo ) {
+        if (resultsInfo) {
+        resultsInfo.sort((a, b) => {return b.score - a.score});    
+        }    
         this.setState({ resultsInfo })
     }
 

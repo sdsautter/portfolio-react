@@ -78,7 +78,7 @@ export default class SubmissionStage extends Component {
     
     render() {
         return (
-                <div className="col-sm-12 col-md-10 main-game">
+                <div className="col-sm-12 col-md-11 align-self-center main-game">
                     <div className="row">
                         <div className="col-sm-12 col-md-9">
                             <GameTime 
