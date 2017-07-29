@@ -10,32 +10,32 @@ export default class RoundNumber extends Component {
         switch(this.props.roundNumber){
             case 1:
                 return (
-                    <p>Round: 1</p>
+                    <span className="first-rounds">Round: 1</span>
                 )
                 break;
             case 2: 
                 return (
-                    <p>Round: 2</p>
+                    <span className="first-rounds">Round: 2</span>
                 )
                 break;
             case 3:   
                 return (
-                    <p>Round: 3</p>
+                    <span className="first-rounds">Round: 3</span>
                 )
                 break;
             case 4:   
                 return (
-                    <p>Round: 4</p>
+                    <span className="second-rounds">Round: 4</span>
                 )
                 break;
             case 5:   
                 return (
-                    <p>Round: 5</p>
+                    <span className="second-rounds">Round: 5</span>
                 )
                 break;
             case 6:   
                 return (
-                    <p>Final Round</p>
+                    <span className="final-rounds">Final Round</span>
                 )
                 break;
         } 
@@ -43,7 +43,7 @@ export default class RoundNumber extends Component {
 
     render() {
         return (
-            <div className="col-1 text-left">
+            <div className="col-md-3 col-sm-5 text-center align-self-start">
                 {this.roundNumberRender()}
             </div>
         )

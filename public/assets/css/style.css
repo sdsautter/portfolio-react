@@ -500,3 +500,22 @@ h1 {
 }
 
 }
+
+.first-rounds, .second-rounds, .final-rounds {
+  font-family: PressStart;
+  font-size: 1rem;
+  position: relative;
+  top: 0;
+}
+
+.first-rounds {
+  color: greenyellow;
+}
+
+.second-rounds {
+  color: yellow;
+}
+
+.final-rounds {
+  color: red;
+}

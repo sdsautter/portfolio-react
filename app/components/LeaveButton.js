@@ -20,12 +20,9 @@ export default class LeaveButton extends Component {
 
     render() {
         return (
-            <div className="row">
                 <div className="col-1 text-left">
                     <img onClick={this.leaveClick} className="leave-button" src="assets/images/power-button.png" alt="leave game" />
                 </div>
-            </div>
-
         )
     }
 }
