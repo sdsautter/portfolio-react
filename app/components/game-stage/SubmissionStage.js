@@ -4,6 +4,7 @@ import GameLetters from "./GameLetters.js";
 import GameInput from "./GameInput.js";
 import GamePlayer from "./GamePlayer.js";
 import LeaveButton from "../LeaveButton.js";
+import RoundNumber from "../RoundNumber.js";
 import axios from "axios";
 
 
@@ -90,7 +91,10 @@ export default class SubmissionStage extends Component {
     render() {
         return (
                 <div className="col-sm-12 col-md-11 align-self-center main-game">
-                <LeaveButton gameInstanceId={this.props.gameInstanceId} />
+                <div className="row justify-content-between">
+                    <LeaveButton gameInstanceId={this.props.gameInstanceId} />
+                    <RoundNumber roundNumber={this.props.roundNumber} />
+                </div>
                     <div className="row">
                         <div className="col-sm-12 col-md-9">
                             <GameTime 

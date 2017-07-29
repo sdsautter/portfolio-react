@@ -188,6 +188,7 @@ export default class GameInstance extends Component {
             if (this.state.votingAnswers != null) {    
                 return (    
                     <VotingStage
+                        roundNumber={this.state.roundNumber}
                         votingAnswers={this.state.votingAnswers}
                         voteLength={this.state.voteLength}
                         gameInstanceId={this.state.gameInstanceId}
@@ -205,6 +206,7 @@ export default class GameInstance extends Component {
                 
             return (
                     <SubmissionStage 
+                        roundNumber={this.state.roundNumber}                    
                         players={this.state.players} 
                         submitLength={this.state.submitLength}
                         letters={this.state.letters}
@@ -224,6 +226,7 @@ export default class GameInstance extends Component {
                 if (this.state.resultsInfo != null) {
                     return (
                     <ResultsStage 
+                        roundNumber={this.state.roundNumber}                    
                         resultsInfo={this.state.resultsInfo}
                         gameInstanceId={this.state.gameInstanceId}                            
                         />
