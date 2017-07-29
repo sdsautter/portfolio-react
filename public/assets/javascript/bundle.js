@@ -6108,12 +6108,8 @@ var LeaveButton = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "row" },
-                _react2.default.createElement(
-                    "div",
-                    { className: "col-1 text-left" },
-                    _react2.default.createElement("img", { onClick: this.leaveClick, className: "leave-button", src: "assets/images/power-button.png", alt: "leave game" })
-                )
+                { className: "col-1 text-left" },
+                _react2.default.createElement("img", { onClick: this.leaveClick, className: "leave-button", src: "assets/images/power-button.png", alt: "leave game" })
             );
         }
     }]);
@@ -13536,6 +13532,10 @@ var _LeaveButton = __webpack_require__(47);
 
 var _LeaveButton2 = _interopRequireDefault(_LeaveButton);
 
+var _RoundNumber = __webpack_require__(287);
+
+var _RoundNumber2 = _interopRequireDefault(_RoundNumber);
+
 var _axios = __webpack_require__(24);
 
 var _axios2 = _interopRequireDefault(_axios);
@@ -13660,7 +13660,12 @@ var SubmissionStage = function (_Component) {
             return _react2.default.createElement(
                 "div",
                 { className: "col-sm-12 col-md-11 align-self-center main-game" },
-                _react2.default.createElement(_LeaveButton2.default, { gameInstanceId: this.props.gameInstanceId }),
+                _react2.default.createElement(
+                    "div",
+                    { className: "row justify-content-between" },
+                    _react2.default.createElement(_LeaveButton2.default, { gameInstanceId: this.props.gameInstanceId }),
+                    _react2.default.createElement(_RoundNumber2.default, { roundNumber: this.props.roundNumber })
+                ),
                 _react2.default.createElement(
                     "div",
                     { className: "row" },
@@ -14027,17 +14032,21 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _VoteTime = __webpack_require__(287);
+var _VoteTime = __webpack_require__(288);
 
 var _VoteTime2 = _interopRequireDefault(_VoteTime);
 
-var _VoteButton = __webpack_require__(288);
+var _VoteButton = __webpack_require__(289);
 
 var _VoteButton2 = _interopRequireDefault(_VoteButton);
 
 var _LeaveButton = __webpack_require__(47);
 
 var _LeaveButton2 = _interopRequireDefault(_LeaveButton);
+
+var _RoundNumber = __webpack_require__(287);
+
+var _RoundNumber2 = _interopRequireDefault(_RoundNumber);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14084,7 +14093,13 @@ var VotingStage = function (_Component) {
             return _react2.default.createElement(
                 "div",
                 { className: "col-11 main-game text-center" },
-                _react2.default.createElement(_LeaveButton2.default, { gameInstanceId: this.props.gameInstanceId }),
+                _react2.default.createElement(
+                    "div",
+                    { className: "row justify-content-between" },
+                    _react2.default.createElement(_LeaveButton2.default, { gameInstanceId: this.props.gameInstanceId }),
+                    _react2.default.createElement(_RoundNumber2.default, { roundNumber: this.props.roundNumber })
+                ),
+                "                ",
                 _react2.default.createElement(_VoteTime2.default, null),
                 _react2.default.createElement(
                     "legend",
@@ -14133,13 +14148,17 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ResultItem = __webpack_require__(289);
+var _ResultItem = __webpack_require__(290);
 
 var _ResultItem2 = _interopRequireDefault(_ResultItem);
 
 var _LeaveButton = __webpack_require__(47);
 
 var _LeaveButton2 = _interopRequireDefault(_LeaveButton);
+
+var _RoundNumber = __webpack_require__(287);
+
+var _RoundNumber2 = _interopRequireDefault(_RoundNumber);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14166,7 +14185,12 @@ var ResultsStage = function (_Component) {
             return _react2.default.createElement(
                 "div",
                 { className: "col-11 main-game text-center" },
-                _react2.default.createElement(_LeaveButton2.default, { gameInstanceId: this.props.gameInstanceId }),
+                _react2.default.createElement(
+                    "div",
+                    { className: "row justify-content-between" },
+                    _react2.default.createElement(_LeaveButton2.default, { gameInstanceId: this.props.gameInstanceId }),
+                    _react2.default.createElement(_RoundNumber2.default, { roundNumber: this.props.roundNumber })
+                ),
                 Object.keys(this.props.resultsInfo).map(function (key) {
                     var resultsInfo = _this2.props.resultsInfo[key];
                     return _react2.default.createElement(_ResultItem2.default
@@ -29560,11 +29584,11 @@ var _FindGame = __webpack_require__(127);
 
 var _FindGame2 = _interopRequireDefault(_FindGame);
 
-var _GameWaiting = __webpack_require__(290);
+var _GameWaiting = __webpack_require__(291);
 
 var _GameWaiting2 = _interopRequireDefault(_GameWaiting);
 
-var _FinalResultsStage = __webpack_require__(292);
+var _FinalResultsStage = __webpack_require__(293);
 
 var _FinalResultsStage2 = _interopRequireDefault(_FinalResultsStage);
 
@@ -29575,6 +29599,8 @@ var _axios = __webpack_require__(24);
 var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -29786,6 +29812,7 @@ var GameInstance = function (_Component) {
                     case 'voting':
                         if (this.state.votingAnswers != null) {
                             return _react2.default.createElement(_VotingStage2.default, {
+                                roundNumber: this.state.roundNumber,
                                 votingAnswers: this.state.votingAnswers,
                                 voteLength: this.state.voteLength,
                                 gameInstanceId: this.state.gameInstanceId,
@@ -29799,25 +29826,21 @@ var GameInstance = function (_Component) {
 
                     case 'playing':
                         if (this.state.timeLeft != null) {
+                            var _React$createElement;
 
-                            return _react2.default.createElement(_SubmissionStage2.default, {
+                            return _react2.default.createElement(_SubmissionStage2.default, (_React$createElement = {
+                                roundNumber: this.state.roundNumber,
                                 players: this.state.players,
                                 submitLength: this.state.submitLength,
-                                letters: this.state.letters,
-                                roundNumber: this.state.roundNumber,
-                                gameInstanceId: this.state.gameInstanceId,
-                                answerSubmitted: this.state.answerSubmitted,
-                                setAnswerSubmitted: this.setAnswerSubmitted,
-                                setSubmittedBool: this.setSubmittedBool,
-                                submittedBool: this.state.submittedBool
-
-                            });
+                                letters: this.state.letters
+                            }, _defineProperty(_React$createElement, "roundNumber", this.state.roundNumber), _defineProperty(_React$createElement, "gameInstanceId", this.state.gameInstanceId), _defineProperty(_React$createElement, "answerSubmitted", this.state.answerSubmitted), _defineProperty(_React$createElement, "setAnswerSubmitted", this.setAnswerSubmitted), _defineProperty(_React$createElement, "setSubmittedBool", this.setSubmittedBool), _defineProperty(_React$createElement, "submittedBool", this.state.submittedBool), _React$createElement));
                         }
                         break;
 
                     case 'results':
                         if (this.state.resultsInfo != null) {
                             return _react2.default.createElement(_ResultsStage2.default, {
+                                roundNumber: this.state.roundNumber,
                                 resultsInfo: this.state.resultsInfo,
                                 gameInstanceId: this.state.gameInstanceId
                             });
@@ -31134,6 +31157,107 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var RoundNumber = function (_Component) {
+    _inherits(RoundNumber, _Component);
+
+    function RoundNumber(props) {
+        _classCallCheck(this, RoundNumber);
+
+        var _this = _possibleConstructorReturn(this, (RoundNumber.__proto__ || Object.getPrototypeOf(RoundNumber)).call(this, props));
+
+        _this.roundNumberRender = _this.roundNumberRender.bind(_this);
+        return _this;
+    }
+
+    _createClass(RoundNumber, [{
+        key: "roundNumberRender",
+        value: function roundNumberRender() {
+            switch (this.props.roundNumber) {
+                case 1:
+                    return _react2.default.createElement(
+                        "p",
+                        null,
+                        "Round: 1"
+                    );
+                    break;
+                case 2:
+                    return _react2.default.createElement(
+                        "p",
+                        null,
+                        "Round: 2"
+                    );
+                    break;
+                case 3:
+                    return _react2.default.createElement(
+                        "p",
+                        null,
+                        "Round: 3"
+                    );
+                    break;
+                case 4:
+                    return _react2.default.createElement(
+                        "p",
+                        null,
+                        "Round: 4"
+                    );
+                    break;
+                case 5:
+                    return _react2.default.createElement(
+                        "p",
+                        null,
+                        "Round: 5"
+                    );
+                    break;
+                case 6:
+                    return _react2.default.createElement(
+                        "p",
+                        null,
+                        "Final Round"
+                    );
+                    break;
+            }
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "col-1 text-left" },
+                this.roundNumberRender()
+            );
+        }
+    }]);
+
+    return RoundNumber;
+}(_react.Component);
+
+exports.default = RoundNumber;
+
+/***/ }),
+/* 288 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var VoteTime = function (_Component) {
     _inherits(VoteTime, _Component);
 
@@ -31199,7 +31323,7 @@ var VoteTime = function (_Component) {
 exports.default = VoteTime;
 
 /***/ }),
-/* 288 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31283,7 +31407,7 @@ var VoteButton = function (_Component) {
 exports.default = VoteButton;
 
 /***/ }),
-/* 289 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31372,7 +31496,7 @@ var ResultsItem = function (_Component) {
 exports.default = ResultsItem;
 
 /***/ }),
-/* 290 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31388,7 +31512,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _PlayerWaiting = __webpack_require__(291);
+var _PlayerWaiting = __webpack_require__(292);
 
 var _PlayerWaiting2 = _interopRequireDefault(_PlayerWaiting);
 
@@ -31467,7 +31591,7 @@ var WaitingStage = function (_Component) {
 exports.default = WaitingStage;
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31531,7 +31655,7 @@ var GamePlayer = function (_Component) {
 exports.default = GamePlayer;
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31547,7 +31671,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _FinalResultItem = __webpack_require__(293);
+var _FinalResultItem = __webpack_require__(294);
 
 var _FinalResultItem2 = _interopRequireDefault(_FinalResultItem);
 
@@ -31604,7 +31728,7 @@ var FinalResultsStage = function (_Component) {
 exports.default = FinalResultsStage;
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
