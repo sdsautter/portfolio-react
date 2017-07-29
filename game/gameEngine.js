@@ -36,9 +36,8 @@ exports.submitAnswerOrVote = async(req, res) => {
 exports.getStatus = async(req, res, next) => {
   // Get the game instance Id from the URI
   const gameInstanceId = req.params.gameInstance;
-  const playerId = req.session.passport.user;
 
-  const status = await statusController.generateStatus(gameInstanceId, playerId);
+  const status = await statusController.generateStatus(gameInstanceId);
   res.json(status);
 };
 
