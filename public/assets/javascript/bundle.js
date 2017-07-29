@@ -31063,7 +31063,7 @@ var GamePlayer = function (_Component) {
                 _react2.default.createElement(
                     "div",
                     { className: "col-4 align-self-center" },
-                    _react2.default.createElement("img", { className: "avatar", src: "assets/images/avatar1.png" })
+                    _react2.default.createElement("img", { className: "avatar", src: "assets/images/avatar1.svg" })
                 ),
                 _react2.default.createElement(
                     "div",
@@ -31325,7 +31325,7 @@ var ResultsItem = function (_Component) {
                 _react2.default.createElement(
                     "div",
                     { className: "col-2" },
-                    _react2.default.createElement("img", { className: "avatar-results", src: "assets/images/avatar1.png" })
+                    _react2.default.createElement("img", { className: "avatar-results", src: "assets/images/avatar1.svg" })
                 ),
                 _react2.default.createElement(
                     "div",
@@ -31510,7 +31510,7 @@ var GamePlayer = function (_Component) {
                 _react2.default.createElement(
                     "div",
                     { className: "col-3 align-self-center" },
-                    _react2.default.createElement("img", { className: "avatar", src: "assets/images/avatar1.png" })
+                    _react2.default.createElement("img", { className: "avatar", src: "assets/images/avatar1.svg" })
                 ),
                 _react2.default.createElement(
                     "div",
@@ -31646,7 +31646,7 @@ var FinalResultsItem = function (_Component) {
                 _react2.default.createElement(
                     "div",
                     { className: "col-2" },
-                    _react2.default.createElement("img", { className: "avatar-results", src: "assets/images/avatar1.png" })
+                    _react2.default.createElement("img", { className: "avatar-results", src: "assets/images/avatar1.svg" })
                 ),
                 _react2.default.createElement(
                     "div",
