@@ -14,7 +14,7 @@ module.exports = (app) => {
   // .put(isLoggedIn, round.createNewRound);
 
   app.route('/api/games')
-    // .get(isLoggedIn, gameInstance.listGames)
+    .get(isLoggedIn, gameInstance.getActiveGame)
     .post(isLoggedIn, gameInstance.joinGame);
 
 

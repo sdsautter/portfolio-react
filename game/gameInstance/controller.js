@@ -78,11 +78,33 @@ exports.joinGame = async(req, res) => {
   });
 };
 
-exports.listGames = async(req, res) => {
+// exports.listGames = async(req, res) => {
+//   const activeGames = await GameInstanceDocument.find({
+//     state: 'waiting',
+//   });
+//   return res.json(activeGames);
+// };
+
+exports.getActiveGame = async(req, res) => {
+  const playerId = req.session.passport.user;
+
   const activeGames = await GameInstanceDocument.find({
-    state: 'waiting',
+    $or: [{
+      state: 'waiting',
+    }, {
+      state: 'playing',
+    }],
+    'players.user': playerId,
   });
-  return res.json(activeGames);
+  console.log(`Active Games: ${activeGames}`);
+  if (activeGames.length > 0) {
+    return res.json({
+      gameInstance: {
+        gameInstanceId: activeGames[0]._id,
+      },
+    });
+  }
+  return res.json(false);
 };
 
 exports.leaveGame = async(req, res, next) => {
