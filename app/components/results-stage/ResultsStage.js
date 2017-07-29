@@ -1,10 +1,13 @@
 import React, {Component} from "react";
 import ResultItem from "./ResultItem.js";
+import LeaveButton from "../LeaveButton.js";
+
 
 export default class ResultsStage extends Component {
     render() {
         return (
-            <div className="col-10 main-game text-center">
+            <div className="col-11 main-game text-center">
+            <LeaveButton gameInstanceId={this.props.gameInstanceId}/>
 
             {
                 Object.keys(this.props.resultsInfo).map((key) => {

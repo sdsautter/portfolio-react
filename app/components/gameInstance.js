@@ -56,6 +56,7 @@ export default class GameInstance extends Component {
         this.setAnswerSubmitted = this.setAnswerSubmitted.bind(this);
         this.setSubmittedBool = this.setSubmittedBool.bind(this);
         this.setVotedBool = this.setVotedBool.bind(this);
+        this.shuffle = this.shuffle.bind(this);
 
 
         this.gameState = this.gameState.bind(this);
@@ -115,16 +116,33 @@ export default class GameInstance extends Component {
     }
 
     addVotingAnswers(votingAnswers) {
+        if (votingAnswers) {this.shuffle(votingAnswers);}        
         this.setState({ votingAnswers });
     }
 
     addResultsInfo( resultsInfo ) {
+        if (resultsInfo) {
+        resultsInfo.sort((a, b) => {return b.score - a.score});    
+        }    
         this.setState({ resultsInfo })
     }
 
     addPlayers(players) {
         players.sort((a, b) => {return b.points - a.points});
         this.setState({ players });
+    }
+
+    shuffle(array) {
+        var tmp, current, top = array.length;
+
+        if(top) while(--top) {
+        current = Math.floor(Math.random() * (top + 1));
+        tmp = array[current];
+        array[current] = array[top];
+        array[top] = tmp;
+        }
+
+        return array;
     }
 
     gameSync() {
@@ -161,7 +179,9 @@ export default class GameInstance extends Component {
         switch(this.state.roundState){
             case 'waiting':
                 return (
-                    <WaitingStage players={this.state.players} />
+                    <WaitingStage players={this.state.players} 
+                        gameInstanceId={this.state.gameInstanceId}
+                    />
                 )
                 break;
             case 'voting':  
@@ -194,8 +214,7 @@ export default class GameInstance extends Component {
                         setAnswerSubmitted={this.setAnswerSubmitted}
                         setSubmittedBool={this.setSubmittedBool}
                         submittedBool={this.state.submittedBool}
-                        /*timeLeft={this.state.timeLeft}
-                        addTimeLeft={this.addTimeLeft}*/
+
                     />
                 )
             }
@@ -205,7 +224,8 @@ export default class GameInstance extends Component {
                 if (this.state.resultsInfo != null) {
                     return (
                     <ResultsStage 
-                            resultsInfo={this.state.resultsInfo}
+                        resultsInfo={this.state.resultsInfo}
+                        gameInstanceId={this.state.gameInstanceId}                            
                         />
                     )
                 }
@@ -214,7 +234,9 @@ export default class GameInstance extends Component {
             default: 
                 if (this.state.gameState === 'waiting' ){
                         return (
-                            <WaitingStage players={this.state.players} />
+                            <WaitingStage players={this.state.players} 
+                            gameInstanceId={this.state.gameInstanceId}
+                            />
                         )
                 }else {
                 return (

@@ -17,7 +17,8 @@ export default class FinalResultsStage extends Component {
     }
     render() {
         return (
-            <div className="col-10 main-game text-center">
+            <div className="col-11 main-game text-center">
+                <h1>Game Over!</h1>
                 {this.finalResults()}
         
             </div>
