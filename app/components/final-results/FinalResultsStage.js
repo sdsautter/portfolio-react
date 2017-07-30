@@ -8,7 +8,7 @@ export default class FinalResultsStage extends Component {
         this.state = { 
             findGame: false
         }
-        
+
         this.finalResults = this.finalResults.bind(this);
         this.findGamePost = this.findGamePost.bind(this);
     }
@@ -25,6 +25,7 @@ export default class FinalResultsStage extends Component {
         axios.post("/api/games")
             .then((response) => {
                 console.log("Hello");
+                this.props.setFindGameTrue();
                 return addGameInstance(response.data.gameInstance.gameInstanceId);
             })
             .catch(function (error) {
