@@ -6097,6 +6097,7 @@ var LeaveButton = function (_Component) {
     _createClass(LeaveButton, [{
         key: "leaveClick",
         value: function leaveClick() {
+            this.props.setFindGameFalse();
             _axios2.default.delete("/api/games/" + this.props.gameInstanceId).then(function (response) {
                 console.log("Goodbye");
             }).catch(function (error) {
@@ -13764,7 +13765,10 @@ var SubmissionStage = function (_Component) {
                 _react2.default.createElement(
                     "div",
                     { className: "row justify-content-between" },
-                    _react2.default.createElement(_LeaveButton2.default, { gameInstanceId: this.props.gameInstanceId }),
+                    _react2.default.createElement(_LeaveButton2.default, {
+                        gameInstanceId: this.props.gameInstanceId,
+                        setFindGameFalse: this.props.setFindGameFalse
+                    }),
                     _react2.default.createElement(_RoundNumber2.default, { roundNumber: this.props.roundNumber })
                 ),
                 _react2.default.createElement(
@@ -14197,10 +14201,12 @@ var VotingStage = function (_Component) {
                 _react2.default.createElement(
                     "div",
                     { className: "row justify-content-between" },
-                    _react2.default.createElement(_LeaveButton2.default, { gameInstanceId: this.props.gameInstanceId }),
+                    _react2.default.createElement(_LeaveButton2.default, {
+                        gameInstanceId: this.props.gameInstanceId,
+                        setFindGameFalse: this.props.setFindGameFalse
+                    }),
                     _react2.default.createElement(_RoundNumber2.default, { roundNumber: this.props.roundNumber })
                 ),
-                "                ",
                 _react2.default.createElement(_VoteTime2.default, null),
                 _react2.default.createElement(
                     "legend",
@@ -14209,18 +14215,26 @@ var VotingStage = function (_Component) {
                 ),
                 _react2.default.createElement(
                     "div",
-                    { className: "btn-group-vertical", "data-toggle": "buttons" },
-                    Object.keys(this.props.votingAnswers).map(function (key) {
-                        var currentAnswer = _this2.props.votingAnswers[key];
-                        return _react2.default.createElement(_VoteButton2.default, {
-                            key: key,
-                            answer: currentAnswer.answer,
-                            answerId: currentAnswer.answerId,
-                            gameInstanceId: _this2.props.gameInstanceId,
-                            setVotedBool: _this2.props.setVotedBool,
-                            votedBool: _this2.props.votedBool
-                        });
-                    })
+                    { className: "row text-center" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-12" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "btn-group-vertical", "data-toggle": "buttons" },
+                            Object.keys(this.props.votingAnswers).map(function (key) {
+                                var currentAnswer = _this2.props.votingAnswers[key];
+                                return _react2.default.createElement(_VoteButton2.default, {
+                                    key: key,
+                                    answer: currentAnswer.answer,
+                                    answerId: currentAnswer.answerId,
+                                    gameInstanceId: _this2.props.gameInstanceId,
+                                    setVotedBool: _this2.props.setVotedBool,
+                                    votedBool: _this2.props.votedBool
+                                });
+                            })
+                        )
+                    )
                 ),
                 _react2.default.createElement("br", null)
             );
@@ -14263,6 +14277,8 @@ var _RoundNumber2 = _interopRequireDefault(_RoundNumber);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -14289,7 +14305,9 @@ var ResultsStage = function (_Component) {
                 _react2.default.createElement(
                     "div",
                     { className: "row justify-content-between" },
-                    _react2.default.createElement(_LeaveButton2.default, { gameInstanceId: this.props.gameInstanceId }),
+                    _react2.default.createElement(_LeaveButton2.default, _defineProperty({
+                        gameInstanceId: this.props.gameInstanceId, setFindGameFalse: this.props.setFindGameFalse
+                    }, "setFindGameFalse", this.props.setFindGameFalse)),
                     _react2.default.createElement(_RoundNumber2.default, { roundNumber: this.props.roundNumber })
                 ),
                 Object.keys(this.props.resultsInfo).map(function (key) {
@@ -14356,7 +14374,7 @@ var FindGame = function (_Component) {
         value: function findGamePost(event) {
             var addGameInstance = this.props.addGameInstance;
             event.preventDefault();
-            this.props.addFindGame();
+            this.props.setFindGameTrue();
 
             _axios2.default.post("/api/games").then(function (response) {
                 console.log("Hello");
@@ -29728,6 +29746,7 @@ var GameInstance = function (_Component) {
             roundState: {},
             gameState: {},
             resultsInfo: {},
+            timerId: {},
             answerSubmitted: "not yet",
             submittedBool: false,
             votedBool: false,
@@ -29755,7 +29774,8 @@ var GameInstance = function (_Component) {
         _this.addRoundAnswers = _this.addRoundAnswers.bind(_this);
         _this.addPlayers = _this.addPlayers.bind(_this);
         _this.addGameState = _this.addGameState.bind(_this);
-        _this.addFindGame = _this.addFindGame.bind(_this);
+        _this.setFindGameTrue = _this.setFindGameTrue.bind(_this);
+        _this.setFindGameFalse = _this.setFindGameFalse.bind(_this);
         _this.addResultsInfo = _this.addResultsInfo.bind(_this);
         _this.addVotingAnswers = _this.addVotingAnswers.bind(_this);
         _this.setAnswerSubmitted = _this.setAnswerSubmitted.bind(_this);
@@ -29768,10 +29788,16 @@ var GameInstance = function (_Component) {
     }
 
     _createClass(GameInstance, [{
-        key: "addFindGame",
-        value: function addFindGame() {
+        key: "setFindGameTrue",
+        value: function setFindGameTrue() {
             this.setState({ findGame: true });
             this.gameSync();
+        }
+    }, {
+        key: "setFindGameFalse",
+        value: function setFindGameFalse() {
+            clearInterval(this.state.timerId);
+            this.setState({ findGame: false });
         }
     }, {
         key: "setSubmittedBool",
@@ -29877,7 +29903,7 @@ var GameInstance = function (_Component) {
 
             var isActive = true;
             if (isActive) {
-                window.setInterval(function () {
+                var timerId = setInterval(function () {
                     (0, _helpers.gameSyncHelper)(_this2.state.gameInstanceId, function (data) {
                         var activeRound = data.data.activeRound;
                         var gameInstanceGet = data.data.gameInstance;
@@ -29894,6 +29920,7 @@ var GameInstance = function (_Component) {
                         _this2.addPlayers(gameInstanceGet.players);
                     });
                 }, 1000);
+                this.setState({ timerId: timerId });
             }
         }
     }, {
@@ -29903,11 +29930,12 @@ var GameInstance = function (_Component) {
                 return _react2.default.createElement(_FinalResultsStage2.default, {
                     results: this.state.players
                 });
-            } else {
+            } else if (this.state.findGame) {
                 switch (this.state.roundState) {
                     case 'waiting':
                         return _react2.default.createElement(_GameWaiting2.default, { players: this.state.players,
-                            gameInstanceId: this.state.gameInstanceId
+                            gameInstanceId: this.state.gameInstanceId,
+                            setFindGameFalse: this.setFindGameFalse
                         });
                         break;
                     case 'voting':
@@ -29920,6 +29948,7 @@ var GameInstance = function (_Component) {
                                 setVotedBool: this.setVotedBool,
                                 votedBool: this.state.votedBool,
                                 timeLeft: this.state.timeLeft,
+                                setFindGameFalse: this.setFindGameFalse,
                                 addTimeLeft: this.addTimeLeft
                             });
                         }
@@ -29934,7 +29963,7 @@ var GameInstance = function (_Component) {
                                 players: this.state.players,
                                 submitLength: this.state.submitLength,
                                 letters: this.state.letters
-                            }, _defineProperty(_React$createElement, "roundNumber", this.state.roundNumber), _defineProperty(_React$createElement, "gameInstanceId", this.state.gameInstanceId), _defineProperty(_React$createElement, "answerSubmitted", this.state.answerSubmitted), _defineProperty(_React$createElement, "setAnswerSubmitted", this.setAnswerSubmitted), _defineProperty(_React$createElement, "setSubmittedBool", this.setSubmittedBool), _defineProperty(_React$createElement, "submittedBool", this.state.submittedBool), _React$createElement));
+                            }, _defineProperty(_React$createElement, "roundNumber", this.state.roundNumber), _defineProperty(_React$createElement, "gameInstanceId", this.state.gameInstanceId), _defineProperty(_React$createElement, "answerSubmitted", this.state.answerSubmitted), _defineProperty(_React$createElement, "setAnswerSubmitted", this.setAnswerSubmitted), _defineProperty(_React$createElement, "setSubmittedBool", this.setSubmittedBool), _defineProperty(_React$createElement, "setFindGameFalse", this.setFindGameFalse), _defineProperty(_React$createElement, "submittedBool", this.state.submittedBool), _React$createElement));
                         }
                         break;
 
@@ -29943,6 +29972,7 @@ var GameInstance = function (_Component) {
                             return _react2.default.createElement(_ResultsStage2.default, {
                                 roundNumber: this.state.roundNumber,
                                 resultsInfo: this.state.resultsInfo,
+                                setFindGameFalse: this.setFindGameFalse,
                                 gameInstanceId: this.state.gameInstanceId
                             });
                         }
@@ -29950,17 +29980,25 @@ var GameInstance = function (_Component) {
 
                     default:
                         if (this.state.gameState === 'waiting') {
-                            return _react2.default.createElement(_GameWaiting2.default, { players: this.state.players,
+                            return _react2.default.createElement(_GameWaiting2.default, {
+                                players: this.state.players,
+                                setFindGameFalse: this.setFindGameFalse,
                                 gameInstanceId: this.state.gameInstanceId
                             });
                         } else {
                             return _react2.default.createElement(_FindGame2.default, {
                                 addGameInstance: this.addGameInstance,
-                                addFindGame: this.addFindGame,
+                                setFindGameTrue: this.setFindGameTrue,
                                 findGame: this.state.findGame
                             });
                             break;
                         }}
+            } else {
+                return _react2.default.createElement(_FindGame2.default, {
+                    addGameInstance: this.addGameInstance,
+                    setFindGameTrue: this.setFindGameTrue,
+                    findGame: this.state.findGame
+                });
             }
         }
     }, {
@@ -31559,7 +31597,10 @@ var WaitingStage = function (_Component) {
             return _react2.default.createElement(
                 "div",
                 { className: "col-11 main-game text-center" },
-                _react2.default.createElement(_LeaveButton2.default, { gameInstanceId: this.props.gameInstanceId }),
+                _react2.default.createElement(_LeaveButton2.default, {
+                    gameInstanceId: this.props.gameInstanceId,
+                    setFindGameFalse: this.props.setFindGameFalse
+                }),
                 _react2.default.createElement(
                     "div",
                     { className: "row" },
