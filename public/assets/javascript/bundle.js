@@ -29781,6 +29781,7 @@ var GameInstance = function (_Component) {
         _this.setAnswerSubmitted = _this.setAnswerSubmitted.bind(_this);
         _this.setSubmittedBool = _this.setSubmittedBool.bind(_this);
         _this.setVotedBool = _this.setVotedBool.bind(_this);
+        _this.syncClearInterval = _this.syncClearInterval.bind(_this);
         _this.shuffle = _this.shuffle.bind(_this);
 
         _this.gameState = _this.gameState.bind(_this);
@@ -29796,8 +29797,13 @@ var GameInstance = function (_Component) {
     }, {
         key: "setFindGameFalse",
         value: function setFindGameFalse() {
-            clearInterval(this.state.timerId);
+            this.syncClearInterval();
             this.setState({ findGame: false });
+        }
+    }, {
+        key: "syncClearInterval",
+        value: function syncClearInterval() {
+            clearInterval(this.state.timerId);
         }
     }, {
         key: "setSubmittedBool",
@@ -29903,6 +29909,7 @@ var GameInstance = function (_Component) {
 
             var isActive = true;
             if (isActive) {
+                var setetet = 0;
                 var timerId = setInterval(function () {
                     (0, _helpers.gameSyncHelper)(_this2.state.gameInstanceId, function (data) {
                         var activeRound = data.data.activeRound;
@@ -29918,6 +29925,8 @@ var GameInstance = function (_Component) {
                         _this2.addResultsInfo(activeRound.userScore);
                         _this2.addGameState(gameInstanceGet.state);
                         _this2.addPlayers(gameInstanceGet.players);
+                        setetet++;
+                        console.log(setetet);
                     });
                 }, 1000);
                 this.setState({ timerId: timerId });
@@ -29928,7 +29937,11 @@ var GameInstance = function (_Component) {
         value: function gameState() {
             if (this.state.gameState === 'complete') {
                 return _react2.default.createElement(_FinalResultsStage2.default, {
-                    results: this.state.players
+                    results: this.state.players,
+                    addGameInstance: this.addGameInstance,
+                    setFindGameTrue: this.setFindGameTrue,
+                    findGame: this.state.findGame,
+                    syncClearInterval: this.syncClearInterval
                 });
             } else if (this.state.findGame) {
                 switch (this.state.roundState) {
@@ -31732,11 +31745,35 @@ var FinalResultsStage = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (FinalResultsStage.__proto__ || Object.getPrototypeOf(FinalResultsStage)).call(this, props));
 
+        _this.state = {
+            findGame: false
+        };
+
         _this.finalResults = _this.finalResults.bind(_this);
+        _this.findGamePost = _this.findGamePost.bind(_this);
         return _this;
     }
 
     _createClass(FinalResultsStage, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.props.syncClearInterval();
+        }
+    }, {
+        key: "findGamePost",
+        value: function findGamePost(event) {
+            var addGameInstance = this.props.addGameInstance;
+            event.preventDefault();
+            this.setState({ findGame: true });
+
+            axios.post("/api/games").then(function (response) {
+                console.log("Hello");
+                return addGameInstance(response.data.gameInstance.gameInstanceId);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
         key: "finalResults",
         value: function finalResults() {
             console.log(this.props.results);
@@ -31754,11 +31791,41 @@ var FinalResultsStage = function (_Component) {
                 "div",
                 { className: "col-11 main-game text-center" },
                 _react2.default.createElement(
-                    "h1",
-                    null,
-                    "Game Over!"
+                    "div",
+                    { className: "row text-center" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col" },
+                        _react2.default.createElement(
+                            "h1",
+                            { className: "game-over" },
+                            "Game Over!"
+                        )
+                    )
                 ),
-                this.finalResults()
+                _react2.default.createElement("br", null),
+                this.finalResults(),
+                _react2.default.createElement(
+                    "div",
+                    { className: "row" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col text-center" },
+                        _react2.default.createElement(
+                            "form",
+                            { onSubmit: this.findGamePost },
+                            _react2.default.createElement(
+                                "button",
+                                {
+                                    name: "findGame",
+                                    className: "btn btn-success vote-answer",
+                                    disabled: this.state.findGame
+                                },
+                                "Find Game"
+                            )
+                        )
+                    )
+                )
             );
         }
     }]);
