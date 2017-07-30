@@ -22,6 +22,7 @@ export default class GameInstance extends Component {
             roundState: {},
             gameState: {},
             resultsInfo: {},
+            timerId: {},
             answerSubmitted: "not yet",
             submittedBool: false,
             votedBool: false,
@@ -50,7 +51,8 @@ export default class GameInstance extends Component {
         this.addRoundAnswers = this.addRoundAnswers.bind(this);
         this.addPlayers = this.addPlayers.bind(this);
         this.addGameState = this.addGameState.bind(this);
-        this.addFindGame = this.addFindGame.bind(this);
+        this.setFindGameTrue = this.setFindGameTrue.bind(this);
+        this.setFindGameFalse = this.setFindGameFalse.bind(this);        
         this.addResultsInfo = this.addResultsInfo.bind(this);
         this.addVotingAnswers = this.addVotingAnswers.bind(this);
         this.setAnswerSubmitted = this.setAnswerSubmitted.bind(this);
@@ -62,9 +64,14 @@ export default class GameInstance extends Component {
         this.gameState = this.gameState.bind(this);
     }
 
-    addFindGame() {
+    setFindGameTrue() {
         this.setState({ findGame: true });
         this.gameSync();
+    }
+
+    setFindGameFalse() {
+        clearInterval(this.state.timerId);
+        this.setState({ findGame: false });
     }
 
     setSubmittedBool(submittedBool) {
@@ -149,7 +156,7 @@ export default class GameInstance extends Component {
         let isActive = true;
         if(isActive)
             {
-                window.setInterval(() => {
+                let timerId =  setInterval(() => {
                     gameSyncHelper(this.state.gameInstanceId, (data) => {
                         const activeRound = data.data.activeRound;
                         const gameInstanceGet = data.data.gameInstance;
@@ -167,6 +174,7 @@ export default class GameInstance extends Component {
                     });
                     
                 }, 1000);
+                this.setState({ timerId })
             }
     }
 
@@ -175,12 +183,13 @@ export default class GameInstance extends Component {
             return (<FinalResults 
                     results={this.state.players}
                      />)
-        } else {
+        } else if (this.state.findGame) {
         switch(this.state.roundState){
             case 'waiting':
                 return (
                     <WaitingStage players={this.state.players} 
                         gameInstanceId={this.state.gameInstanceId}
+                        setFindGameFalse={this.setFindGameFalse}
                     />
                 )
                 break;
@@ -195,6 +204,7 @@ export default class GameInstance extends Component {
                         setVotedBool={this.setVotedBool}
                         votedBool={this.state.votedBool}
                         timeLeft={this.state.timeLeft}  
+                        setFindGameFalse={this.setFindGameFalse}
                         addTimeLeft={this.addTimeLeft}                                              
                     />
                 )
@@ -215,6 +225,7 @@ export default class GameInstance extends Component {
                         answerSubmitted={this.state.answerSubmitted}
                         setAnswerSubmitted={this.setAnswerSubmitted}
                         setSubmittedBool={this.setSubmittedBool}
+                        setFindGameFalse={this.setFindGameFalse}
                         submittedBool={this.state.submittedBool}
 
                     />
@@ -228,7 +239,8 @@ export default class GameInstance extends Component {
                     <ResultsStage 
                         roundNumber={this.state.roundNumber}                    
                         resultsInfo={this.state.resultsInfo}
-                        gameInstanceId={this.state.gameInstanceId}                            
+                        setFindGameFalse={this.setFindGameFalse}
+                        gameInstanceId={this.state.gameInstanceId}                         
                         />
                     )
                 }
@@ -236,21 +248,29 @@ export default class GameInstance extends Component {
 
             default: 
                 if (this.state.gameState === 'waiting' ){
-                        return (
-                            <WaitingStage players={this.state.players} 
+                    return (
+                        <WaitingStage 
+                            players={this.state.players} 
+                            setFindGameFalse={this.setFindGameFalse}
                             gameInstanceId={this.state.gameInstanceId}
-                            />
-                        )
-                }else {
+                        />
+                    )
+                } else {
                 return (
                     <FindGame 
                         addGameInstance={this.addGameInstance}
-                        addFindGame={this.addFindGame}
+                        setFindGameTrue={this.setFindGameTrue}
                         findGame={this.state.findGame}
                      /> 
                 )
                 break;
         }}
+    } else {
+        return (<FindGame 
+            addGameInstance={this.addGameInstance}
+            setFindGameTrue={this.setFindGameTrue}
+            findGame={this.state.findGame}
+        />) 
     }
     }
 

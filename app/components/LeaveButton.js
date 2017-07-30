@@ -9,6 +9,7 @@ export default class LeaveButton extends Component {
     }
 
     leaveClick() {
+        this.props.setFindGameFalse();
         axios.delete(`/api/games/${this.props.gameInstanceId}`)
             .then((response) => {
                 console.log("Goodbye");
