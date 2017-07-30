@@ -31762,12 +31762,15 @@ var FinalResultsStage = function (_Component) {
     }, {
         key: "findGamePost",
         value: function findGamePost(event) {
+            var _this2 = this;
+
             var addGameInstance = this.props.addGameInstance;
             event.preventDefault();
             this.setState({ findGame: true });
 
             axios.post("/api/games").then(function (response) {
                 console.log("Hello");
+                _this2.props.setFindGameTrue();
                 return addGameInstance(response.data.gameInstance.gameInstanceId);
             }).catch(function (error) {
                 console.log(error);
