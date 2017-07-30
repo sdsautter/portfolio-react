@@ -161,7 +161,6 @@ export default class GameInstance extends Component {
         let isActive = true;
         if(isActive)
             {
-                let setetet = 0;
                 let timerId =  setInterval(() => {
                     gameSyncHelper(this.state.gameInstanceId, (data) => {
                         const activeRound = data.data.activeRound;
@@ -177,8 +176,6 @@ export default class GameInstance extends Component {
                         this.addResultsInfo(activeRound.userScore);
                         this.addGameState(gameInstanceGet.state);
                         this.addPlayers(gameInstanceGet.players);
-                        setetet++;
-                        console.log(setetet);
                     });
                     
                 }, 1000);
