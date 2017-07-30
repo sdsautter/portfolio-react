@@ -33,10 +33,16 @@ export default class VotingStage extends Component {
         return (
             <div className="col-11 main-game text-center">
                 <div className="row justify-content-between">
-                    <LeaveButton gameInstanceId={this.props.gameInstanceId} />
+                    <LeaveButton 
+                        gameInstanceId={this.props.gameInstanceId} 
+                        setFindGameFalse={this.props.setFindGameFalse}
+                    />
                     <RoundNumber roundNumber={this.props.roundNumber} />
-                </div>                <VoteTime  />
+                </div>                
+                <VoteTime  />
                     <legend className="vote-for-text">Vote For Your Favorite Answer</legend>
+                    <div className="row text-center">
+                    <div className="col-12">
                         <div className="btn-group-vertical" data-toggle="buttons">
                             {
                                 Object.keys(this.props.votingAnswers).map((key) => {
@@ -52,6 +58,8 @@ export default class VotingStage extends Component {
                                 })
                             }                                
                         </div>
+                    </div>
+                    </div>
                     <br />
             </div>
         )

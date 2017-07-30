@@ -8,7 +8,10 @@ export default class ResultsStage extends Component {
         return (
             <div className="col-11 main-game text-center">
                 <div className="row justify-content-between">
-                    <LeaveButton gameInstanceId={this.props.gameInstanceId} />
+                    <LeaveButton 
+                        gameInstanceId={this.props.gameInstanceId}                        setFindGameFalse={this.props.setFindGameFalse}
+                        setFindGameFalse={this.props.setFindGameFalse}
+                    />
                     <RoundNumber roundNumber={this.props.roundNumber} />
                 </div>
             {

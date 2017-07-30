@@ -92,7 +92,10 @@ export default class SubmissionStage extends Component {
         return (
                 <div className="col-sm-12 col-md-11 align-self-center main-game">
                 <div className="row justify-content-between">
-                    <LeaveButton gameInstanceId={this.props.gameInstanceId} />
+                    <LeaveButton 
+                        gameInstanceId={this.props.gameInstanceId} 
+                        setFindGameFalse={this.props.setFindGameFalse}
+                    />
                     <RoundNumber roundNumber={this.props.roundNumber} />
                 </div>
                     <div className="row">

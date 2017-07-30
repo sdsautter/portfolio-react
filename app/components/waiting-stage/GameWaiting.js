@@ -21,7 +21,10 @@ export default class WaitingStage extends Component {
     render() {
         return (
             <div className="col-11 main-game text-center">
-            <LeaveButton gameInstanceId={this.props.gameInstanceId} />
+            <LeaveButton 
+                gameInstanceId={this.props.gameInstanceId} 
+                setFindGameFalse={this.props.setFindGameFalse}
+            />
                 <div className="row">
                     <div className="col-sm-12 col-md-8">
                     <p className="waiting-stage">{this.waitingRender()}</p>    
