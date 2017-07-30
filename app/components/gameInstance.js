@@ -58,6 +58,7 @@ export default class GameInstance extends Component {
         this.setAnswerSubmitted = this.setAnswerSubmitted.bind(this);
         this.setSubmittedBool = this.setSubmittedBool.bind(this);
         this.setVotedBool = this.setVotedBool.bind(this);
+        this.syncClearInterval = this.syncClearInterval.bind(this);
         this.shuffle = this.shuffle.bind(this);
 
 
@@ -70,8 +71,12 @@ export default class GameInstance extends Component {
     }
 
     setFindGameFalse() {
-        clearInterval(this.state.timerId);
+        this.syncClearInterval();
         this.setState({ findGame: false });
+    }
+
+    syncClearInterval() {
+        clearInterval(this.state.timerId);
     }
 
     setSubmittedBool(submittedBool) {
@@ -156,6 +161,7 @@ export default class GameInstance extends Component {
         let isActive = true;
         if(isActive)
             {
+                let setetet = 0;
                 let timerId =  setInterval(() => {
                     gameSyncHelper(this.state.gameInstanceId, (data) => {
                         const activeRound = data.data.activeRound;
@@ -171,6 +177,8 @@ export default class GameInstance extends Component {
                         this.addResultsInfo(activeRound.userScore);
                         this.addGameState(gameInstanceGet.state);
                         this.addPlayers(gameInstanceGet.players);
+                        setetet++;
+                        console.log(setetet);
                     });
                     
                 }, 1000);
@@ -182,6 +190,10 @@ export default class GameInstance extends Component {
         if(this.state.gameState === 'complete') {
             return (<FinalResults 
                     results={this.state.players}
+                        addGameInstance={this.addGameInstance}
+                        setFindGameTrue={this.setFindGameTrue}
+                        findGame={this.state.findGame}
+                        syncClearInterval={this.syncClearInterval}
                      />)
         } else if (this.state.findGame) {
         switch(this.state.roundState){
