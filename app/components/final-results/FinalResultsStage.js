@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import FinalResultItem from "./FinalResultItem.js";
+import axios from "axios";
 
 export default class FinalResultsStage extends Component {
     constructor(props){
