@@ -26,24 +26,14 @@ export default class VoteButton extends Component {
 
     render() {
         return (
-
-
-            
-                <button onClick={this.voteAnswerPost}
+            <div className="col-sm-12 col-md-8 offset-md-2 vote-answer">
+                <a href="#" onClick={this.voteAnswerPost}
                     disabled={this.props.votedBool}
                     name="findGame"
-                    className="btn btn-success vote-answer"
                 >
                     {this.props.answer}
-                </button>
-            
-
-
-            // <form onSubmit={this.voteAnswerPost}>
-            //     <input name="findGame" type="submit" value={this.props.answer} />
-            // </form>
-
-           
+                </a>
+            </div>
         )
     }
 }

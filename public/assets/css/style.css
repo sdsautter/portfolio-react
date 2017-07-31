@@ -121,7 +121,7 @@ body {
 }
 
 h1 {
-  color: white;
+  color: #ECECEC;
 }
 
 .main-game {
@@ -138,7 +138,7 @@ h1 {
 
 .waiting-name {
   padding-top: 5%;
-  color: rgb(75.7%, 49.9%, 2.6%);
+  color: #CCCCCC;
   font-weight: bold;
   font-size: 1.25rem;
 }
@@ -159,7 +159,7 @@ h1 {
   top: -30px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  color: whitesmoke;
+  color: #CCCCCC;
   font-size: 7rem;
   text-shadow: -3px 4px 1px red;
 
@@ -176,14 +176,14 @@ h1 {
 }
 
 .player-name {
-  color: rgb(75.7%, 49.9%, 2.6%);
+  color: #CCCCCC;
   font-weight: bold;
   font-size: 1.25rem;
 }
 
 .player-points {
     font-family: PressStart;
-
+  color: #ECECEC;
 }
 
 .time-left{
@@ -197,7 +197,7 @@ h1 {
   left: -18px;
   top: 3px;
   font-family: PressStart;
-  color: rgb(100%, 0%, 0%);
+  color: #D20000;
   font-size: .8rem;
 }
 
@@ -205,14 +205,14 @@ h1 {
   font-family: PressStart;
 }
 
-.vote-answer {
+/* .vote-answer {
   font-size: 1.5rem;
   margin-bottom: 3%;
-}
+} */
 
-.vote-answer:active, .vote-answer:hover, .vote-answer:focus {
+/* .vote-answer:active, .vote-answer:hover, .vote-answer:focus {
   background-color: green;
-}
+} */
 
 .results-answer {
   font-size: 2rem;
@@ -289,12 +289,14 @@ h1 {
 .game-letters {
   position: relative;
   top: -30px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  color: whitesmoke;
+  font-family: Impact, sans-serif;
+  color: #CCCCCC;
+  text-shadow: #000 0px 0px 6px;
+  text-transform: uppercase;
+  text-align: center;
   font-size: 2.5rem;
-  text-shadow: -2px 3px 1px red;
 }
+
 .avatar {
   max-height: 40px;
   max-width: 50%;
@@ -359,11 +361,12 @@ h1 {
   .game-letters {
   position: relative;
   top: -30px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  color: whitesmoke;
+  font-family: Impact, sans-serif;
+  color: #CCCCCC;
+  text-shadow: #000 0px 0px 6px;
+  text-transform: uppercase;
+  text-align: center;
   font-size: 4rem;
-  text-shadow: -3px 4px 1px red;
 }
 
 .avatar {
@@ -395,7 +398,7 @@ h1 {
 }
 
 .player-name {
-  color: rgb(75.7%, 49.9%, 2.6%);
+  color: #CCCCCC;
   font-weight: bold;
   font-size: 1.25rem;
 }
@@ -406,7 +409,7 @@ h1 {
 }
 
 .player-name {
-  color: rgb(75.7%, 49.9%, 2.6%);
+  color: #CCCCCC;
   font-weight: bold;
   font-size: 1.25rem;
 }
@@ -425,7 +428,7 @@ h1 {
   position: relative;
   top: -30px;
   font-family: Impact, sans-serif;
-  color: lightgray;
+  color: #CCCCCC;
   text-shadow: #000 0px 0px 6px;
   text-transform: uppercase;
   text-align: center;
@@ -474,7 +477,7 @@ h1 {
 }
 
 .player-name {
-  color: rgb(75.7%, 49.9%, 2.6%);
+  color: #CCCCCC;
   font-weight: bold;
   font-size: 1.25rem;
 }
@@ -525,4 +528,27 @@ h1 {
 
 .final-rounds {
   color: red;
+}
+
+.vote-answer a:link {
+  text-decoration: none;
+}
+
+.vote-answer a {
+  font-family: PressStart;
+  color: #E73900;
+  font-size: 1.5rem;
+  margin-bottom: 3%;
+}
+
+.vote-answer a:hover {
+  font-size: 1.5rem;
+  color: #D20000;
+  margin-bottom: 3%;
+}
+
+.vote-answer a:active {
+  font-size: 1.5rem;
+  color: #ECECEC;
+  margin-bottom: 3%;
 }

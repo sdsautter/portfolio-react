@@ -14174,21 +14174,7 @@ var VotingStage = function (_Component) {
         key: "componentWillMount",
         value: function componentWillMount() {
             this.props.setVotedBool(false);
-        }
-    }, {
-        key: "voteAnswerPost",
-        value: function voteAnswerPost(event) {
-            console.log("click!");
-            var vote = this.props.answerId;
-
-            // axios.post(`/api/games/${this.props.gameInstanceId}`, { vote })
-            // .then((response) => {
-            //     console.log("Voted");
-            // })
-            // .catch(function (error) {
-            //     console.log(error);
-            // });
-
+            this.props.setShuffledBoolFalse();
         }
     }, {
         key: "render",
@@ -14213,28 +14199,21 @@ var VotingStage = function (_Component) {
                     { className: "vote-for-text" },
                     "Vote For Your Favorite Answer"
                 ),
+                _react2.default.createElement("br", null),
                 _react2.default.createElement(
                     "div",
                     { className: "row text-center" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-12" },
-                        _react2.default.createElement(
-                            "div",
-                            { className: "btn-group-vertical", "data-toggle": "buttons" },
-                            Object.keys(this.props.votingAnswers).map(function (key) {
-                                var currentAnswer = _this2.props.votingAnswers[key];
-                                return _react2.default.createElement(_VoteButton2.default, {
-                                    key: key,
-                                    answer: currentAnswer.answer,
-                                    answerId: currentAnswer.answerId,
-                                    gameInstanceId: _this2.props.gameInstanceId,
-                                    setVotedBool: _this2.props.setVotedBool,
-                                    votedBool: _this2.props.votedBool
-                                });
-                            })
-                        )
-                    )
+                    Object.keys(this.props.votingAnswers).map(function (key) {
+                        var currentAnswer = _this2.props.votingAnswers[key];
+                        return _react2.default.createElement(_VoteButton2.default, {
+                            key: key,
+                            answer: currentAnswer.answer,
+                            answerId: currentAnswer.answerId,
+                            gameInstanceId: _this2.props.gameInstanceId,
+                            setVotedBool: _this2.props.setVotedBool,
+                            votedBool: _this2.props.votedBool
+                        });
+                    })
                 ),
                 _react2.default.createElement("br", null)
             );
@@ -29748,6 +29727,7 @@ var GameInstance = function (_Component) {
             resultsInfo: {},
             timerId: {},
             answerSubmitted: "not yet",
+            shuffledBool: false,
             submittedBool: false,
             votedBool: false,
             findGame: false
@@ -29783,6 +29763,7 @@ var GameInstance = function (_Component) {
         _this.setVotedBool = _this.setVotedBool.bind(_this);
         _this.syncClearInterval = _this.syncClearInterval.bind(_this);
         _this.shuffle = _this.shuffle.bind(_this);
+        _this.setShuffledBoolFalse = _this.setShuffledBoolFalse.bind(_this);
 
         _this.gameState = _this.gameState.bind(_this);
         return _this;
@@ -29865,8 +29846,37 @@ var GameInstance = function (_Component) {
     }, {
         key: "addVotingAnswers",
         value: function addVotingAnswers(votingAnswers) {
-            // if (votingAnswers) {this.shuffle(votingAnswers);}        
-            this.setState({ votingAnswers: votingAnswers });
+            if (votingAnswers) {
+                if (!this.state.shuffledBool) {
+                    votingAnswers = this.shuffle(votingAnswers);
+                    this.setState({ votingAnswers: votingAnswers });
+                    this.setState({ shuffledBool: true });
+                }
+            }
+        }
+    }, {
+        key: "setShuffledBoolFalse",
+        value: function setShuffledBoolFalse() {
+            this.setState({ shuffledBool: false });
+        }
+
+        //Shuffles whatever array I put into it
+
+    }, {
+        key: "shuffle",
+        value: function shuffle(array) {
+            var tmp,
+                current,
+                top = array.length;
+
+            if (top) while (--top) {
+                current = Math.floor(Math.random() * (top + 1));
+                tmp = array[current];
+                array[current] = array[top];
+                array[top] = tmp;
+            }
+
+            return array;
         }
     }, {
         key: "addResultsInfo",
@@ -29885,22 +29895,6 @@ var GameInstance = function (_Component) {
                 return b.points - a.points;
             });
             this.setState({ players: players });
-        }
-    }, {
-        key: "shuffle",
-        value: function shuffle(array) {
-            var tmp,
-                current,
-                top = array.length;
-
-            if (top) while (--top) {
-                current = Math.floor(Math.random() * (top + 1));
-                tmp = array[current];
-                array[current] = array[top];
-                array[top] = tmp;
-            }
-
-            return array;
         }
     }, {
         key: "gameSync",
@@ -29959,7 +29953,8 @@ var GameInstance = function (_Component) {
                                 votedBool: this.state.votedBool,
                                 timeLeft: this.state.timeLeft,
                                 setFindGameFalse: this.setFindGameFalse,
-                                addTimeLeft: this.addTimeLeft
+                                addTimeLeft: this.addTimeLeft,
+                                setShuffledBoolFalse: this.setShuffledBoolFalse
                             });
                         }
                         break;
@@ -31431,21 +31426,17 @@ var VoteButton = function (_Component) {
         key: "render",
         value: function render() {
             return _react2.default.createElement(
-                "button",
-                { onClick: this.voteAnswerPost,
-                    disabled: this.props.votedBool,
-                    name: "findGame",
-                    className: "btn btn-success vote-answer"
-                },
-                this.props.answer
-            )
-
-            // <form onSubmit={this.voteAnswerPost}>
-            //     <input name="findGame" type="submit" value={this.props.answer} />
-            // </form>
-
-
-            ;
+                "div",
+                { className: "col-sm-12 col-md-8 offset-md-2 vote-answer" },
+                _react2.default.createElement(
+                    "a",
+                    { href: "#", onClick: this.voteAnswerPost,
+                        disabled: this.props.votedBool,
+                        name: "findGame"
+                    },
+                    this.props.answer
+                )
+            );
         }
     }]);
 
