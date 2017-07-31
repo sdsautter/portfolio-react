@@ -27,9 +27,8 @@ export default class VotingStage extends Component {
                 </div>                
                 <VoteTime  />
                     <legend className="vote-for-text">Vote For Your Favorite Answer</legend>
+                    <br />
                     <div className="row text-center">
-                    <div className="col-12">
-                        <div className="btn-group-vertical" data-toggle="buttons">
                             {
                                 Object.keys(this.props.votingAnswers).map((key) => {
                                     let currentAnswer = this.props.votingAnswers[key];
@@ -44,8 +43,6 @@ export default class VotingStage extends Component {
                                 })
                             }                                
                         </div>
-                    </div>
-                    </div>
                     <br />
             </div>
         )
