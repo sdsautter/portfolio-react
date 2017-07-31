@@ -29909,7 +29909,6 @@ var GameInstance = function (_Component) {
 
             var isActive = true;
             if (isActive) {
-                var setetet = 0;
                 var timerId = setInterval(function () {
                     (0, _helpers.gameSyncHelper)(_this2.state.gameInstanceId, function (data) {
                         var activeRound = data.data.activeRound;
@@ -29925,8 +29924,6 @@ var GameInstance = function (_Component) {
                         _this2.addResultsInfo(activeRound.userScore);
                         _this2.addGameState(gameInstanceGet.state);
                         _this2.addPlayers(gameInstanceGet.players);
-                        setetet++;
-                        console.log(setetet);
                     });
                 }, 1000);
                 this.setState({ timerId: timerId });
