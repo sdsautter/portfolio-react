@@ -24,6 +24,7 @@ export default class GameInstance extends Component {
             resultsInfo: {},
             timerId: {},
             answerSubmitted: "not yet",
+            shuffledBool: false,
             submittedBool: false,
             votedBool: false,
             findGame: false
@@ -60,7 +61,7 @@ export default class GameInstance extends Component {
         this.setVotedBool = this.setVotedBool.bind(this);
         this.syncClearInterval = this.syncClearInterval.bind(this);
         this.shuffle = this.shuffle.bind(this);
-
+        this.setShuffledBoolFalse = this.setShuffledBoolFalse.bind(this);
 
         this.gameState = this.gameState.bind(this);
     }
@@ -128,8 +129,31 @@ export default class GameInstance extends Component {
     }
 
     addVotingAnswers(votingAnswers) {
-        // if (votingAnswers) {this.shuffle(votingAnswers);}        
-        this.setState({ votingAnswers });
+         if (votingAnswers) {        
+            if (!this.state.shuffledBool) {
+                votingAnswers = this.shuffle(votingAnswers);
+                this.setState({ votingAnswers });
+                this.setState({ shuffledBool: true })
+            }
+         }
+    }
+
+    setShuffledBoolFalse() {
+        this.setState({ shuffledBool: false })
+    }
+
+    //Shuffles whatever array I put into it
+    shuffle(array) {
+        var tmp, current, top = array.length;
+
+        if(top) while(--top) {
+        current = Math.floor(Math.random() * (top + 1));
+        tmp = array[current];
+        array[current] = array[top];
+        array[top] = tmp;
+        }
+
+        return array;
     }
 
     addResultsInfo( resultsInfo ) {
@@ -142,19 +166,6 @@ export default class GameInstance extends Component {
     addPlayers(players) {
         players.sort((a, b) => {return b.points - a.points});
         this.setState({ players });
-    }
-
-    shuffle(array) {
-        var tmp, current, top = array.length;
-
-        if(top) while(--top) {
-        current = Math.floor(Math.random() * (top + 1));
-        tmp = array[current];
-        array[current] = array[top];
-        array[top] = tmp;
-        }
-
-        return array;
     }
 
     gameSync() {
@@ -214,7 +225,8 @@ export default class GameInstance extends Component {
                         votedBool={this.state.votedBool}
                         timeLeft={this.state.timeLeft}  
                         setFindGameFalse={this.setFindGameFalse}
-                        addTimeLeft={this.addTimeLeft}                                              
+                        addTimeLeft={this.addTimeLeft}      
+                        setShuffledBoolFalse={this.setShuffledBoolFalse}                                        
                     />
                 )
             }

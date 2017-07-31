@@ -7,10 +7,20 @@ import RoundNumber from "../RoundNumber.js";
 export default class VotingStage extends Component {
     constructor() {
         super();
+
+        this.state = {
+            shuffledBool: false,
+            answers: {}
+        }
     }
 
     componentWillMount() {
         this.props.setVotedBool(false);
+        this.props.setShuffledBoolFalse();
+    }
+
+    componentDidMount() {
+
     }
         
     voteAnswerPost(event) {
