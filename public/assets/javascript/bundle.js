@@ -31307,13 +31307,7 @@ var VotingStage = function (_Component) {
     function VotingStage() {
         _classCallCheck(this, VotingStage);
 
-        var _this = _possibleConstructorReturn(this, (VotingStage.__proto__ || Object.getPrototypeOf(VotingStage)).call(this));
-
-        _this.state = {
-            shuffledBool: false,
-            answers: {}
-        };
-        return _this;
+        return _possibleConstructorReturn(this, (VotingStage.__proto__ || Object.getPrototypeOf(VotingStage)).call(this));
     }
 
     _createClass(VotingStage, [{
@@ -31321,24 +31315,6 @@ var VotingStage = function (_Component) {
         value: function componentWillMount() {
             this.props.setVotedBool(false);
             this.props.setShuffledBoolFalse();
-        }
-    }, {
-        key: "componentDidMount",
-        value: function componentDidMount() {}
-    }, {
-        key: "voteAnswerPost",
-        value: function voteAnswerPost(event) {
-            console.log("click!");
-            var vote = this.props.answerId;
-
-            // axios.post(`/api/games/${this.props.gameInstanceId}`, { vote })
-            // .then((response) => {
-            //     console.log("Voted");
-            // })
-            // .catch(function (error) {
-            //     console.log(error);
-            // });
-
         }
     }, {
         key: "render",
