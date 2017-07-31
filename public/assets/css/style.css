@@ -294,7 +294,7 @@ h1 {
   text-shadow: #000 0px 0px 6px;
   text-transform: uppercase;
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 3rem;
 }
 
 .avatar {
@@ -541,8 +541,6 @@ h1 {
   margin-bottom: 3%;
 }
 
-}
-
 .first-rounds, .second-rounds, .final-rounds {
   font-family: PressStart;
   font-size: 1rem;
@@ -583,4 +581,6 @@ h1 {
   font-size: 1.5rem;
   color: #ECECEC;
   margin-bottom: 3%;
+}
+
 }
