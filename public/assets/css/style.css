@@ -350,8 +350,22 @@ h1 {
   font-size: 1rem;
 }
 
-.vote-answer {
+.vote-answer a {
+  font-family: PressStart;
+  color: #E73900;
   font-size: .75rem;
+  margin-bottom: 3%;
+}
+
+.vote-answer a:hover {
+  font-size: .75rem;
+  color: #D20000;
+  margin-bottom: 3%;
+}
+
+.vote-answer a:active {
+  font-size: .75rem;
+  color: #ECECEC;
   margin-bottom: 3%;
 }
 
@@ -419,6 +433,24 @@ h1 {
     font-size: .5rem;
 }
 
+.vote-answer a {
+  font-family: PressStart;
+  color: #E73900;
+  font-size: 1rem;
+  margin-bottom: 3%;
+}
+
+.vote-answer a:hover {
+  font-size: 1rem;
+  color: #D20000;
+  margin-bottom: 3%;
+}
+
+.vote-answer a:active {
+  font-size: 1rem;
+  color: #ECECEC;
+  margin-bottom: 3%;
+}
 
 }
 
