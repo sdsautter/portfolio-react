@@ -369,6 +369,25 @@ h1 {
   margin-bottom: 3%;
 }
 
+.first-rounds, .second-rounds, .final-rounds {
+  font-family: PressStart;
+  font-size: .75rem;
+  position: relative;
+  top: 0;
+}
+
+.first-rounds {
+  color: greenyellow;
+}
+
+.second-rounds {
+  color: yellow;
+}
+
+.final-rounds {
+  color: red;
+}
+
 }
 
 @media only screen and (min-width: 480px) {
@@ -431,6 +450,25 @@ h1 {
 .player-points {
     font-family: PressStart;
     font-size: .5rem;
+}
+
+.first-rounds, .second-rounds, .final-rounds {
+  font-family: PressStart;
+  font-size: 1rem;
+  position: relative;
+  top: 0;
+}
+
+.first-rounds {
+  color: greenyellow;
+}
+
+.second-rounds {
+  color: yellow;
+}
+
+.final-rounds {
+  color: red;
 }
 
 .vote-answer a {
