@@ -341,19 +341,19 @@ h1 {
   font-family: Atari;
   color: #E73900;
   font-size: .75rem;
-  margin-bottom: 6%;
+  margin-bottom: 10%;
 }
 
 .vote-answer a:hover {
   font-size: .75rem;
   color: #D20000;
-  margin-bottom: 6%;
+  margin-bottom: 10%;
 }
 
 .vote-answer a:active {
   font-size: .75rem;
   color: #ECECEC;
-  margin-bottom: 6%;
+  margin-bottom: 10%;
 }
 
 .first-rounds, .second-rounds, .final-rounds {
