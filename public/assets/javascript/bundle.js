@@ -1305,7 +1305,7 @@ module.exports = { debugTool: debugTool };
 
 
 var bind = __webpack_require__(120);
-var isBuffer = __webpack_require__(270);
+var isBuffer = __webpack_require__(269);
 
 /*global toString:true*/
 
@@ -2600,7 +2600,7 @@ function createRoutes(routes) {
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(269);
+module.exports = __webpack_require__(268);
 
 /***/ }),
 /* 21 */
@@ -8664,7 +8664,7 @@ function mapAsync(array, work, callback) {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(12);
-var normalizeHeaderName = __webpack_require__(272);
+var normalizeHeaderName = __webpack_require__(271);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -13546,7 +13546,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _GameInstance = __webpack_require__(265);
+var _GameInstance = __webpack_require__(264);
 
 var _GameInstance2 = _interopRequireDefault(_GameInstance);
 
@@ -13608,19 +13608,19 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _GameTime = __webpack_require__(266);
+var _GameTime = __webpack_require__(265);
 
 var _GameTime2 = _interopRequireDefault(_GameTime);
 
-var _GameLetters = __webpack_require__(267);
+var _GameLetters = __webpack_require__(266);
 
 var _GameLetters2 = _interopRequireDefault(_GameLetters);
 
-var _GameInput = __webpack_require__(268);
+var _GameInput = __webpack_require__(267);
 
 var _GameInput2 = _interopRequireDefault(_GameInput);
 
-var _GamePlayer = __webpack_require__(287);
+var _GamePlayer = __webpack_require__(286);
 
 var _GamePlayer2 = _interopRequireDefault(_GamePlayer);
 
@@ -13836,12 +13836,12 @@ module.exports = function bind(fn, thisArg) {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(12);
-var settle = __webpack_require__(273);
-var buildURL = __webpack_require__(275);
-var parseHeaders = __webpack_require__(276);
-var isURLSameOrigin = __webpack_require__(277);
+var settle = __webpack_require__(272);
+var buildURL = __webpack_require__(274);
+var parseHeaders = __webpack_require__(275);
+var isURLSameOrigin = __webpack_require__(276);
 var createError = __webpack_require__(122);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(278);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(277);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -13938,7 +13938,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(279);
+      var cookies = __webpack_require__(278);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -14023,7 +14023,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(274);
+var enhanceError = __webpack_require__(273);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -14131,11 +14131,11 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _VoteTime = __webpack_require__(288);
+var _VoteTime = __webpack_require__(287);
 
 var _VoteTime2 = _interopRequireDefault(_VoteTime);
 
-var _VoteButton = __webpack_require__(289);
+var _VoteButton = __webpack_require__(288);
 
 var _VoteButton2 = _interopRequireDefault(_VoteButton);
 
@@ -14236,7 +14236,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ResultItem = __webpack_require__(290);
+var _ResultItem = __webpack_require__(289);
 
 var _ResultItem2 = _interopRequireDefault(_ResultItem);
 
@@ -29584,8 +29584,7 @@ exports.default = _react2.default.createElement(
 );
 
 /***/ }),
-/* 264 */,
-/* 265 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29617,11 +29616,11 @@ var _FindGame = __webpack_require__(128);
 
 var _FindGame2 = _interopRequireDefault(_FindGame);
 
-var _GameWaiting = __webpack_require__(291);
+var _GameWaiting = __webpack_require__(290);
 
 var _GameWaiting2 = _interopRequireDefault(_GameWaiting);
 
-var _FinalResultsStage = __webpack_require__(293);
+var _FinalResultsStage = __webpack_require__(292);
 
 var _FinalResultsStage2 = _interopRequireDefault(_FinalResultsStage);
 
@@ -29958,7 +29957,7 @@ var GameInstance = function (_Component) {
 exports.default = GameInstance;
 
 /***/ }),
-/* 266 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30047,7 +30046,7 @@ var GameTime = function (_Component) {
 exports.default = GameTime;
 
 /***/ }),
-/* 267 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30113,7 +30112,7 @@ var GameLetters = function (_Component) {
 exports.default = GameLetters;
 
 /***/ }),
-/* 268 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30254,7 +30253,7 @@ var GameInput = function (_Component) {
 exports.default = GameInput;
 
 /***/ }),
-/* 269 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30262,7 +30261,7 @@ exports.default = GameInput;
 
 var utils = __webpack_require__(12);
 var bind = __webpack_require__(120);
-var Axios = __webpack_require__(271);
+var Axios = __webpack_require__(270);
 var defaults = __webpack_require__(71);
 
 /**
@@ -30297,14 +30296,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(124);
-axios.CancelToken = __webpack_require__(285);
+axios.CancelToken = __webpack_require__(284);
 axios.isCancel = __webpack_require__(123);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(286);
+axios.spread = __webpack_require__(285);
 
 module.exports = axios;
 
@@ -30313,7 +30312,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 270 */
+/* 269 */
 /***/ (function(module, exports) {
 
 /*!
@@ -30340,7 +30339,7 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 271 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30348,10 +30347,10 @@ function isSlowBuffer (obj) {
 
 var defaults = __webpack_require__(71);
 var utils = __webpack_require__(12);
-var InterceptorManager = __webpack_require__(280);
-var dispatchRequest = __webpack_require__(281);
-var isAbsoluteURL = __webpack_require__(283);
-var combineURLs = __webpack_require__(284);
+var InterceptorManager = __webpack_require__(279);
+var dispatchRequest = __webpack_require__(280);
+var isAbsoluteURL = __webpack_require__(282);
+var combineURLs = __webpack_require__(283);
 
 /**
  * Create a new instance of Axios
@@ -30433,7 +30432,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 272 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30452,7 +30451,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 273 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30485,7 +30484,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 274 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30513,7 +30512,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 275 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30588,7 +30587,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 276 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30632,7 +30631,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 277 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30707,7 +30706,7 @@ module.exports = (
 
 
 /***/ }),
-/* 278 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30750,7 +30749,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 279 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30810,7 +30809,7 @@ module.exports = (
 
 
 /***/ }),
-/* 280 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30869,14 +30868,14 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 281 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(12);
-var transformData = __webpack_require__(282);
+var transformData = __webpack_require__(281);
 var isCancel = __webpack_require__(123);
 var defaults = __webpack_require__(71);
 
@@ -30955,7 +30954,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 282 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30982,7 +30981,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 283 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31003,7 +31002,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 284 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31024,7 +31023,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 285 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31088,7 +31087,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 286 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31122,7 +31121,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 287 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31200,7 +31199,7 @@ var GamePlayer = function (_Component) {
 exports.default = GamePlayer;
 
 /***/ }),
-/* 288 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31289,7 +31288,7 @@ var VoteTime = function (_Component) {
 exports.default = VoteTime;
 
 /***/ }),
-/* 289 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31369,7 +31368,7 @@ var VoteButton = function (_Component) {
 exports.default = VoteButton;
 
 /***/ }),
-/* 290 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31450,7 +31449,7 @@ var ResultsItem = function (_Component) {
 exports.default = ResultsItem;
 
 /***/ }),
-/* 291 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31466,7 +31465,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _PlayerWaiting = __webpack_require__(292);
+var _PlayerWaiting = __webpack_require__(291);
 
 var _PlayerWaiting2 = _interopRequireDefault(_PlayerWaiting);
 
@@ -31548,7 +31547,7 @@ var WaitingStage = function (_Component) {
 exports.default = WaitingStage;
 
 /***/ }),
-/* 292 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31612,7 +31611,7 @@ var GamePlayer = function (_Component) {
 exports.default = GamePlayer;
 
 /***/ }),
-/* 293 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31628,7 +31627,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _FinalResultItem = __webpack_require__(294);
+var _FinalResultItem = __webpack_require__(293);
 
 var _FinalResultItem2 = _interopRequireDefault(_FinalResultItem);
 
@@ -31746,7 +31745,7 @@ var FinalResultsStage = function (_Component) {
 exports.default = FinalResultsStage;
 
 /***/ }),
-/* 294 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31784,42 +31783,34 @@ var FinalResultsItem = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "row results-all" },
+                { className: "col-sm-12 col-md-4 offset-md-4 results-all" },
                 _react2.default.createElement(
                     "div",
-                    { className: "col-2" },
-                    _react2.default.createElement("img", { className: "avatar-results", src: "assets/images/avatar1.svg" })
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "col-10" },
+                    { className: "row" },
                     _react2.default.createElement(
                         "div",
-                        { className: "row" },
+                        { className: "col-3 align-self-center" },
+                        _react2.default.createElement("img", { className: "avatar-results", src: "assets/images/avatar1.svg" })
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-9" },
                         _react2.default.createElement(
                             "div",
-                            { className: "col" },
+                            { className: "row text-left" },
                             _react2.default.createElement(
-                                "p",
-                                { className: "player-name" },
+                                "div",
+                                { className: "col-12 text-left align-self-center player-name" },
                                 this.props.username
-                            )
-                        ),
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col" },
+                            ),
                             _react2.default.createElement(
-                                "p",
-                                null,
+                                "div",
+                                { className: "col-5 points-text" },
                                 "Points:"
-                            )
-                        ),
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-1" },
+                            ),
                             _react2.default.createElement(
-                                "p",
-                                null,
+                                "div",
+                                { className: "col-7 player-points" },
                                 this.props.score
                             )
                         )

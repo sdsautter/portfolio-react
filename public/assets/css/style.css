@@ -299,6 +299,10 @@ h1 {
   font-size: .75rem;
 }
 
+.round-header, .game-over {
+  font-size: 1.25rem;
+}
+
 .time-left{
   font-family: Atari;  
   color:#D20000;
@@ -337,19 +341,19 @@ h1 {
   font-family: Atari;
   color: #E73900;
   font-size: .75rem;
-  margin-bottom: 2rem;
+  margin-bottom: 6%;
 }
 
 .vote-answer a:hover {
   font-size: .75rem;
   color: #D20000;
-  margin-bottom: 2rem;
+  margin-bottom: 6%;
 }
 
 .vote-answer a:active {
   font-size: .75rem;
   color: #ECECEC;
-  margin-bottom: 2rem;
+  margin-bottom: 6%;
 }
 
 .first-rounds, .second-rounds, .final-rounds {
@@ -365,6 +369,7 @@ h1 {
 }
 
 .player-name {
+  font-family: Atari;
   padding-left: 0;
 }
 
@@ -494,6 +499,10 @@ h1 {
   font-family: Atari;
   margin-bottom: 5%;  
   font-size: 1.5rem;
+}
+
+.round-header, .game-over {
+  font-size: 2rem;
 }
 
 .time-left{
