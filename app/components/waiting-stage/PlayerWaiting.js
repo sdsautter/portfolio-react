@@ -14,7 +14,7 @@ export default class GamePlayer extends Component {
                 <div className="col-3 align-self-center">
                     <img className="avatar" src="assets/images/avatar1.svg" />
                 </div>
-                <div className="col-9 align-self-center">
+                <div className="col-9 align-self-center text-left">
                         <p className="waiting-name">{this.props.username}</p>
                 </div>
             </div>
