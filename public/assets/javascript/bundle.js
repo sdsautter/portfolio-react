@@ -14289,6 +14289,19 @@ var ResultsStage = function (_Component) {
                     }, "setFindGameFalse", this.props.setFindGameFalse)),
                     _react2.default.createElement(_RoundNumber2.default, { roundNumber: this.props.roundNumber })
                 ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "row text-center" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col" },
+                        _react2.default.createElement(
+                            "h1",
+                            { className: "round-header" },
+                            "Round Results"
+                        )
+                    )
+                ),
                 Object.keys(this.props.resultsInfo).map(function (key) {
                     var resultsInfo = _this2.props.resultsInfo[key];
                     return _react2.default.createElement(_ResultItem2.default
@@ -31229,41 +31242,29 @@ var GamePlayer = function (_Component) {
                 { className: "row player-info" },
                 _react2.default.createElement(
                     "div",
-                    { className: "col-4 align-self-center" },
+                    { className: "col-3 align-self-center" },
                     _react2.default.createElement("img", { className: "avatar", src: "assets/images/avatar1.svg" })
                 ),
                 _react2.default.createElement(
                     "div",
-                    { className: "col-8" },
+                    { className: "col-9" },
                     _react2.default.createElement(
                         "div",
                         { className: "row" },
                         _react2.default.createElement(
                             "div",
-                            { className: "col-12" },
-                            _react2.default.createElement(
-                                "p",
-                                { className: "player-name" },
-                                this.props.username
-                            )
+                            { className: "col-12 text-left align-self-center player-name" },
+                            this.props.username
                         ),
                         _react2.default.createElement(
                             "div",
-                            { className: "col-5" },
-                            _react2.default.createElement(
-                                "p",
-                                { className: "points-text" },
-                                "Points:"
-                            )
+                            { className: "col-5 points-text" },
+                            "Points:"
                         ),
                         _react2.default.createElement(
                             "div",
-                            { className: "col-7" },
-                            _react2.default.createElement(
-                                "p",
-                                { className: "player-points" },
-                                this.props.points
-                            )
+                            { className: "col-7 player-points" },
+                            this.props.points
                         )
                     )
                 )
@@ -31484,42 +31485,34 @@ var ResultsItem = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "row results-all" },
+                { className: "col-sm-12 col-md-4 offset-md-4 results-all" },
                 _react2.default.createElement(
                     "div",
-                    { className: "col-2" },
-                    _react2.default.createElement("img", { className: "avatar-results", src: "assets/images/avatar1.svg" })
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "col-10" },
+                    { className: "row" },
                     _react2.default.createElement(
                         "div",
-                        { className: "row" },
+                        { className: "col-3 align-self-center" },
+                        _react2.default.createElement("img", { className: "avatar-results", src: "assets/images/avatar1.svg" })
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-9" },
                         _react2.default.createElement(
                             "div",
-                            { className: "col" },
+                            { className: "row text-left" },
                             _react2.default.createElement(
-                                "p",
-                                { className: "player-name" },
+                                "div",
+                                { className: "col-12 text-left align-self-center player-name" },
                                 this.props.username
-                            )
-                        ),
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col" },
+                            ),
                             _react2.default.createElement(
-                                "p",
-                                null,
+                                "div",
+                                { className: "col-5 points-text" },
                                 "Points:"
-                            )
-                        ),
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-1" },
+                            ),
                             _react2.default.createElement(
-                                "p",
-                                null,
+                                "div",
+                                { className: "col-7 player-points" },
                                 this.props.score
                             )
                         )
@@ -31680,7 +31673,7 @@ var GamePlayer = function (_Component) {
                 ),
                 _react2.default.createElement(
                     "div",
-                    { className: "col-9 align-self-center" },
+                    { className: "col-9 align-self-center text-left" },
                     _react2.default.createElement(
                         "p",
                         { className: "waiting-name" },
@@ -31738,7 +31731,7 @@ var FinalResultsStage = function (_Component) {
         var _this = _possibleConstructorReturn(this, (FinalResultsStage.__proto__ || Object.getPrototypeOf(FinalResultsStage)).call(this, props));
 
         _this.state = {
-            findGame: false
+            findGWame: false
         };
 
         _this.finalResults = _this.finalResults.bind(_this);

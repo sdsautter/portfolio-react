@@ -14,6 +14,11 @@ export default class ResultsStage extends Component {
                     />
                     <RoundNumber roundNumber={this.props.roundNumber} />
                 </div>
+                <div className="row text-center">
+                    <div className="col">
+                        <h1 className="round-header">Round Results</h1>
+                    </div>
+                </div>
             {
                 Object.keys(this.props.resultsInfo).map((key) => {
                     let resultsInfo = this.props.resultsInfo[key];

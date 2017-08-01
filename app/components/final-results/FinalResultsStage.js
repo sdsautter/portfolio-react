@@ -7,7 +7,7 @@ export default class FinalResultsStage extends Component {
         super(props);
         
         this.state = { 
-            findGame: false
+            findGWame: false
         }
 
         this.finalResults = this.finalResults.bind(this);
