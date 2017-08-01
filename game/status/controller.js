@@ -6,7 +6,7 @@ const Answer = require('../answer/controller');
 const gameConfig = require('../config');
 
 
-exports.generateStatus = async(gameInstanceId) => {
+exports.generateStatus = async(gameInstanceId, playerId) => {
   let activeRound = {};
   let submittedAnswers = [];
   let userAnswers = [];
@@ -70,12 +70,20 @@ exports.generateStatus = async(gameInstanceId) => {
       const answers = await Answer.findAnswerByRound(round._id);
       if (Array.isArray(answers)) {
         if (answers.length !== 0) {
-          userAnswers = answers.map((answer) => {
-            return {
-              answer: answer.answer,
-              answerId: answer._id,
-            };
-          });
+          // userAnswers = answers.map((answer) => {
+          //   return {
+          //     answer: answer.answer,
+          //     answerId: answer._id,
+          //   };
+          // });
+          for (let i = 0; i < answers.length; i++) {
+            if (!answers[i].player.equals(playerId)) {
+              userAnswers.push({
+                answer: answers[i].answer,
+                answerId: answers[i]._id,
+              });
+            }
+          }
         }
       }
 
