@@ -31731,7 +31731,7 @@ var FinalResultsStage = function (_Component) {
         var _this = _possibleConstructorReturn(this, (FinalResultsStage.__proto__ || Object.getPrototypeOf(FinalResultsStage)).call(this, props));
 
         _this.state = {
-            findGWame: false
+            findGame: false
         };
 
         _this.finalResults = _this.finalResults.bind(_this);
