@@ -66,6 +66,10 @@ body {
   width: 100%;
 }
 
+.signup-button {
+  font-size: .8rem;
+}
+
 .no-account {
   font-family: Atari;
   color: #CCCCCC;
