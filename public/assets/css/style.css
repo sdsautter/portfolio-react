@@ -40,17 +40,35 @@ body {
   /*border: 1px solid #CCCCCC;
   border-radius: 1rem;*/
   padding: 1.5rem;
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+  margin-top: 2rem;
+}
+
+.checkbox {
+  padding-left: 0;
+}
+
+#email, #password {
+  padding-left: 1%;
+}
+
+.email-label, .password-label, .username-label {
+  font-family: Atari;
+  color: #ECECEC;
 }
 
 .btn-large {
   text-transform: none;
+  font-family: Atari;
 }
 
 .btn-signup {
   /*width: 23rem;*/
   width: 100%;
+}
+
+.no-account {
+  font-family: Atari;
+  color: #CCCCCC;
 }
 
 .login-footer {
@@ -522,7 +540,7 @@ h1 {
   font-family: Atari;
   position: absolute; 
   right: 3%;
-  top: 20%;
+  top: 0;
 }
 
 .player-name {
@@ -589,6 +607,11 @@ h1 {
   font-size: 1.5rem;
   color: #ECECEC;
   margin-bottom: 3%;
+}
+
+.no-account {
+  font-family: Atari;
+  font-size: 1.5rem;
 }
 
 }
