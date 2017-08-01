@@ -337,19 +337,19 @@ h1 {
   font-family: Atari;
   color: #E73900;
   font-size: .75rem;
-  margin-bottom: 3%;
+  margin-bottom: 2rem;
 }
 
 .vote-answer a:hover {
   font-size: .75rem;
   color: #D20000;
-  margin-bottom: 3%;
+  margin-bottom: 2rem;
 }
 
 .vote-answer a:active {
   font-size: .75rem;
   color: #ECECEC;
-  margin-bottom: 3%;
+  margin-bottom: 2rem;
 }
 
 .first-rounds, .second-rounds, .final-rounds {
@@ -544,11 +544,6 @@ h1 {
 .vote-for-text {
   font-family: Atari;
   font-size: 1.5rem;
-}
-
-.vote-answer {
-  font-size: 1rem;
-  margin-bottom: 3%;
 }
 
 .first-rounds, .second-rounds, .final-rounds {
