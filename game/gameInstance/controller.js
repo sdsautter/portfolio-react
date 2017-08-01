@@ -12,13 +12,17 @@ const createTimer = (time) => {
 
 const waitForPlayersAndStartGame = async(_id, state) => {
   await createTimer(20);
-  const game = await GameInstanceDocument.findOneAndUpdate({
-    _id,
-  }, {
-    state,
-  }, {
-    new: true,
-  });
+  const game = await GameInstanceDocument.findById(_id);
+  if (game.state !== 'playing') {
+    await GameInstanceDocument.findOneAndUpdate({
+      _id,
+    }, {
+      state,
+    }, {
+      new: true,
+    });
+    gameEngine.startGame(game._id);
+  }
 };
 
 exports.createGame = async(req, res, next) => {
