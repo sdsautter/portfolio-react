@@ -36,8 +36,9 @@ exports.submitAnswerOrVote = async(req, res) => {
 exports.getStatus = async(req, res, next) => {
   // Get the game instance Id from the URI
   const gameInstanceId = req.params.gameInstance;
+  const playerId = req.session.passport.user;
 
-  const status = await statusController.generateStatus(gameInstanceId);
+  const status = await statusController.generateStatus(gameInstanceId, playerId);
   res.json(status);
 };
 
@@ -71,7 +72,7 @@ exports.startGame = async(gameInstanceId) => {
     // calculate the results for the round
     await roundController.calculatePoints(gameInstanceId, newRound._id);
     // Set the round state to results
-    if (!roundInResultsState) await roundController.setRoundState(newRound._id, 'results');    
+    if (!roundInResultsState) await roundController.setRoundState(newRound._id, 'results');
     // After 15 seconds move to the complete state
     await createTimer(gameConfig.RESULTSTIMER);
     // add the points for the round to the game instance
