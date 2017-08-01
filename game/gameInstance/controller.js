@@ -4,6 +4,23 @@ const GameInstanceDocument = mongoose.model('GameInstance');
 const User = mongoose.model('User');
 const gameEngine = require('../gameEngine');
 
+const createTimer = (time) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, time * 1000);
+  });
+};
+
+const waitForPlayersAndStartGame = async(_id, state) => {
+  await createTimer(20);
+  const game = await GameInstanceDocument.findOneAndUpdate({
+    _id,
+  }, {
+    state,
+  }, {
+    new: true,
+  });
+};
+
 exports.createGame = async(req, res, next) => {
   // LEGACY, USED TO MANUALLY CREATE GAMES WITH POST ROUTE. FUNCTIONALITY MOVED TO .joinGame
 
@@ -58,8 +75,12 @@ exports.joinGame = async(req, res) => {
   }, {
     new: true,
   });
+  // If there are the minimum amount of players required for a game, start the game timer
+  if (updatedGameReference.players.length === config.minUsers) {
+    waitForPlayersAndStartGame(updatedGameReference._id, 'playing');
+  }
 
-  // Is there are enough players in the instance start the game
+  // If there are enough players in the instance start the game
   if (updatedGameReference.players.length === config.maxUsers) {
     updatedGameReference = await GameInstanceDocument.findOneAndUpdate({
       _id: gameReference,
