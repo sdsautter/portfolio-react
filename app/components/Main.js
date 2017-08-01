@@ -4,7 +4,6 @@
 // var Link = require("react-router").Link;
 
 import React, {Component} from 'react';
-import Navbar from "./Navbar.js"
 import GameInstance from "./GameInstance";
 
 
@@ -15,11 +14,9 @@ export default class Main extends Component {
   render() {
 
     return (
-        <div className="container-fluid z-index-2">
-        <Navbar />
-        <br />
-            <GameInstance />
-    </div>
+      <div className="container-fluid z-index-2">
+        <GameInstance />
+      </div>
     );
   }
 }
