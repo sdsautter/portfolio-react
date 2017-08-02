@@ -31349,7 +31349,7 @@ var VoteButton = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "col-sm-12 col-md-8 offset-md-2 vote-answer" },
+                { className: "col-sm-12 vote-answer" },
                 _react2.default.createElement(
                     "a",
                     { href: "#", onClick: this.voteAnswerPost,
@@ -31500,6 +31500,8 @@ var WaitingStage = function (_Component) {
                 return "Waiting for 2 more players!";
             } else if (this.props.players.length === 2) {
                 return "Waiting for 1 more player!";
+            } else if (this.props.players.length >= 3) {
+                return "Game is about to start.";
             } else {
                 return "Waiting for players!";
             }
@@ -31511,7 +31513,7 @@ var WaitingStage = function (_Component) {
 
             return _react2.default.createElement(
                 "div",
-                { className: "col-11 main-game text-center" },
+                { className: "col-md-11 col-sm-12 main-game text-center" },
                 _react2.default.createElement(_LeaveButton2.default, {
                     gameInstanceId: this.props.gameInstanceId,
                     setFindGameFalse: this.props.setFindGameFalse
@@ -31714,6 +31716,7 @@ var FinalResultsStage = function (_Component) {
                 ),
                 _react2.default.createElement("br", null),
                 this.finalResults(),
+                _react2.default.createElement("br", null),
                 _react2.default.createElement(
                     "div",
                     { className: "row" },
