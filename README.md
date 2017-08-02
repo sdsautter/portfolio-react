@@ -2,6 +2,9 @@
 
 A game about acronyms
 
+# Presentation
+https://docs.google.com/presentation/d/1AAPZQuaafDh7yKswlVRslTGehIC6BfyNtS5jNdb91as/edit?usp=sharing
+
 # Gameplay
 
 5 Rounds plus a final round
