@@ -13,6 +13,8 @@ export default class WaitingStage extends Component {
             return "Waiting for 2 more players!"
         } else if (this.props.players.length === 2) {
             return "Waiting for 1 more player!"
+        } else if (this.props.players.length >= 3) {
+            return "Game is about to start."
         } else {
             return "Waiting for players!"
         }
@@ -20,7 +22,7 @@ export default class WaitingStage extends Component {
     
     render() {
         return (
-            <div className="col-11 main-game text-center">
+            <div className="col-md-11 col-sm-12 main-game text-center">
             <LeaveButton 
                 gameInstanceId={this.props.gameInstanceId} 
                 setFindGameFalse={this.props.setFindGameFalse}
