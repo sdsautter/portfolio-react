@@ -308,7 +308,7 @@ h1 {
   text-shadow: #000 0px 0px 6px;
   text-transform: uppercase;
   text-align: center;
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 .avatar {
@@ -399,6 +399,11 @@ h1 {
   top: 0;
   color: #ECECEC;
 }
+
+.final-rounds {
+  color: #D20000;
+}
+
 .leave-button {
   max-height: 15px;
   margin-bottom: 10%;
@@ -597,6 +602,10 @@ h1 {
   position: relative;
   color: #ECECEC;
   top: 0;
+}
+
+.final-rounds {
+  color: #D20000;
 }
 
 .leave-button {
