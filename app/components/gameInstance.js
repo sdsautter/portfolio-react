@@ -241,13 +241,13 @@ export default class GameInstance extends Component {
                         players={this.state.players} 
                         submitLength={this.state.submitLength}
                         letters={this.state.letters}
-                        roundNumber={this.state.roundNumber}
                         gameInstanceId={this.state.gameInstanceId}
                         answerSubmitted={this.state.answerSubmitted}
                         setAnswerSubmitted={this.setAnswerSubmitted}
                         setSubmittedBool={this.setSubmittedBool}
                         setFindGameFalse={this.setFindGameFalse}
                         submittedBool={this.state.submittedBool}
+                        roundAnswers={this.state.roundAnswers}
 
                     />
                 )

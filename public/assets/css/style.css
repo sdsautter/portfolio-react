@@ -270,6 +270,10 @@ h1 {
   color: pink;
 }
 
+.answer-submitted {
+  background-color: rgba(32, 121, 35, .7) !important;
+}
+
 .game-rule {
   font-family: Atari;
 }
