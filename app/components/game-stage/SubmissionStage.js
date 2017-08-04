@@ -123,7 +123,13 @@ export default class SubmissionStage extends Component {
                             {
                                 Object.keys(this.props.players).map((key) => {
                                     var currentPlayer = this.props.players[key];
-                                    return (<GamePlayer key={key} username={currentPlayer.username} points={currentPlayer.points} />)
+                                    return (
+                                        <GamePlayer 
+                                            key={key} 
+                                            username={currentPlayer.username} 
+                                            points={currentPlayer.points} 
+                                            roundAnswers={this.props.roundAnswers}    
+                                        />)
                                 })    
                             }   
                         </div>
