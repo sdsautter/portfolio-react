@@ -31687,10 +31687,14 @@ var WaitingStage = function (_Component) {
             return _react2.default.createElement(
                 "div",
                 { className: "col-md-11 col-sm-12 main-game text-center" },
-                _react2.default.createElement(_LeaveButton2.default, {
-                    gameInstanceId: this.props.gameInstanceId,
-                    setFindGameFalse: this.props.setFindGameFalse
-                }),
+                _react2.default.createElement(
+                    "div",
+                    { className: "row text-left" },
+                    _react2.default.createElement(_LeaveButton2.default, {
+                        gameInstanceId: this.props.gameInstanceId,
+                        setFindGameFalse: this.props.setFindGameFalse
+                    })
+                ),
                 _react2.default.createElement(
                     "div",
                     { className: "row" },
