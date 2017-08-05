@@ -13755,7 +13755,7 @@ var SubmissionStage = function (_Component) {
 
             return _react2.default.createElement(
                 "div",
-                { className: "col-sm-12 col-md-11 align-self-center main-game" },
+                { className: "col-sm-12 col-lg-11 align-self-center main-game" },
                 _react2.default.createElement(
                     "div",
                     { className: "row justify-content-between" },
@@ -13770,7 +13770,7 @@ var SubmissionStage = function (_Component) {
                     { className: "row" },
                     _react2.default.createElement(
                         "div",
-                        { className: "col-sm-12 col-md-9" },
+                        { className: "col-sm-12 col-lg-9" },
                         _react2.default.createElement(_GameTime2.default, null),
                         _react2.default.createElement("br", null),
                         _react2.default.createElement(_GameLetters2.default, { letters: this.props.letters }),
@@ -13793,7 +13793,7 @@ var SubmissionStage = function (_Component) {
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "col-sm-12 col-md-3" },
+                        { className: "col-sm-12 col-lg-3" },
                         Object.keys(this.props.players).map(function (key) {
                             var currentPlayer = _this2.props.players[key];
                             return _react2.default.createElement(_GamePlayer2.default, {
