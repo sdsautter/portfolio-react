@@ -3,7 +3,7 @@ import React, {Component} from "react";
 export default class ResultsItem extends Component {
     render() {
         return (
-                <div className="col-sm-12 col-md-4 offset-md-4 results-all">
+                <div className="col-sm-12 col-md-8 offset-md-2 col-lg-4 offset-lg-4 results-all">
                     <div className="row">
                     <div className="col-3 align-self-center">
                         <img className="avatar-results" src="assets/images/avatar1.svg" />

@@ -95,10 +95,10 @@ export default class GamePlayer extends Component {
                         <div className="col-12 text-left align-self-center player-name">
                             {this.props.username}
                         </div>
-                        <div className="col-5 points-text">
+                        <div className="col-sm-5 col-md-3 col-lg-5 points-text">
                             Points:
                         </div>
-                        <div className="col-7 player-points">
+                        <div className="col-sm-7 col-md-9 col-lg-7 player-points">
                         {this.props.points}
                         </div>
                     </div>
@@ -115,10 +115,10 @@ export default class GamePlayer extends Component {
                         <div className="col-12 text-left align-self-center player-name">
                             {this.props.username}
                         </div>
-                        <div className="col-5 points-text">
+                        <div className="col-sm-5 col-md-3 col-lg-5 points-text">
                             Points:
                         </div>
-                        <div className="col-7 player-points">
+                        <div className="col-sm-7 col-md-9 col-lg-7 player-points">
                         {this.props.points}
                         </div>
                     </div>
