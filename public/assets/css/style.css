@@ -215,15 +215,6 @@ h1 {
   font-family: Atari;
 }
 
-/* .vote-answer {
-  font-size: 1.5rem;
-  margin-bottom: 3%;
-} */
-
-/* .vote-answer:active, .vote-answer:hover, .vote-answer:focus {
-  background-color: green;
-} */
-
 .results-answer {
   font-size: 2rem;
 }
@@ -496,18 +487,18 @@ h1 {
 .vote-answer a {
   font-family: Atari;
   color: #E73900;
-  font-size: 1rem;
+  font-size: 1.3rem;
   margin-bottom: 3%;
 }
 
 .vote-answer a:hover {
-  font-size: 1rem;
+  font-size: 1.3rem;
   color: #D20000;
   margin-bottom: 3%;
 }
 
 .vote-answer a:active {
-  font-size: 1rem;
+  font-size: 1.3rem;
   color: #ECECEC;
   margin-bottom: 3%;
 }
