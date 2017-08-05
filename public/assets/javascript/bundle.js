@@ -31169,12 +31169,12 @@ var GamePlayer = function (_Component) {
                                 ),
                                 _react2.default.createElement(
                                     "div",
-                                    { className: "col-5 col-md-3 col-lg-5 points-text" },
+                                    { className: "col-5 col-md-2 col-lg-5 points-text" },
                                     "Points:"
                                 ),
                                 _react2.default.createElement(
                                     "div",
-                                    { className: "col-7 col-md-9 col-lg-7 player-points" },
+                                    { className: "col-7 col-md-10 col-lg-7 player-points" },
                                     this.props.points
                                 )
                             )
@@ -31236,12 +31236,12 @@ var GamePlayer = function (_Component) {
                             ),
                             _react2.default.createElement(
                                 "div",
-                                { className: "col-5 col-md-3 col-lg-5 points-text" },
+                                { className: "col-5 col-md-2 col-lg-5 points-text" },
                                 "Points:"
                             ),
                             _react2.default.createElement(
                                 "div",
-                                { className: "col-7 col-md-9 col-lg-7 player-points" },
+                                { className: "col-7 col-md-10 col-lg-7 player-points" },
                                 this.props.points
                             )
                         )
