@@ -52,7 +52,8 @@ export default class FinalResultsStage extends Component {
                     </div>
                 </div>
                 <br />
-                {this.finalResults()}                
+                {this.finalResults()}
+                <br />            
                     <div className="row">
                         <div className="col text-center">
                             <form onSubmit={this.findGamePost}>

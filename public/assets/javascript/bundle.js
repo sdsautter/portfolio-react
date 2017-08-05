@@ -31788,6 +31788,7 @@ var FinalResultsStage = function (_Component) {
                 ),
                 _react2.default.createElement("br", null),
                 this.finalResults(),
+                _react2.default.createElement("br", null),
                 _react2.default.createElement(
                     "div",
                     { className: "row" },
