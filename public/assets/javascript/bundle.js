@@ -31170,12 +31170,12 @@ var GamePlayer = function (_Component) {
                                 ),
                                 _react2.default.createElement(
                                     "div",
-                                    { className: "col-5 points-text" },
+                                    { className: "col-5 col-md-3 col-lg-5 points-text" },
                                     "Points:"
                                 ),
                                 _react2.default.createElement(
                                     "div",
-                                    { className: "col-7 player-points" },
+                                    { className: "col-7 col-md-9 col-lg-7 player-points" },
                                     this.props.points
                                 )
                             )
@@ -31187,12 +31187,12 @@ var GamePlayer = function (_Component) {
                         { className: "row player-info" },
                         _react2.default.createElement(
                             "div",
-                            { className: "col-3 align-self-center" },
+                            { className: "col-3 col-md-2 col-lg-3 align-self-center" },
                             _react2.default.createElement("img", { className: "avatar", src: "assets/images/avatar1.svg" })
                         ),
                         _react2.default.createElement(
                             "div",
-                            { className: "col-9" },
+                            { className: "col-9 col-md-10 col-lg-9" },
                             _react2.default.createElement(
                                 "div",
                                 { className: "row" },
@@ -31203,12 +31203,12 @@ var GamePlayer = function (_Component) {
                                 ),
                                 _react2.default.createElement(
                                     "div",
-                                    { className: "col-5 points-text" },
+                                    { className: "col-5 col-md-2 col-lg-5 points-text" },
                                     "Points:"
                                 ),
                                 _react2.default.createElement(
                                     "div",
-                                    { className: "col-7 player-points" },
+                                    { className: "col-7 col-md-10 col-lg-7 player-points" },
                                     this.props.points
                                 )
                             )
@@ -31237,12 +31237,12 @@ var GamePlayer = function (_Component) {
                             ),
                             _react2.default.createElement(
                                 "div",
-                                { className: "col-5 points-text" },
+                                { className: "col-5 col-md-3 col-lg-5 points-text" },
                                 "Points:"
                             ),
                             _react2.default.createElement(
                                 "div",
-                                { className: "col-7 player-points" },
+                                { className: "col-7 col-md-9 col-lg-7 player-points" },
                                 this.props.points
                             )
                         )
@@ -31276,12 +31276,12 @@ var GamePlayer = function (_Component) {
                             ),
                             _react2.default.createElement(
                                 "div",
-                                { className: "col-sm-5 col-md-3 col-lg-5 points-text" },
+                                { className: "col-5 col-md-3 col-lg-5 points-text" },
                                 "Points:"
                             ),
                             _react2.default.createElement(
                                 "div",
-                                { className: "col-sm-7 col-md-9 col-lg-7 player-points" },
+                                { className: "col-7 col-md-9 col-lg-7 player-points" },
                                 this.props.points
                             )
                         )
@@ -31309,12 +31309,12 @@ var GamePlayer = function (_Component) {
                             ),
                             _react2.default.createElement(
                                 "div",
-                                { className: "col-sm-5 col-md-3 col-lg-5 points-text" },
+                                { className: "col-5 col-md-3 col-lg-5 points-text" },
                                 "Points:"
                             ),
                             _react2.default.createElement(
                                 "div",
-                                { className: "col-sm-7 col-md-9 col-lg-7 player-points" },
+                                { className: "col-7 col-md-9 col-lg-7 player-points" },
                                 this.props.points
                             )
                         )
@@ -31490,7 +31490,7 @@ var VoteButton = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "col-sm-12 vote-answer" },
+                { className: "col-12 vote-answer" },
                 _react2.default.createElement(
                     "a",
                     { href: "#", onClick: this.voteAnswerPost,
@@ -31547,7 +31547,7 @@ var ResultsItem = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "col-sm-12 col-md-8 offset-md-2 col-lg-4 offset-lg-4 results-all" },
+                { className: "col-12 col-md-8 offset-md-2 col-lg-4 offset-lg-4 results-all" },
                 _react2.default.createElement(
                     "div",
                     { className: "row" },
@@ -31930,7 +31930,7 @@ var FinalResultsItem = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "col-sm-12 col-md-8 offset-md-2 col-lg-4 offset-lg-4 results-all" },
+                { className: "col-12 col-md-8 offset-md-2 col-lg-4 offset-lg-4 results-all" },
                 _react2.default.createElement(
                     "div",
                     { className: "row" },

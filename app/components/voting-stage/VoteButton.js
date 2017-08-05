@@ -26,7 +26,7 @@ export default class VoteButton extends Component {
 
     render() {
         return (
-            <div className="col-sm-12 vote-answer">
+            <div className="col-12 vote-answer">
                 <a href="#" onClick={this.voteAnswerPost}
                     disabled={this.props.votedBool}
                     name="findGame"

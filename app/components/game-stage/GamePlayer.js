@@ -28,10 +28,10 @@ export default class GamePlayer extends Component {
                             <div className="col-12 text-left align-self-center player-name">
                                 {this.props.username}
                             </div>
-                            <div className="col-5 points-text">
+                            <div className="col-5 col-md-3 col-lg-5 points-text">
                                 Points:
                             </div>
-                            <div className="col-7 player-points">
+                            <div className="col-7 col-md-9 col-lg-7 player-points">
                             {this.props.points}
                             </div>
                         </div>
@@ -40,18 +40,18 @@ export default class GamePlayer extends Component {
 
             )} else{return(
                 <div className="row player-info">
-                    <div className="col-3 align-self-center">
+                    <div className="col-3 col-md-2 col-lg-3 align-self-center">
                         <img className="avatar" src="assets/images/avatar1.svg" />
                     </div>
-                    <div className="col-9">
+                    <div className="col-9 col-md-10 col-lg-9">
                         <div className="row">
                             <div className="col-12 text-left align-self-center player-name">
                                 {this.props.username}
                             </div>
-                            <div className="col-5 points-text">
+                            <div className="col-5 col-md-2 col-lg-5 points-text">
                                 Points:
                             </div>
-                            <div className="col-7 player-points">
+                            <div className="col-7 col-md-10 col-lg-7 player-points">
                             {this.props.points}
                             </div>
                         </div>
@@ -69,10 +69,10 @@ export default class GamePlayer extends Component {
                             <div className="col-12 text-left align-self-center player-name">
                                 {this.props.username}
                             </div>
-                            <div className="col-5 points-text">
+                            <div className="col-5 col-md-3 col-lg-5 points-text">
                                 Points:
                             </div>
-                            <div className="col-7 player-points">
+                            <div className="col-7 col-md-9 col-lg-7 player-points">
                             {this.props.points}
                             </div>
                         </div>
@@ -95,10 +95,10 @@ export default class GamePlayer extends Component {
                         <div className="col-12 text-left align-self-center player-name">
                             {this.props.username}
                         </div>
-                        <div className="col-sm-5 col-md-3 col-lg-5 points-text">
+                        <div className="col-5 col-md-3 col-lg-5 points-text">
                             Points:
                         </div>
-                        <div className="col-sm-7 col-md-9 col-lg-7 player-points">
+                        <div className="col-7 col-md-9 col-lg-7 player-points">
                         {this.props.points}
                         </div>
                     </div>
@@ -115,10 +115,10 @@ export default class GamePlayer extends Component {
                         <div className="col-12 text-left align-self-center player-name">
                             {this.props.username}
                         </div>
-                        <div className="col-sm-5 col-md-3 col-lg-5 points-text">
+                        <div className="col-5 col-md-3 col-lg-5 points-text">
                             Points:
                         </div>
-                        <div className="col-sm-7 col-md-9 col-lg-7 player-points">
+                        <div className="col-7 col-md-9 col-lg-7 player-points">
                         {this.props.points}
                         </div>
                     </div>
