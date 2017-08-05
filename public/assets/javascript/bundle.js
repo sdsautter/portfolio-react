@@ -31131,7 +31131,6 @@ var GamePlayer = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (GamePlayer.__proto__ || Object.getPrototypeOf(GamePlayer)).call(this));
 
-        _this.renderRowClass = _this.renderRowClass.bind(_this);
         _this.submissionCheck = _this.submissionCheck.bind(_this);
         return _this;
     }
@@ -31154,12 +31153,12 @@ var GamePlayer = function (_Component) {
                         { className: "row player-info answer-submitted" },
                         _react2.default.createElement(
                             "div",
-                            { className: "col-3 align-self-center" },
+                            { className: "col-3 col-md-2 col-lg-3 align-self-center" },
                             _react2.default.createElement("img", { className: "avatar", src: "assets/images/avatar1.svg" })
                         ),
                         _react2.default.createElement(
                             "div",
-                            { className: "col-9" },
+                            { className: "col-9 col-md-10 col-lg-9" },
                             _react2.default.createElement(
                                 "div",
                                 { className: "row" },
@@ -31221,84 +31220,12 @@ var GamePlayer = function (_Component) {
                     { className: "row player-info" },
                     _react2.default.createElement(
                         "div",
-                        { className: "col-3 align-self-center" },
+                        { className: "col-3 col-md-2 col-lg-3 align-self-center" },
                         _react2.default.createElement("img", { className: "avatar", src: "assets/images/avatar1.svg" })
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "col-9" },
-                        _react2.default.createElement(
-                            "div",
-                            { className: "row" },
-                            _react2.default.createElement(
-                                "div",
-                                { className: "col-12 text-left align-self-center player-name" },
-                                this.props.username
-                            ),
-                            _react2.default.createElement(
-                                "div",
-                                { className: "col-5 col-md-3 col-lg-5 points-text" },
-                                "Points:"
-                            ),
-                            _react2.default.createElement(
-                                "div",
-                                { className: "col-7 col-md-9 col-lg-7 player-points" },
-                                this.props.points
-                            )
-                        )
-                    )
-                );
-            }
-        }
-    }, {
-        key: "renderRowClass",
-        value: function renderRowClass() {
-            this.submissionCheck();
-            if (!this.state.answerSubmitted) {
-                return _react2.default.createElement(
-                    "div",
-                    { className: "row player-info" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-3 align-self-center" },
-                        _react2.default.createElement("img", { className: "avatar", src: "assets/images/avatar1.svg" })
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-9" },
-                        _react2.default.createElement(
-                            "div",
-                            { className: "row" },
-                            _react2.default.createElement(
-                                "div",
-                                { className: "col-12 text-left align-self-center player-name" },
-                                this.props.username
-                            ),
-                            _react2.default.createElement(
-                                "div",
-                                { className: "col-5 col-md-3 col-lg-5 points-text" },
-                                "Points:"
-                            ),
-                            _react2.default.createElement(
-                                "div",
-                                { className: "col-7 col-md-9 col-lg-7 player-points" },
-                                this.props.points
-                            )
-                        )
-                    )
-                );
-            } else {
-                return _react2.default.createElement(
-                    "div",
-                    { className: "row player-info answer-submitted" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-3 align-self-center" },
-                        _react2.default.createElement("img", { className: "avatar", src: "assets/images/avatar1.svg" })
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-9" },
+                        { className: "col-9 col-md-10 col-lg-9" },
                         _react2.default.createElement(
                             "div",
                             { className: "row" },

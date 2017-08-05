@@ -405,7 +405,7 @@ h1 {
 }
 
 .final-rounds {
-  color: #D20000;
+  color: #D20000 !important;
 }
 
 .leave-button {
@@ -469,11 +469,6 @@ h1 {
   padding-left: 0;
 }
 
-.player-points {
-    font-family: Atari;
-
-}
-
 .player-name {
   color: #CCCCCC;
   font-weight: bold;
@@ -482,7 +477,8 @@ h1 {
 
 .player-points {
     font-family: Atari;
-    font-size: .5rem;
+    font-size: 1rem;
+    padding-bottom: 0;
 }
 
 .first-rounds, .second-rounds, .final-rounds {
@@ -491,6 +487,10 @@ h1 {
   position: relative;
   color: #ECECEC;
   top: 0;
+}
+
+.final-rounds {
+  color: #D20000 !important;
 }
 
 .vote-answer a {
@@ -583,7 +583,6 @@ h1 {
 .player-points {
     font-family: Atari;
     font-size: 1rem;
-
 }
 
 .navbar-brand {
@@ -611,7 +610,7 @@ h1 {
 }
 
 .final-rounds {
-  color: #D20000;
+  color: #D20000 !important;
 }
 
 .leave-button {
