@@ -90,7 +90,7 @@ export default class SubmissionStage extends Component {
 
     render() {
         return (
-                <div className="col-sm-12 col-md-11 align-self-center main-game">
+                <div className="col-sm-12 col-lg-11 align-self-center main-game">
                 <div className="row justify-content-between">
                     <LeaveButton 
                         gameInstanceId={this.props.gameInstanceId} 
@@ -99,7 +99,7 @@ export default class SubmissionStage extends Component {
                     <RoundNumber roundNumber={this.props.roundNumber} />
                 </div>
                     <div className="row">
-                        <div className="col-sm-12 col-md-9">
+                        <div className="col-sm-12 col-lg-9">
                             <GameTime 
 
                             />
@@ -119,7 +119,7 @@ export default class SubmissionStage extends Component {
                             
                         </div>
                         </div>
-                        <div className="col-sm-12 col-md-3">
+                        <div className="col-sm-12 col-lg-3">
                             {
                                 Object.keys(this.props.players).map((key) => {
                                     var currentPlayer = this.props.players[key];
@@ -135,17 +135,6 @@ export default class SubmissionStage extends Component {
                         </div>
                     </div>
                     <br />
-                    {/*<div className="row">
-                        <div className="col">
-                            <GameInput 
-                                letters={this.props.letters}
-                                gameInstanceId={this.props.gameInstanceId}
-                                setAnswerSubmitted={this.props.setAnswerSubmitted}
-                                setSubmittedBool={this.props.setSubmittedBool}
-                                submittedBool={this.props.submittedBool}
-                            />
-                        </div>
-                    </div>*/}
                 </div>
         )
     }
