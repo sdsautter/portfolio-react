@@ -14303,9 +14303,8 @@ var ResultsStage = function (_Component) {
                 ),
                 Object.keys(this.props.resultsInfo).map(function (key) {
                     var resultsInfo = _this2.props.resultsInfo[key];
-                    return _react2.default.createElement(_ResultItem2.default
-                    // answer={resultsInfo.answer}
-                    , { key: key,
+                    return _react2.default.createElement(_ResultItem2.default, {
+                        key: key,
                         score: resultsInfo.score,
                         username: resultsInfo.username
                     });
@@ -30188,37 +30187,6 @@ var GameInput = function (_Component) {
             }).catch(function (error) {
                 console.log(error);
             });
-
-            // var answerArray = answer.split(" ");
-            // console.log(answerArray);
-            // console.log(lettersArray);
-            // console.log(addAnswer(this.props.gameInstance));
-            // //First we'll see if there's any time left
-            // if (this.props.timeLeft > 0  && !alreadyAnswered) {
-            //     //We check to see if the answer array is the same length as the letter array
-            //     if (answerArray.length === letterArray.length) {
-            //         //If it is the same length then we run a for loop that is the length of the letter array
-            //         for (var i = 0; i < letterArray.length; i++) {
-            //             //If the first letter in the player's answer starts with the corresponding, we push that answer to the database
-            //             if (answerArray[i].startsWith(letterArray[i])) {
-            //                 //Run the score potential function first
-            //                 // scorePotential(roundNumber, timeLeft);
-            //                 alreadyAnswered = true;
-
-            //                 return helpers.addAnswer(this.props.gameInstanceId, answer);
-            //             } else {
-            //                 //If a letter doesn't start with the corresponding letter in array, return
-            //                 return alert(`Word ${i + 1} did not start with the corret letter`);
-            //             }
-            //         }
-            //     } else if (answerArray.length > letterArray.length) {
-            //         alert("You have too many words. What are you trying to pull?");
-            //         return;
-            //     } else if (answerArray.length < letterArray.length) {
-            //         alert("You don't have enough words. What are you thinking?");
-            //         return;
-            //     }
-            // }
         }
     }, {
         key: "render",
@@ -31308,12 +31276,12 @@ var GamePlayer = function (_Component) {
                             ),
                             _react2.default.createElement(
                                 "div",
-                                { className: "col-5 points-text" },
+                                { className: "col-sm-5 col-md-3 col-lg-5 points-text" },
                                 "Points:"
                             ),
                             _react2.default.createElement(
                                 "div",
-                                { className: "col-7 player-points" },
+                                { className: "col-sm-7 col-md-9 col-lg-7 player-points" },
                                 this.props.points
                             )
                         )
@@ -31341,12 +31309,12 @@ var GamePlayer = function (_Component) {
                             ),
                             _react2.default.createElement(
                                 "div",
-                                { className: "col-5 points-text" },
+                                { className: "col-sm-5 col-md-3 col-lg-5 points-text" },
                                 "Points:"
                             ),
                             _react2.default.createElement(
                                 "div",
-                                { className: "col-7 player-points" },
+                                { className: "col-sm-7 col-md-9 col-lg-7 player-points" },
                                 this.props.points
                             )
                         )
@@ -31579,7 +31547,7 @@ var ResultsItem = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "col-sm-12 col-md-4 offset-md-4 results-all" },
+                { className: "col-sm-12 col-md-8 offset-md-2 col-lg-4 offset-lg-4 results-all" },
                 _react2.default.createElement(
                     "div",
                     { className: "row" },
@@ -31700,7 +31668,7 @@ var WaitingStage = function (_Component) {
                     { className: "row" },
                     _react2.default.createElement(
                         "div",
-                        { className: "col-sm-12 col-md-8" },
+                        { className: "col-sm-12 col-lg-8" },
                         _react2.default.createElement(
                             "p",
                             { className: "waiting-stage" },
@@ -31709,7 +31677,7 @@ var WaitingStage = function (_Component) {
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "col-sm-12 col-md-4" },
+                        { className: "col-sm-12 col-lg-4" },
                         Object.keys(this.props.players).map(function (key) {
                             var currentPlayer = _this2.props.players[key];
                             return _react2.default.createElement(_PlayerWaiting2.default, { key: key, username: currentPlayer.username });
@@ -31962,7 +31930,7 @@ var FinalResultsItem = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "col-sm-12 col-md-4 offset-md-4 results-all" },
+                { className: "col-sm-12 col-md-8 offset-md-2 col-lg-4 offset-lg-4 results-all" },
                 _react2.default.createElement(
                     "div",
                     { className: "row" },

@@ -30,10 +30,10 @@ export default class WaitingStage extends Component {
                     />
                 </div>
                 <div className="row">
-                    <div className="col-sm-12 col-md-8">
+                    <div className="col-sm-12 col-lg-8">
                     <p className="waiting-stage">{this.waitingRender()}</p>    
                     </div>
-                    <div className="col-sm-12 col-md-4">
+                    <div className="col-sm-12 col-lg-4">
                         {
                             Object.keys(this.props.players).map((key) => {
                                 var currentPlayer = this.props.players[key];

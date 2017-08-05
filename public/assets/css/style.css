@@ -443,10 +443,12 @@ h1 {
 
 .rules-header {
   font-family: Atari;  
+  font-size: 1.5rem;
 }
 
 .game-rule {
   font-family: Atari;
+  font-size: 1rem;  
 }
 
 .time-left{
@@ -463,7 +465,7 @@ h1 {
 .player-name {
   color: #CCCCCC;
   font-weight: bold;
-  font-size: 1.25rem;
+  font-size: 1rem;
   padding-left: 0;
 }
 
