@@ -13,6 +13,19 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 3.5rem;
 }
+
+.footer-logo img{
+  background-color: #ECECEC;
+  height: 25px;
+  max-width: 100%;
+}
+
+.footer-logo img:hover{
+  background-color: #CCCCCC;
+  height: 25px;
+  max-width: 100%;  
+}
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -409,6 +422,18 @@ h1 {
   padding-left: 0;
 }
 
+.footer-logo img{
+  background-color: #ECECEC;
+  height: 20px;
+  max-width: 100%;
+}
+
+.footer-logo img:hover{
+  background-color: #CCCCCC;
+  height: 20px;
+  max-width: 100%;  
+}
+
 }
 
 @media only screen and (min-width: 768px) {
@@ -501,6 +526,18 @@ h1 {
   font-size: 1.3rem;
   color: #ECECEC;
   margin-bottom: 3%;
+}
+
+.footer-logo img{
+  background-color: #ECECEC;
+  height: 20px;
+  max-width: 100%;
+}
+
+.footer-logo img:hover{
+  background-color: #CCCCCC;
+  height: 20px;
+  max-width: 100%;  
 }
 
 }
@@ -640,6 +677,18 @@ h1 {
 .no-account {
   font-family: Atari;
   font-size: 1.5rem;
+}
+
+.footer-logo img{
+  background-color: #ECECEC;
+  height: 25px;
+  max-width: 100%;
+}
+
+.footer-logo img:hover{
+  background-color: #CCCCCC;
+  height: 25px;
+  max-width: 100%;  
 }
 
 }
