@@ -30197,28 +30197,35 @@ var GameInput = function (_Component) {
 
             return _react2.default.createElement(
                 "form",
-                { className: "input-group", onSubmit: this.submitAnswer },
-                _react2.default.createElement("input", {
-                    ref: function ref(input) {
-                        _this3.playerAnswer = input;
-                    },
-                    name: "answer",
-                    disabled: this.props.submittedBool,
-                    type: "text",
-                    className: "form-control",
-                    required: true, placeholder: "Type Answer Here"
-                }),
+                { onSubmit: this.submitAnswer },
                 _react2.default.createElement(
-                    "span",
-                    { className: "input-group-btn" },
+                    "div",
+                    { className: "row" },
                     _react2.default.createElement(
-                        "button",
-                        {
-                            id: "answerSubmit",
-                            className: "btn btn-sm btn-secondary",
+                        "div",
+                        { className: "col-12 col-lg-10 answer-input" },
+                        _react2.default.createElement("input", {
+                            ref: function ref(input) {
+                                _this3.playerAnswer = input;
+                            },
+                            name: "answer",
                             disabled: this.props.submittedBool,
-                            type: "submit" },
-                        "Submit!"
+                            type: "text",
+                            required: true, placeholder: "Type Answer Here"
+                        })
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col col-lg-2 text-right" },
+                        _react2.default.createElement(
+                            "button",
+                            {
+                                id: "answerSubmit",
+                                className: "btn btn-sm btn-secondary",
+                                disabled: this.props.submittedBool,
+                                type: "submit" },
+                            "Submit!"
+                        )
                     )
                 )
             );

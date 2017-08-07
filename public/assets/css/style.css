@@ -78,6 +78,12 @@ body {
   color: #ECECEC;
 }
 
+.answer-input input {
+  width: 100%;
+  font-family: Atari;
+  padding-left: 1%;
+}
+
 .btn-large {
   text-transform: none;
   font-family: Atari;
@@ -607,6 +613,7 @@ h1 {
   padding-left: 0;
   padding-top: 1%;
 }
+
 
 .player-points {
     font-family: Atari;
