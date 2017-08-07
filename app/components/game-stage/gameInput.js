@@ -38,16 +38,18 @@ export default class GameInput extends Component {
         let alreadyAnswered = false;
 
         return(          
-            <form className="input-group" onSubmit={this.submitAnswer}>
-                <input 
-                    ref={(input) => {this.playerAnswer = input}}
-                    name="answer"
-                    disabled={this.props.submittedBool} 
-                    type="text" 
-                    className="form-control" 
-                    required placeholder="Type Answer Here" 
-                />
-                    <span className="input-group-btn">
+            <form onSubmit={this.submitAnswer}>
+                <div className="row">
+                    <div className="col-12 col-lg-10 answer-input">
+                        <input 
+                            ref={(input) => {this.playerAnswer = input}}
+                            name="answer"
+                            disabled={this.props.submittedBool} 
+                            type="text" 
+                            required placeholder="Type Answer Here" 
+                        />
+                    </div>
+                    <div className="col col-lg-2 text-right">
                         <button 
                         id="answerSubmit" 
                         className="btn btn-sm btn-secondary"
@@ -55,7 +57,8 @@ export default class GameInput extends Component {
                         type="submit">
                             Submit!
                         </button>
-                    </span>
+                    </div>
+                </div>
             </form>    
         )
     }
