@@ -1,11 +1,11 @@
 {
-  "name": "acro",
+  "name": "portfolio-react",
   "version": "1.0.0",
   "engines": {
     "node": "8.1.x",
     "npm": "5.3.x"
   },
-  "description": "A game about acronyms",
+  "description": "Scott Sautter's portfolio in React.js",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,31 +14,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Redeux/Acro.git"
+    "url": "git+https://github.com/sdsautter/portfolio-react.git"
   },
-  "author": "Phil Sautter & Scott Sautter",
+  "author": "Scott Sautter",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Redeux/Acro/issues"
+    "url": "https://github.com/sdsautter/portfolio-react/issues"
   },
-  "homepage": "https://github.com/Redeux/Acro#readme",
+  "homepage": "https://github.com/sdsautter/portfolio-react#readme",
   "dependencies": {
-    "axios": "^0.16.2",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
-    "connect-redis": "^3.3.0",
     "cookie-parser": "^1.4.3",
     "debug": "^2.6.8",
     "express": "^4.15.3",
-    "express-handlebars": "^3.0.0",
-    "express-session": "^1.15.3",
     "method-override": "^2.3.9",
     "moment": "^2.18.1",
-    "mongoose": "^4.11.2",
     "morgan": "^1.8.2",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
